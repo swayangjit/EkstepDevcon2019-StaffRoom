@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 107:
+/***/ 108:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -13,11 +13,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 107;
+webpackEmptyAsyncContext.id = 108;
 
 /***/ }),
 
-/***/ 150:
+/***/ 151:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -30,26 +30,30 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 150;
+webpackEmptyAsyncContext.id = 151;
 
 /***/ }),
 
-/***/ 194:
+/***/ 195:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TeacherdayviewPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mobiscroll_angular__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mobiscroll_angular__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(98);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
 
-// import { Jsonp } from '@angular/http';
+
 __WEBPACK_IMPORTED_MODULE_1__mobiscroll_angular__["b" /* mobiscroll */].settings = {
     theme: 'material'
 };
@@ -60,8 +64,8 @@ __WEBPACK_IMPORTED_MODULE_1__mobiscroll_angular__["b" /* mobiscroll */].settings
  * Ionic pages and navigation.
  */
 var TeacherdayviewPage = /** @class */ (function () {
-    function TeacherdayviewPage() {
-        //constructor(private jsonp: Jsonp) {}
+    function TeacherdayviewPage(jsonp) {
+        this.jsonp = jsonp;
         this.dailySettings = {
             display: 'inline',
             view: {
@@ -82,40 +86,16 @@ var TeacherdayviewPage = /** @class */ (function () {
         };
     }
     TeacherdayviewPage.prototype.ngOnInit = function () {
-        //   this.jsonp.request('https://trial.mobiscroll.com/events-new/?callback=JSONP_CALLBACK').subscribe((res: any) => {
-        //       this.events = res._body;
-        //   });
-        this.events = [
-            {
-                "start": "2019-01-21T13:00:00+00:00",
-                "end": "2019-01-21T14:00:00+00:00",
-                "text": "Class 2 &nbsp&nbsp&nbsp English &nbsp&nbsp&nbsp 100 no of students",
-                "color": "#de3d83"
-            },
-            {
-                "start": "2019-01-21T14:00:00+00:00",
-                "end": "2019-01-21T15:00:00+00:00",
-                "text": "Class 2 &nbsp&nbsp&nbsp English &nbsp&nbsp&nbsp 80 no of students",
-                "color": "#f67944"
-            },
-            {
-                "start": "2019-01-22T13:00:00+00:00",
-                "end": "2019-01-22T14:00:00+00:00",
-                "text": "Class 4 &nbsp&nbsp&nbsp Hindi &nbsp&nbsp&nbsp 50 no of students",
-                "color": "#f67944"
-            },
-            {
-                "start": "2019-01-22T14:00:00+00:00",
-                "end": "2019-01-22T15:00:00+00:00",
-                "text": "Class 5 &nbsp&nbsp&nbsp English &nbsp&nbsp&nbsp 300 no of students",
-                "color": "#de3d83"
-            }
-        ];
+        var _this = this;
+        this.jsonp.request('https://trial.mobiscroll.com/events-new/?callback=JSONP_CALLBACK').subscribe(function (res) {
+            _this.events = res._body;
+        });
     };
     TeacherdayviewPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-teacherdayview',template:/*ion-inline-start:"E:\DevCon\EkstepDevcon2019-StaffRoom\src\pages\teacherdayview\teacherdayview.html"*/'<ion-content>\n\n  <mbsc-form>\n\n      <div class="mbsc-grid">\n\n          <div class="mbsc-row">\n\n              <div col-12>\n\n                  <div class="mbsc-form-group">\n\n                      <div class="mbsc-form-group-title">Daily schedule</div>\n\n                      <mbsc-eventcalendar [data]="events" [options]="dailySettings">dds</mbsc-eventcalendar>\n\n                  </div>\n\n              </div>\n\n              <!-- <div class="mbsc-col-sm-12 mbsc-col-md-4">\n\n                  <div class="mbsc-form-group">\n\n                      <div class="mbsc-form-group-title">Weekly schedule</div>\n\n                      <mbsc-eventcalendar [data]="events" [options]="weeklySettings"></mbsc-eventcalendar>\n\n                  </div>\n\n              </div>\n\n              <div class="mbsc-col-sm-12 mbsc-col-md-4">\n\n                  <div class="mbsc-form-group">\n\n                      <div class="mbsc-form-group-title">Monthly schedule</div>\n\n                      <mbsc-eventcalendar [data]="events" [options]="monthlySettings"></mbsc-eventcalendar>\n\n                  </div>\n\n              </div> -->\n\n          </div>\n\n      </div>\n\n  </mbsc-form>\n\n</ion-content>'/*ion-inline-end:"E:\DevCon\EkstepDevcon2019-StaffRoom\src\pages\teacherdayview\teacherdayview.html"*/,
-        })
+            selector: 'page-teacherdayview',template:/*ion-inline-start:"/home/sudip/Devcon/calenderView/src/pages/teacherdayview/teacherdayview.html"*/'<ion-content>\n  <mbsc-form>\n      <div class="mbsc-grid">\n          <div class="mbsc-row">\n              <div col-12>\n                  <div class="mbsc-form-group">\n                      <div class="mbsc-form-group-title">Daily schedule</div>\n                      <mbsc-eventcalendar [data]="events" [options]="dailySettings"></mbsc-eventcalendar>\n                  </div>\n              </div>\n              <!-- <div class="mbsc-col-sm-12 mbsc-col-md-4">\n                  <div class="mbsc-form-group">\n                      <div class="mbsc-form-group-title">Weekly schedule</div>\n                      <mbsc-eventcalendar [data]="events" [options]="weeklySettings"></mbsc-eventcalendar>\n                  </div>\n              </div>\n              <div class="mbsc-col-sm-12 mbsc-col-md-4">\n                  <div class="mbsc-form-group">\n                      <div class="mbsc-form-group-title">Monthly schedule</div>\n                      <mbsc-eventcalendar [data]="events" [options]="monthlySettings"></mbsc-eventcalendar>\n                  </div>\n              </div> -->\n          </div>\n      </div>\n  </mbsc-form>\n</ion-content>'/*ion-inline-end:"/home/sudip/Devcon/calenderView/src/pages/teacherdayview/teacherdayview.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Jsonp */]])
     ], TeacherdayviewPage);
     return TeacherdayviewPage;
 }());
@@ -143,17 +123,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mobiscroll_angular__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_forms__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mobiscroll_angular__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(269);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_http__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_teacherdayview_teacherdayview__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_http__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_teacherdayview_teacherdayview__ = __webpack_require__(195);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -182,8 +162,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_10__pages_teacherdayview_teacherdayview__["a" /* TeacherdayviewPage */]
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_0__mobiscroll_angular__["a" /* MbscModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_0__angular_forms__["a" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_1__mobiscroll_angular__["a" /* MbscModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* MyApp */], {}, {
                     links: []
@@ -216,10 +196,10 @@ var AppModule = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_teacherdayview_teacherdayview__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_teacherdayview_teacherdayview__ = __webpack_require__(195);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -245,7 +225,7 @@ var MyApp = /** @class */ (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\DevCon\EkstepDevcon2019-StaffRoom\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"E:\DevCon\EkstepDevcon2019-StaffRoom\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/sudip/Devcon/calenderView/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/sudip/Devcon/calenderView/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
@@ -262,7 +242,7 @@ var MyApp = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(98);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -293,7 +273,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"E:\DevCon\EkstepDevcon2019-StaffRoom\src\pages\home\home.html"*/'<ion-content>\n\n  <mbsc-eventcalendar [data]="events" [options]="eventSettings"></mbsc-eventcalendar>\n\n</ion-content>'/*ion-inline-end:"E:\DevCon\EkstepDevcon2019-StaffRoom\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/home/sudip/Devcon/calenderView/src/pages/home/home.html"*/'<ion-content>\n  <mbsc-eventcalendar [data]="events" [options]="eventSettings"></mbsc-eventcalendar>\n</ion-content>'/*ion-inline-end:"/home/sudip/Devcon/calenderView/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Jsonp */]])
     ], HomePage);
