@@ -1,11 +1,23 @@
-<ion-content>
+<ion-header>
+    <ion-navbar>
+      <ion-title>
+        Time Table
+      </ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="openQrCodeScanner()" id="qrIcon">
+            <img src="assets/imgs/ic_scanqr.png" class="tool-icon" height="36" width="36" float-end />
+        </button>
+    </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+<ion-content #content class="bg">
   <mbsc-form>
       <div class="mbsc-grid">
           <div class="mbsc-row">
               <div col-12>
                   <div class="mbsc-form-group">
-                      <div class="mbsc-form-group-title">Daily schedule</div>
-                      <mbsc-eventcalendar [data]="events" [options]="dailySettings"></mbsc-eventcalendar>
+                      <mbsc-eventcalendar [data]="events" [options]="dailySettings">
+                      </mbsc-eventcalendar>
                   </div>
               </div>
               <!-- <div class="mbsc-col-sm-12 mbsc-col-md-4">

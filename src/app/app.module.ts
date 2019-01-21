@@ -1,5 +1,5 @@
-import { FormsModule } from '@angular/forms';
 import { MbscModule } from '@mobiscroll/angular';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -10,6 +10,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { JsonpModule } from '@angular/http';
 import { TeacherdayviewPage } from '../pages/teacherdayview/teacherdayview';
+import { QRScanner } from '@ionic-native/qr-scanner';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,8 @@ import { TeacherdayviewPage } from '../pages/teacherdayview/teacherdayview';
     TeacherdayviewPage
   ],
   imports: [ 
+    MbscModule, 
     FormsModule, 
-    MbscModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
     JsonpModule
@@ -32,7 +33,7 @@ import { TeacherdayviewPage } from '../pages/teacherdayview/teacherdayview';
   ],
   providers: [
     StatusBar,
-    SplashScreen,
+    SplashScreen,QRScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
