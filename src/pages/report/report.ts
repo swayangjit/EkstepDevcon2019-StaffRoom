@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import * as ChartHeatmap from 'chart.heatmap.js';
 import * as d3 from 'd3';
 import { statsHeatMap } from '../../data/data'
 
