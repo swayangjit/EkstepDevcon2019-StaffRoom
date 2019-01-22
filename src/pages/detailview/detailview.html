@@ -1,0 +1,113 @@
+<ion-header class="bg-primary white">
+  <ion-navbar>
+      <ion-title>
+          Summary
+      </ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="openModal()">
+              <ion-icon name="download" end></ion-icon>
+              <ion-icon name="print" end></ion-icon>
+          </button>
+      </ion-buttons>
+  </ion-navbar>
+  <ion-segment [(ngModel)]="pet" color="primary">
+      <ion-segment-button value="puppies">
+          Topic 1
+      </ion-segment-button>
+      <ion-segment-button value="kittens">
+          Topic 2
+      </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+
+
+<ion-content>
+  <div [ngSwitch]="pet">
+      <div *ngSwitchCase="'puppies'">
+          <ion-card class="m-0 w-100 no-shadow pb-5 no-border no-radius">
+              <ion-item class="no-bg tile-title">
+                  <h1 class="m-0">Period 1</h1>
+              </ion-item>
+              <ion-row class="pl-16">
+                  <ion-col class="pl-0">
+                      <span id="classId" class="classId lb-value pr-5">Class 3</span> | <span id="subjectId" class="subjectId lb-value pr-5 pl-5">Maths</span>
+                      | <span id="studentNo" class="studentNo lb-value pl-5">10 Student(s)</span>
+                  </ion-col>
+              </ion-row>
+              <ion-row class="pl-16 st-analysis">
+                  <ion-col class="pl-0 flex">
+                      <ion-icon name="hand" class="mr-5"></ion-icon>
+                      <div class="st-analysis-item">
+                          <div id="attendanceId" class="lb-value">100%</div>
+                          <div class="lb-title">Attendance</div>
+                      </div>
+                  </ion-col>
+                  <ion-col class="pl-0 flex">
+                      <ion-icon name="git-merge" class="mr-5"></ion-icon>
+                      <div class="st-analysis-item">
+                          <div id="engagementId" class="lb-value">70%</div>
+                          <div class="lb-title">Engagement</div>
+                      </div>
+                  </ion-col>
+                  <ion-col class="pl-0 flex">
+                      <ion-icon name="flash" class="mr-5"></ion-icon>
+                      <div class="st-analysis-item">
+                          <div id="perfomanceId" class="lb-value">80%</div>
+                          <div class="lb-title">Perfomance</div>
+                      </div>
+                  </ion-col>
+              </ion-row>
+
+          </ion-card>
+          <ion-item-divider>
+              Students
+          </ion-item-divider>
+          <div class="container">
+
+              <ion-card class="pb-5">
+                  <ion-item>
+                      <ion-avatar item-start>
+                          <div class="student-pic">
+                              <span>M</span>
+                          </div>
+                      </ion-avatar>
+                      <h1>Marty McFly</h1>
+                  </ion-item>
+                  <ion-row class="pl-16 st-analysis">
+                      <ion-col class="pl-0 flex">
+                          <ion-icon name="hand" class="mr-5"></ion-icon>
+                          <div class="st-analysis-item">
+                              <div id="attendanceId" class="lb-value">100%</div>
+                              <div class="lb-title">Attendance</div>
+                          </div>
+                      </ion-col>
+                      <ion-col class="pl-0 flex">
+                          <ion-icon name="git-merge" class="mr-5"></ion-icon>
+                          <div class="st-analysis-item">
+                              <div id="engagementId" class="lb-value">70%</div>
+                              <div class="lb-title">Engagement</div>
+                          </div>
+                      </ion-col>
+                      <ion-col class="pl-0 flex">
+                          <ion-icon name="flash" class="mr-5"></ion-icon>
+                          <div class="st-analysis-item">
+                              <div id="perfomanceId" class="lb-value">80%</div>
+                              <div class="lb-title">Perfomance</div>
+                          </div>
+                      </ion-col>
+                  </ion-row>
+              </ion-card>
+          </div>
+      </div>
+
+      <div *ngSwitchCase="'kittens'">
+          demo value
+      </div>
+  </div>
+
+</ion-content>
+
+
+
+Collapse 

@@ -3,9 +3,9 @@ import { mobiscroll, MbscEventcalendarOptions } from '@mobiscroll/angular';
 import { NavController } from 'ionic-angular';
 // import { Jsonp } from '@angular/http';
 import { ViewChild, ElementRef } from '@angular/core';
-import { Jsonp } from '@angular/http';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { Platform, Content, ViewController } from 'ionic-angular';
+import 'rxjs/add/operator/map';
 
 mobiscroll.settings = {
     theme: 'material'
@@ -15,13 +15,17 @@ mobiscroll.settings = {
     selector: 'page-teacherdayview',
     templateUrl: 'teacherdayview.html',
 })
-export class TeacherdayviewPage implements OnInit{
+export class TeacherdayviewPage implements OnInit {
 
-    @ViewChild('content', {read: ElementRef})
+    @ViewChild('content', { read: ElementRef })
     private content: ElementRef;
     private backButtonFunc: any;
+    private timeTable;
 
-    constructor(private jsonp: Jsonp, private qrScanner: QRScanner, private platform: Platform, private viewCtrl: ViewController) {  }
+    constructor(
+        private qrScanner: QRScanner,
+        private platform: Platform,
+        private viewCtrl: ViewController) { }
 
     events: any;
 
@@ -42,8 +46,8 @@ export class TeacherdayviewPage implements OnInit{
                 "text": "Class 4 &nbsp&nbsp&nbsp Hindi ",
                 "color": "#f67944"
             }
-          ];
-      }
+        ];
+    }
 
     dailySettings: MbscEventcalendarOptions = {
         display: 'inline',
@@ -74,7 +78,7 @@ export class TeacherdayviewPage implements OnInit{
                     this.hideContentBG();
                     this.qrScanner.show();
                     let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-                        
+
                         console.log('Scanned something', text);
                         this.qrScanner.destroy();
                         this.qrScanner.hide();
@@ -105,9 +109,18 @@ export class TeacherdayviewPage implements OnInit{
             this.showContentBG();
             this.qrScanner.destroy();
             this.backButtonFunc();
-          }, 10);
-          
+        }, 10);
+
     }
+
+    // getTimeTable() {
+    //     const headers = new HttpHeaders()
+    //         .set("X-CustomHeader", "custom header value");
+    //     this.http.get('apipath').
+    //         map(res => res.json()).subscribe(data => {
+    //             this.timeTable = data.data.result;
+    //         });
+    // }
 
 }
 

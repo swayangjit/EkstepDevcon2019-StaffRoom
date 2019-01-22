@@ -14,3 +14,90 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.m-0 {
+    margin: 0 0 0 0;
+}
+.mr-5 {
+    margin-right:5px;
+}
+.pr-5 {padding-right:5px;}
+.pl-5 {padding-left:5px;}
+.w-100 {
+    width: 100%;
+}
+.no-shadow {
+    box-shadow: none;
+}
+.no-bg {
+    background-color:transparent;
+}
+.pb-5 {
+    padding-bottom: 5px;
+}
+.text-center {
+    text-align: center;
+}
+.header-md::after {
+    background-image:none;
+}
+.mbsc-material .mbsc-cal-year, .mbsc-material .mbsc-cal-month {
+    color: #fff;
+}
+.mbsc-material .mbsc-fr-btn {
+    color: #f2f2f2;
+}
+.item-divider-md {
+    background-color: #f2f2f2;
+    border-top: 1px solid #dedede;
+}
+.card-md {
+    box-shadow: 0 4px 5px 0px rgba(0, 0, 0, 0.1);
+border: 1px solid #f1f1f1;
+}
+.label-md {
+    margin: 5px 8px 5px 0;
+}   
+.bar-button-md[icon-only] ion-icon {
+    padding: 0 0.5em;
+}
+.mbsc-material .mbsc-event-list .mbsc-lv-item {
+    padding: 1em;
+    display: flex;
+    align-items: center;
+}
+.mbsc-lv-material .mbsc-lv-gr-title {
+    display: none;
+}
+.mbsc-ltr .mbsc-event-list, .mbsc-material .mbsc-event-list .mbsc-lv{
+    background:#fff;
+}
+.segment-md-primary .segment-button {
+    color: #fff;
+}
+.st-analysis {
+    border-top: 1px solid #ddd;
+    padding-top: 5px;
+    margin-top: 5px;
+}
+.no-border {
+    border:0px;
+}
+.no-radius {
+    border-radius: 0px;
+}
+.flex {
+    display: flex;
+    align-items: center;
+}
+.card-md h1 {
+    color: #024fd9;
+}
+.bg-f2 {
+    background: #f2f2f2;
+}
+.bg-primary, .toolbar-background-md,.mbsc-fr-c {
+    background: #024fd9;
+}
+.white, .toolbar-title-md, .bar-button-default-md {
+    color: white;
+}

@@ -1,0 +1,40 @@
+page-detailview {
+    .pl-16 {
+        padding-left: 16px;
+    }
+    .pl-0 {
+        padding-left: 0;
+    }
+    .card {
+        .student-pic {
+            background: lightblue;
+            height: 40px;
+            width: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            span {
+                font-size: 20px;
+                color: white;
+            }
+        }
+    }
+    .segment-md-primary .segment-button.segment-activated {
+        color: orange;
+    }
+    .tile-title {
+        .label {
+            margin-bottom: 0;
+        }
+    }
+    .lb-title {
+        font-weight: lighter;
+        font-size: 12px;
+    }
+    .lb-value {
+        font-weight: 500;
+    }
+}
+        
+

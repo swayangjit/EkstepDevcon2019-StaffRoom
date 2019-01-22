@@ -8,19 +8,24 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { JsonpModule } from '@angular/http';
+import { JsonpModule, Http, HttpModule } from '@angular/http';
 import { TeacherdayviewPage } from '../pages/teacherdayview/teacherdayview';
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { QrscannerPage } from '../pages/qrscanner/qrscanner';
+import { DetailviewPage } from '../pages/detailview/detailview';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { RestProvider } from '../service/rest-provider';
+import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    TeacherdayviewPage
+    TeacherdayviewPage,QrscannerPage,DetailviewPage
   ],
   imports: [ 
     MbscModule, 
-    FormsModule, 
+    FormsModule, HttpModule,HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
     JsonpModule
@@ -29,12 +34,13 @@ import { QRScanner } from '@ionic-native/qr-scanner';
   entryComponents: [
     MyApp,
     HomePage,
-    TeacherdayviewPage
+    TeacherdayviewPage,DetailviewPage,QrscannerPage
   ],
   providers: [
     StatusBar,
     SplashScreen,QRScanner,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UniqueDeviceID,RestProvider,HttpClient
   ]
 })
 export class AppModule {}
