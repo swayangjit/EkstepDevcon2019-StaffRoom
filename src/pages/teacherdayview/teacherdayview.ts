@@ -5,6 +5,7 @@ import { NavController } from 'ionic-angular';
 import { ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { Platform, Content, ViewController } from 'ionic-angular';
+import {DetailviewPage} from '../detailview/detailview'
 import 'rxjs/add/operator/map';
 
 mobiscroll.settings = {
@@ -25,7 +26,7 @@ export class TeacherdayviewPage implements OnInit {
     constructor(
         private qrScanner: QRScanner,
         private platform: Platform,
-        private viewCtrl: ViewController) { }
+        private viewCtrl: ViewController, private navCtrl:NavController) { }
 
     events: any;
 
@@ -53,6 +54,10 @@ export class TeacherdayviewPage implements OnInit {
         display: 'inline',
         view: {
             eventList: { type: 'day' }
+        },
+        onEventSelect: (event, inst) => {
+            console.log("DOM ID:",event.event._id);
+            this.navCtrl.push(DetailviewPage);
         }
     };
 
