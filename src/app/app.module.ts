@@ -17,12 +17,17 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { RestProvider } from '../service/rest-provider';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import {AskappuPage} from '../pages/askappu/askappu'
+import { ReportPage } from '../pages/report/report'
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    TeacherdayviewPage,QrscannerPage,DetailviewPage,AskappuPage
+    TeacherdayviewPage,
+    QrscannerPage,
+    DetailviewPage,
+    AskappuPage,
+    ReportPage
   ],
   imports: [ 
     MbscModule, 
@@ -35,7 +40,11 @@ import {AskappuPage} from '../pages/askappu/askappu'
   entryComponents: [
     MyApp,
     HomePage,
-    TeacherdayviewPage,DetailviewPage,QrscannerPage,AskappuPage
+    TeacherdayviewPage,
+    DetailviewPage,
+    QrscannerPage,
+    AskappuPage,
+    ReportPage
   ],
   providers: [
     StatusBar,

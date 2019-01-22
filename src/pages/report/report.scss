@@ -1,0 +1,23 @@
+page-report {
+    .axis path,
+  .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+  }
+
+  .axis text {
+      font-family: sans-serif;
+      font-size: 11px;
+  }
+  .red-bg{
+      background-color: brown;
+  }
+  .orrange-bg{
+background-color: darkgoldenrod
+  }
+  .green-bg {
+    background-color: green
+  }
+
+}
