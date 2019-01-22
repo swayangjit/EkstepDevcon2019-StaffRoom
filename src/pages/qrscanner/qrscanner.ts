@@ -50,7 +50,8 @@ export class QrscannerPage {
             this.qrScanner.destroy();
             this.qrScanner.hide();
             scanSub.unsubscribe();
-            this.navCtrl.push(TeacherdayviewPage);
+            this.getVisitorInformation(text);
+            
           });
 
         } else {
@@ -70,7 +71,14 @@ export class QrscannerPage {
   }
 
   getVisitorInformation(visitorId: string) {
-    this.restProvider.getVisitorInfo(visitorId).subscribe(data => { this.visitorInfo = data });
+    this.restProvider.getVisitorInfo(visitorId).subscribe(data => { 
+      this.visitorInfo = data 
+      this.sendTelemetry(JSON.stringify(this.generateStartEvent('','')));
+      this.navCtrl.push(TeacherdayviewPage,{
+        visitorId:'',
+        visitorName:''
+      });
+    });
   }
 
   sendTelemetry(event: string) {

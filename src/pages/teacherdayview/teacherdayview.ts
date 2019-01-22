@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { mobiscroll, MbscEventcalendarOptions } from '@mobiscroll/angular';
-import { NavController } from 'ionic-angular';
-// import { Jsonp } from '@angular/http';
+import { NavController, NavParams } from 'ionic-angular';
 import { ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { Platform, Content, ViewController } from 'ionic-angular';
-import {DetailviewPage} from '../detailview/detailview'
+import { DetailviewPage } from '../detailview/detailview'
 import 'rxjs/add/operator/map';
 import { AskappuPage } from '../askappu/askappu';
+import { RestProvider } from '../../service/rest-provider';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RequestOptions } from '@angular/http';
+import { AppConstnats } from '../../app/app-constants';
 
 mobiscroll.settings = {
     theme: 'material'
@@ -23,33 +26,30 @@ export class TeacherdayviewPage implements OnInit {
     private content: ElementRef;
     private backButtonFunc: any;
     private timeTable;
+   
+    private teacherId:string;
+    private visitorId:string= '';
+    private visitorName:string= '';
 
     constructor(
         private qrScanner: QRScanner,
         private platform: Platform,
-        private viewCtrl: ViewController, private navCtrl:NavController) { }
+        private viewCtrl: ViewController,
+        private navCtrl: NavController,
+        public navParams: NavParams,) { 
+            this.visitorName = this.navParams.get('vistorName');
+            this.visitorId = this.navParams.get('visitorId');
+        }
 
     events: any;
 
     ngOnInit() {
-        //   this.jsonp.request('https://trial.mobiscroll.com/events-new/?callback=JSONP_CALLBACK').subscribe((res: any) => {
-        //       this.events = res._body;
-        //   });
-        this.events = [
-            {
-                "start": "2019-01-23T14:00:00+00:00",
-                "end": "2019-01-23T15:00:00+00:00",
-                "text": "Class 2 &nbsp&nbsp&nbsp English ",
-                "color": "#de3d83"
-            },
-            {
-                "start": "2019-01-24T14:00:00+00:00",
-                "end": "2019-01-24T15:00:00+00:00",
-                "text": "Class 4 &nbsp&nbsp&nbsp Hindi ",
-                "color": "#f67944"
-            }
-        ];
+        this.teacherId = 'TCH1';
+        this.events = AppConstnats.TCH1;
     }
+
+
+
 
     dailySettings: MbscEventcalendarOptions = {
         display: 'inline',
@@ -57,13 +57,23 @@ export class TeacherdayviewPage implements OnInit {
             eventList: { type: 'day' }
         },
         onEventSelect: (event, inst) => {
-            console.log("DOM ID:",event.event.start);
-            if(event.event.start === '2019-01-24T14:00:00+00:00'){
-                this.navCtrl.push(AskappuPage);
-            }else{
-                this.navCtrl.push(DetailviewPage);
+            // this.getSearchIdentifiers();
+            if (event.event.start.search('2019-01-24') == -1) {
+                this.navCtrl.push(DetailviewPage,{
+                    data: event,
+                    teacherId: this.teacherId,
+                    visitorId: this.visitorId,
+                    visitorName:this.visitorName
+                  });
+            } else {
+                this.navCtrl.push(AskappuPage,{
+                    data: event,
+                    teacherId: this.teacherId,
+                    visitorId: this.visitorId,
+                    visitorName:this.visitorName
+                  });
             }
-           
+
         }
     };
 
@@ -105,8 +115,6 @@ export class TeacherdayviewPage implements OnInit {
 
     }
 
-    // style="background: none transparent !important;"
-
     private hideContentBG() {
         (this.content.nativeElement as HTMLElement).setAttribute('hidden', 'true')
     }
@@ -124,13 +132,74 @@ export class TeacherdayviewPage implements OnInit {
 
     }
 
-    // getTimeTable() {
-    //     const headers = new HttpHeaders()
-    //         .set("X-CustomHeader", "custom header value");
-    //     this.http.get('apipath').
-    //         map(res => res.json()).subscribe(data => {
-    //             this.timeTable = data.data.result;
+    // getSearchIdentifiers() {
+    //     const request = {
+    //         "request": {
+    //             "filters": {
+    //                 "objectType": "Content",
+    //                 "status": []
+    //             },
+    //             "limit": 1,
+    //             "fields": ["identifier"],
+    //             "sort_by": { "lastUpdatedOn": "desc" }
+
+    //         }
+    //     };
+    //     this.httpClient.post("https://dev.ekstep.in/api/search/v3/search",
+    //         request)
+    //         .subscribe(data => {
+    //             if (data.result.content) {
+    //                 data.result.content.forEach(element => {
+    //                     const identifier = element.identifier;
+    //                     console.log(identifier);
+    //                     this.getPackagedContent(identifier);
+    //                 });
+    //             }
+
+    //         }, error => {
+    //             console.log(error);
     //         });
+    // }
+
+    // getPackagedContent(identifier: string) {
+    //     const request = {
+    //         "request": {
+    //             "content": {
+    //                 "mediaType": "content",
+    //                 "visibility": "Default",
+    //                 "description": "DevCon",
+    //                 "name": "TestBook1",
+    //                 "contentType": "TextBook",
+    //                 "createdBy": "visitorId",
+    //                 "code": "testbook1",
+    //                 "mimeType": "application/vnd.ekstep.content-collection",
+    //                 "framework": "devcon-appu",
+    //                 "children": [
+    //                     { "identifier": identifier }
+    //                 ]
+    //             }
+    //         }
+    //     };
+
+    //     const header = { headers: {'x-Channel-Id':'devcon.appu'} };
+    //     this.httpClient.post("https://dev.ekstep.in/api/content/v3/create",
+    //         request,header)
+    //         .subscribe(data => {
+    //             this.finalPackageId = data.result.node_id;
+    //             this.getPackageInformation(this.finalPackageId);
+    //         }, error => {
+    //             console.log(error);
+    //         });
+    // }
+
+    // getPackageInformation(packageId:string){
+    //     this.httpClient.get("https://dev.ekstep.in/api/content/v3/read/"+packageId)
+    //     .subscribe(data => {
+    //         console.log(data.result.content);
+
+    //     }, error => {
+    //         console.log(error);
+    //     });
     // }
 
 }

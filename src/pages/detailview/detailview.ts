@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {ChangeDetectorRef} from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 /**
  * Generated class for the DetailviewPage page.
@@ -15,10 +15,13 @@ import {ChangeDetectorRef} from '@angular/core';
   templateUrl: 'detailview.html',
 })
 export class DetailviewPage {
-  pet :string = ''
-  students:any = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams,private ref: ChangeDetectorRef) {
-    this.pet = 'puppies'
+  pet: string = ''
+  students: any = [];
+  data: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private ref: ChangeDetectorRef) {
+    this.pet = 'puppies'                        
+    this.data = this.navParams.get('data');
+    this.data = this.data.event.data;
   }
 
   ionViewDidLoad() {

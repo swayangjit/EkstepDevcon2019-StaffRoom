@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import {ChangeDetectorRef} from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+import { AppConstnats } from '../../app/app-constants';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'page-askappu',
@@ -11,58 +13,137 @@ export class AskappuPage {
   userAvatar = '../../assets/imgs/teacher.png';
   usersAnswers = [];
   userSelectedCommands = [];
-  globalTeacher1Data  =  {
-    "msg": "You have covered the topics <b>Sun</b>, <b>Planets</b> and <b>Earth</b> in your previous period for this class and the class performance is not satisfactory. Practice material for these topics would help your students. Do you want me to create a package with practice material for these topics? Additionally, you can also start teaching the next topic <b>See</b>",
-    "options": [
-      {
-        "command": "Create Practice Material for last class topics",
-        "msg": "Add an assessment?",
-        "options": [
-          {
-            "command": "Yes",
-            "msg": "Noted. Creating a package right away..."
-          },
-          {
-            "command": "No",
-            "msg": "Noted. Creating a package right away..."
-          }
-        ]
-      },
-      {
-        "command": "Teach the topic Moon",
-        "msg": "How would you like to create a package?",
-        "options": [
-          {
-            "command": "With Assessment",
-            "msg": "Noted. Creating a package right away..."
-          },
-          {
-            "command": "Without Assessment",
-            "msg": "Noted. Creating a package right away..."
-          }
-        ]
-      }
-    ]
-  }
-  teacher1 = this.globalTeacher1Data;
+  teacherConversation;
   temp = {};
   suggestions = true;
-  constructor(public navCtrl: NavController, private ref: ChangeDetectorRef) {
-    this.usersAnswers.push({'msg': this.teacher1.msg,'command':''});
+  teacherId: string = '';
+  data: any;
+  finalPackageId: string;
+  periodId: string = '';
+  visitorId: string = ''
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams, private ref: ChangeDetectorRef,
+    public httpClient: HttpClient) {
+    this.data = this.navParams.get('data');
+    this.teacherId = this.navParams.get('teacherId');
+    this.visitorId = this.navParams.get('visitorId');
+    this.periodId = this.data.period;
+    console.log(this.data.event.data);
+    this.getConversation('TCH4')
+    this.usersAnswers.push({ 'msg': this.teacherConversation.msg, 'command': '' });
+  }
+
+  getConversation(teacherId): any {
+    switch (teacherId) {
+      case 'TCH1':
+        this.teacherConversation = AppConstnats.APPU_TCH1;
+        break;
+      case 'TCH2':
+        this.teacherConversation = AppConstnats.APPU_TCH2;
+        break;
+      case 'TCH3':
+        this.teacherConversation = AppConstnats.APPU_TCH3;
+        break;
+
+      case 'TCH4':
+        this.teacherConversation = AppConstnats.APPU_TCH4;
+        break;
+
+      case 'TCH5':
+        this.teacherConversation = AppConstnats.APPU_TCH5;
+        break;
+
+    }
+
   }
 
   selectCommand(data) {
     this.suggestions = false;
-    this.temp = {'msg': data.msg,'command':data.command};
+    this.temp = { 'msg': data.msg, 'command': data.command };
     this.userSelectedCommands.push(data.command);
     this.usersAnswers.push(this.temp);
-    if(data.options){
-      this.teacher1 = data;      
+    if (data.options) {
+      this.teacherConversation = data;
       this.suggestions = true;
-    }else{
-      console.log("No options/commands",this.userSelectedCommands);
+    } else {
+      console.log("No options/commands", this.userSelectedCommands);
       //Call API for creating content on this topic
+      this.getSearchIdentifiers();
     }
     this.ref.detectChanges();
   }
+
+  getSearchIdentifiers() {
+    const request = {
+      "request": {
+        "filters": {
+          "objectType": "Content",
+          "status": []
+        },
+        "limit": 1,
+        "fields": ["identifier"],
+        "sort_by": { "lastUpdatedOn": "desc" }
+
+      }
+    };
+    this.httpClient.post("https://dev.ekstep.in/api/search/v3/search",
+      request)
+      .subscribe((data: any) => {
+        if (data.result.content) {
+          data.result.content.forEach(element => {
+            const identifier = element.identifier;
+            console.log(identifier);
+            this.getPackagedContent(identifier);
+          });
+        }
+
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  getPackagedContent(identifier: string) {
+    const request = {
+      "request": {
+        "content": {
+          "mediaType": "content",
+          "visibility": "Default",
+          "description": "DevCon",
+          "name": "TestBook1",
+          "contentType": "TextBook",
+          "createdBy": this.visitorId,
+          "teacherId":this.teacherId,
+          "periodId":this.periodId,
+          "code": "testbook1",
+          "mimeType": "application/vnd.ekstep.content-collection",
+          "framework": "devcon-appu",
+          "children": [
+            { "identifier": identifier }
+          ]
+        }
+      }
+    };
+
+    const header = { headers: { 'x-Channel-Id': 'devcon.appu' } };
+    this.httpClient.post("https://dev.ekstep.in/api/content/v3/create",
+      request, header)
+      .subscribe((data: any) => {
+        this.finalPackageId = data.result.node_id;
+        this.getPackageInformation(this.finalPackageId);
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  getPackageInformation(packageId: string) {
+    this.httpClient.get("https://dev.ekstep.in/api/content/v3/read/" + packageId)
+      .subscribe((data: any) => {
+        console.log(data.result.content);
+
+      }, error => {
+        console.log(error);
+      });
+  }
+
 }
