@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {ChangeDetectorRef} from '@angular/core';
 
 /**
  * Generated class for the DetailviewPage page.
@@ -16,7 +17,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class DetailviewPage {
   pet :string = ''
   students:any = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private ref: ChangeDetectorRef) {
     this.pet = 'puppies'
   }
 
@@ -59,6 +60,7 @@ export class DetailviewPage {
         perfomance: "100%"
       }
     ];
+    this.ref.detectChanges();
   }
 
 }

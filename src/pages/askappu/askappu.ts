@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {ChangeDetectorRef} from '@angular/core';
 
 @Component({
   selector: 'page-askappu',
@@ -46,7 +47,7 @@ export class AskappuPage {
   teacher1 = this.globalTeacher1Data;
   temp = {};
   suggestions = true;
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private ref: ChangeDetectorRef) {
     this.usersAnswers.push({'msg': this.teacher1.msg,'command':''});
   }
 
@@ -56,11 +57,12 @@ export class AskappuPage {
     this.userSelectedCommands.push(data.command);
     this.usersAnswers.push(this.temp);
     if(data.options){
-      this.teacher1 = data;
+      this.teacher1 = data;      
       this.suggestions = true;
     }else{
       console.log("No options/commands",this.userSelectedCommands);
       //Call API for creating content on this topic
     }
+    this.ref.detectChanges();
   }
 }
