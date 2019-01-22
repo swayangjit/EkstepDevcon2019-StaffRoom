@@ -10,23 +10,33 @@ import 'rxjs/add/operator/map';
 export class RestProvider {
     baseUrl: string = "http://localhost:3000";
     constructor(private httpClient: HttpClient) { }
-    getVisitorInfo(visitorId:string) {
+    getVisitorInfo(visitorId: string) {
         return this.httpClient.get('api')
-        .map(this.extractData)
-        .catch(this.catchError)
-      }
-    
-      saveTelemetry(telemetry:string) {
-          return this.httpClient.get('api')
-          .map(this.extractData)
-          .catch(this.catchError)
-      }
-    
-      private catchError(error: Response | any) {
-          console.log(error);
-          return Observable.throw(error.json().error || "Server error!");
-      }
-      private extractData(res: Response){
-            return res.json();
-        }
+            .map(this.extractData)
+            .catch(this.catchError)
     }
+
+    saveTelemetry(telemetry: string) {
+        return this.httpClient.get('api')
+            .map(this.extractData)
+            .catch(this.catchError)
+    }
+
+    getSearchIdentifiers() {
+        const request ={}; 
+        return this.httpClient.post(' https://dev.ekstep.in/api/search/v3/search',
+            {
+               
+            })
+            .map(this.extractData)
+            .catch(this.catchError)
+    }
+
+    private catchError(error: Response | any) {
+        console.log(error);
+        return Observable.throw(error.json().error || "Server error!");
+    }
+    private extractData(res: Response) {
+        return res.json();
+    }
+}

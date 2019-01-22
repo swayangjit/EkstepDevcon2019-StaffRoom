@@ -7,6 +7,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { Platform, Content, ViewController } from 'ionic-angular';
 import {DetailviewPage} from '../detailview/detailview'
 import 'rxjs/add/operator/map';
+import { AskappuPage } from '../askappu/askappu';
 
 mobiscroll.settings = {
     theme: 'material'
@@ -56,8 +57,13 @@ export class TeacherdayviewPage implements OnInit {
             eventList: { type: 'day' }
         },
         onEventSelect: (event, inst) => {
-            console.log("DOM ID:",event.event._id);
-            this.navCtrl.push(DetailviewPage);
+            console.log("DOM ID:",event.event.start);
+            if(event.event.start === '2019-01-24T14:00:00+00:00'){
+                this.navCtrl.push(AskappuPage);
+            }else{
+                this.navCtrl.push(DetailviewPage);
+            }
+           
         }
     };
 

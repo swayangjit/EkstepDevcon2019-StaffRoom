@@ -14,8 +14,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'detailview.html',
 })
 export class DetailviewPage {
+  pet :string = ''
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.pet = 'puppies'
   }
 
   ionViewDidLoad() {
