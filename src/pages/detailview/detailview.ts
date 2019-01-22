@@ -15,13 +15,50 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DetailviewPage {
   pet :string = ''
-
+  students:any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.pet = 'puppies'
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailviewPage');
+    this.students = [
+      {
+        id: 1,
+        name: "Jagadish",
+        attendance: "50%",
+        engagement: "70%",
+        perfomance: "100%"
+      },
+      {
+        id: 2,
+        name: "Marty McFly",
+        attendance: "50%",
+        engagement: "70%",
+        perfomance: "100%"
+      },
+      {
+        id: 3,
+        name: "Rahul",
+        attendance: "50%",
+        engagement: "70%",
+        perfomance: "100%"
+      },
+      {
+        id: 4,
+        name: "Ramesh",
+        attendance: "50%",
+        engagement: "70%",
+        perfomance: "100%"
+      },
+      {
+        id: 5,
+        name: "Suresh",
+        attendance: "50%",
+        engagement: "70%",
+        perfomance: "100%"
+      }
+    ];
   }
 
 }
