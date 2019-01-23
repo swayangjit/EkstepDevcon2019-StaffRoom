@@ -1,0 +1,51 @@
+page-studentview {
+    .cl-gray {
+        color: gray;
+    }
+    .ft-w400 {
+        font-weight: 400;
+    }
+    .item-divider {
+        border-top: none;
+        border-bottom: none;
+    }
+    .std-attd {
+        width: 80px;
+        height: 30px;
+        display: inline-block;
+        &.present {
+            background: green;
+        }
+        &.absent {
+            background: gray;
+        }
+    }
+    .topic-details-table {
+        border: 1px solid lightgray;
+        margin: 20px 0;
+        .row {
+            border-bottom: 1px solid lightgray;
+            &:last-of-type {
+                border-bottom: none;
+            }
+        }
+        .col {
+            border-right: 1px solid lightgray;
+            &   :last-of-type {
+                border-right: none;
+            }
+            div {
+                padding: 10px;
+            }
+        }
+    }
+    .teacher-notes {
+        .card {
+            line-height: 20px;
+        }
+        ion-buttons {
+            margin-top: 10px;
+        }
+    }
+
+}

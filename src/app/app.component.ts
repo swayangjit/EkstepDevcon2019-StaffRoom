@@ -8,6 +8,7 @@ import { TeacherdayviewPage } from '../pages/teacherdayview/teacherdayview';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { QrscannerPage } from '../pages/qrscanner/qrscanner';
 import { HomeUserFlowPage } from '../pages/home-user-flow/home-user-flow';
+import { StudentviewPage } from '../pages/studentview/studentview';
 @Component({
   templateUrl: 'app.html'
 })

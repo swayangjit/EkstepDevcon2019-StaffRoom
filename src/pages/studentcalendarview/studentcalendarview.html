@@ -1,0 +1,43 @@
+<ion-header class="bg-primary white">
+  <ion-navbar>
+    <ion-title>
+      Scheduler
+    </ion-title>
+    <!-- <ion-buttons end>
+      <button ion-button icon-only (click)="openQrCodeScanner()" id="qrIcon">
+          <img src="assets/imgs/ic_scanqr.png" class="tool-icon" height="30" width="30" float-end />
+      </button>
+  </ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+<mbsc-form>
+<div class="mbsc-grid">
+    <div class="mbsc-row">
+          <div class="mbsc-form-group w-100 m-0">
+                  <!-- <div class="mbsc-form-group-title" style="color: black;text-align: center">Jagadish</div> -->
+                  <!-- <div class="mbsc-form-group-title">Daily schedule</div> -->
+                  <mbsc-eventcalendar [data]="events" [options]="dailySettings">
+                  </mbsc-eventcalendar>
+              </div>
+        <!-- <div class="mbsc-col-sm-12 mbsc-col-md-4">
+            <div class="mbsc-form-group">
+                <div class="mbsc-form-group-title">Weekly schedule</div>
+                <mbsc-eventcalendar [data]="events" [options]="weeklySettings"></mbsc-eventcalendar>
+            </div>
+        </div>
+        <div class="mbsc-col-sm-12 mbsc-col-md-4">
+            <div class="mbsc-form-group">
+                <div class="mbsc-form-group-title">Monthly schedule</div>
+                <mbsc-eventcalendar [data]="events" [options]="monthlySettings"></mbsc-eventcalendar>
+            </div>
+        </div> -->
+    </div>
+</div>
+</mbsc-form>
+</ion-content>
+
+
+

@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-    <ion-card *ngFor="let child of childrentInfoList">
+    <ion-card *ngFor="let child of childrenInfoList; let i=index" (click)='showStudentCalenderView(i)'>
         <ion-card-header>
           {{child.name}}
         </ion-card-header>

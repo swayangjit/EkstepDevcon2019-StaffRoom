@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { isArray } from 'ionic-angular/umd/util/util';
 import { HttpClient } from '@angular/common/http';
+import { StudentcalendarviewPage } from '../studentcalendarview/studentcalendarview';
 
 @Component({
   selector: 'page-child-details',
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ChildDetailsPage {
   childrenDetail = [];
-  childrentInfoList = [];
+  childrenInfoList = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private httpClient: HttpClient) {
     console.log();
@@ -33,10 +34,17 @@ export class ChildDetailsPage {
     this.httpClient.get("https://dev.ekstep.in/api/devcon/v3/profile/read/" + studentId)
       .subscribe((data: any) => {
         console.log(data.result.Student);
-        this.childrentInfoList.push(data.result.Student);
+        this.childrenInfoList.push(data.result.Student);
       }, error => {
         console.log(error);
       });
+  }
+
+  showStudentCalenderView(index){
+    const studentId =  this.childrenDetail[index];
+    this.navCtrl.push(StudentcalendarviewPage,{
+      studentId:studentId
+    });
   }
 
 }
