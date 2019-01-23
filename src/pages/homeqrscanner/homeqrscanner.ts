@@ -7,18 +7,22 @@ import { RestProvider } from '../../service/rest-provider';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { EData, Telemetry } from '../../model/telemetry';
 import { HttpClient } from '@angular/common/http';
+import { HomeUserFlowPage } from '../home-user-flow/home-user-flow';
+
 /**
- * Generated class for the QrscannerPage page.
+ * Generated class for the HomeqrscannerPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
+@IonicPage()
 @Component({
-  selector: 'page-qrscanner',
-  templateUrl: 'qrscanner.html',
+  selector: 'page-homeqrscanner',
+  templateUrl: 'homeqrscanner.html',
 })
-export class QrscannerPage {
+export class HomeqrscannerPage {
+
   @ViewChild('content', { read: ElementRef })
   private content: ElementRef;
   private visitorInfo;
@@ -60,7 +64,6 @@ export class QrscannerPage {
             scanSub.unsubscribe();
             this.showContentBG()
             this.getVisitorInformation(text);
-           
             
           });
 
@@ -87,19 +90,20 @@ export class QrscannerPage {
         "code": visitorId
       }
     };
+   // https://dev.ekstep.in/api/devcon/v3/profile/read/{id}
 
     this.httpClient.post("https://dev.ekstep.in/api/devcon/v3/login",
       request)
       .subscribe((data: any) => {
         this.visitorInfo = data.result.Visitor
+        this.sendTelemetry(this.generateStartEvent(this.visitorInfo));
         const index = this.navCtrl.getActive().index;
-        this.navCtrl.push(TeacherdayviewPage,{
+        this.navCtrl.push(HomeUserFlowPage,{
           visitorId:this.visitorInfo.code,
           visitorName:this.visitorInfo.name
         }).then(() => {
           this.navCtrl.remove(index);
         });
-        this.sendTelemetry(this.generateStartEvent(this.visitorInfo));
       }, error => {
         console.log(error);
 
@@ -147,10 +151,10 @@ export class QrscannerPage {
       ets: (new Date).getTime(),
       visitorId: visitorInfo.code,
       visitorName: visitorInfo.name,
-      teacherId: 'TCH1',
-      stallId: 'STA3',
-      stallName: 'STAFFROOM',
-      ideaId:'IDE10',
+      teacherId: '',
+      stallId: 'STA4',
+      stallName: 'HOME',
+      ideaId:'IDE12',
       edata: edata
 
     }
@@ -166,4 +170,5 @@ export class QrscannerPage {
       this.backButtonFunc();
     }, 10);
   }
+
 }

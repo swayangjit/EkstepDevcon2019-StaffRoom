@@ -8,14 +8,14 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: 'home-user-flow.html',
 })
 export class HomeUserFlowPage {
-  parentName: any;
+  parentName: any[]= [];
+  parentDetailsResponse:any
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public httpClient: HttpClient
     ) {
-    this.parentName = ['Parent 1', 'Parent 2', 'Parent 3', 'Parent 4', 'Parent 5'];
   }
   
 
@@ -54,6 +54,10 @@ export class HomeUserFlowPage {
         request, header)
         .subscribe((data: any) => {
           console.log('data is', data);
+          this.parentDetailsResponse = data.result;
+          this.parentDetailsResponse.forEach(element => {
+            this.parentName.push(element.name);
+          });
         }, error => {
           console.log(error);
         });

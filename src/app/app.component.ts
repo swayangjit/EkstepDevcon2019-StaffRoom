@@ -7,11 +7,12 @@ import { HomePage } from '../pages/home/home';
 import { TeacherdayviewPage } from '../pages/teacherdayview/teacherdayview';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { QrscannerPage } from '../pages/qrscanner/qrscanner';
+import { HomeUserFlowPage } from '../pages/home-user-flow/home-user-flow';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = TeacherdayviewPage;
+  rootPage:any = HomeUserFlowPage;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       statusBar.styleDefault();
