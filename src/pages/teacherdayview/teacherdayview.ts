@@ -59,7 +59,8 @@ export class TeacherdayviewPage implements OnInit {
         },
         onEventSelect: (event, inst) => {
             // this.getSearchIdentifiers();
-            if (event.event.start.search('2019-01-24') == -1) {
+            console.log(event);
+            if ((event.event.text && event.event.text !== "Lunch") || event.event.start.search('2019-01-24') == -1) {
                 this.navCtrl.push(PerioddetailsPage,{
                     data: event,
                     teacherId: this.teacherId,
