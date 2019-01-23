@@ -6,9 +6,9 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-    <ion-card *ngFor="let count of childDetail">
+    <ion-card *ngFor="let childName of childrenDetail">
         <ion-card-header>
-          {{parentName}}
+          {{getChildName(childName)}}
         </ion-card-header>
       </ion-card>
 </ion-content>

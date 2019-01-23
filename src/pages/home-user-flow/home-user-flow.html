@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let name of parentName" (click)="navigateToChildDetailsPage(name)">
+  <ion-card *ngFor="let name of parentName; let i=index" (click)="navigateToChildDetailsPage(i)">
     <ion-card-header >
       {{name}}
     </ion-card-header>
