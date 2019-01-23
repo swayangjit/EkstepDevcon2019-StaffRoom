@@ -32,6 +32,7 @@ export class TeacherdayviewPage implements OnInit {
     private teacherId:string;
     private visitorId:string= '';
     private visitorName:string= '';
+    date;
 
     constructor(
         private qrScanner: QRScanner,
@@ -60,12 +61,14 @@ export class TeacherdayviewPage implements OnInit {
         onEventSelect: (event, inst) => {
             // this.getSearchIdentifiers();
             console.log(event);
-            if ((event.event.text && event.event.text !== "Lunch") || event.event.start.search('2019-01-24') == -1) {
+            if (event.event.text && event.event.text !== "Lunch" && event.event.start.search('2019-01-24') == -1) {
                 this.navCtrl.push(PerioddetailsPage,{
                     data: event,
                     teacherId: this.teacherId,
                     visitorId: this.visitorId,
-                    visitorName:this.visitorName
+                    visitorName:this.visitorName,
+                    date:this.date,
+                    teacherid:this.teacherId
                   });
             } else if(event.event.text && event.event.text !== "Lunch") {
                 this.navCtrl.push(AskappuPage,{
@@ -142,6 +145,7 @@ export class TeacherdayviewPage implements OnInit {
 
     getSearchIdentifiers() {
         var date = this.formatDate(this.currentDate);
+        this.date =date;
         this.httpClient.get("https://dev.ekstep.in/api/dialcode/v3/schedule/read/"+date+"/"+this.teacherId)
             .subscribe((data:any) => {
                 if (data) {
