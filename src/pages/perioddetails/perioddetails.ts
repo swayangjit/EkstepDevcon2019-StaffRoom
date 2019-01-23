@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, PopoverController, Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { AttendancePage } from '../attendance/attendance';
 import { ReportAlertComponent } from '../../components/report-alert/report-alert';
+import { AskappuPage } from '../askappu/askappu';
 
 /**
  * Generated class for the PerioddetailsPage page.
@@ -26,20 +27,62 @@ export class PerioddetailsPage {
   startDate: any;
   endDate: Date;
   date: Date;
-
+  studentSize = 5;
+  studentStatistics: boolean = false;
+  teacherId;
+  visitorId;
+  visitorName;
+  topicInfo;
+  showStartClass = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public httpClient: HttpClient, private modalCtrl: ModalController, private popoverCtrl: PopoverController) {
+    public httpClient: HttpClient, private modalCtrl: ModalController, private popoverCtrl: PopoverController,
+    public events: Events) {
     this.data = this.navParams.get('data');
+
     const date = this.navParams.get('date');
-    const teacherId = this.navParams.get('teacherid');
+    this.teacherId = this.navParams.get('teacherid');
+    this.visitorId = this.navParams.get('visitorId');
+    this.visitorName = this.navParams.get('visitorName');
     this.data = this.data.event.data;
     console.log(this.data);
-    this.getPeriodDetails(this.data.period, this.data.class, date, teacherId);
+    this.showStartClass = false;
+    this.events.subscribe('periodId', (res) => {
+      if (res) {
+          this.getTopicsArray(res);
+        this.showStartClass = true;
+        console.log(this.showStartClass);
+        console.log(res);
+      }
+    });
+    this.getPeriodDetails(this.data.period, this.data.class, date, this.teacherId);
+  }
+
+  getTopicsArray(periodId) {
+    switch (periodId) {
+      case 'PTCH1_1':
+        this.topic = 'Taste,Smell';
+        break;
+      case 'PTCH1_2':
+        this.topic = 'Taste,Smell';
+        break;
+      case 'PTCH2_1':
+        this.topic = 'Sun,Planets,Earth';
+        break;
+      case 'PTCH3_1':
+        this.topic = 'Types of Birds';
+        break;
+      case 'PTCH4_1':
+        this.topic = 'Tropic of cancer';
+        break;
+      case 'PTCH5_1':
+        this.topic = 'Inertia,Mass';
+        break;
+    }
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerioddetailsPage');
-    // this.getPeriodDetails();
   }
 
   onClickAttendance() {
@@ -64,25 +107,28 @@ export class PerioddetailsPage {
         for (var i = 0; i < this.periodResponse.topics.length; i++) {
           this.topics.push(this.periodResponse.topics[i]);
         }
+        this.studentStatistics = this.periodResponse.engagementDetails.length;
+
         this.topic = this.topics.join(' , ');
         this.avgAttendence = this.periodResponse.attendance;
         this.avgEngagement = this.getAverage(this.periodResponse.engagementDetails);
         this.avgPerformance = this.getAverage(this.periodResponse.performanceDetails);
-        // this.startDate = this.periodResponse.start;
-        // this.date = new Date(this.startDate);
-  
+        if (this.periodResponse.students) {
+          this.studentSize = this.periodResponse.students.length;
+        }
+
       }, error => {
         console.log(error);
       });
   }
 
-  getAverage(array):string {
-    if(array){
-      let total:number = 0
+  getAverage(array): string {
+    if (array) {
+      let total: number = 0
       array.forEach(element => {
-        total= total+Number(element.rate);
+        total = total + Number(element.rate);
       });
-      const avg = (total/array.length).toFixed(0);
+      const avg = (total / array.length).toFixed(0);
       return avg;
     }
   }
@@ -94,7 +140,16 @@ export class PerioddetailsPage {
     popover.present();
   }
   openHeatMapForEngagement() {
-    
+
+  }
+
+  showAppuPage() {
+    this.navCtrl.push(AskappuPage, {
+      visitorId: this.visitorId,
+      visitorName: this.visitorName,
+      teacherId: this.teacherId,
+      period: this.data.period
+    });
   }
 
 }

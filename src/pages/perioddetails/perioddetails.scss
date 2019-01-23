@@ -31,4 +31,24 @@ page-perioddetails {
             font-size: 12px;
         }
     }
+    .browse-diksha-btn {
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+    .appu-image {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        right: 5px;
+        bottom: 0;
+        &.button {
+            padding: 0;
+        }
+    }
+    .wd-85 {
+        width: 85%;
+    }
+    
 }

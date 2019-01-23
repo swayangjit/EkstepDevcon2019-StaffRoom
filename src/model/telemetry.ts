@@ -4,8 +4,8 @@ export interface Telemetry{
         did: number,
         visitorId: string, // Visitor Id
         visitorName: string, // Visitor Name
-        profileId: string,
-        profileType: string, // STUDENT/TEACHER/PARENT
+        ideaId: string,
+        teacherId:string,
         stallId: string, //Stall unique id
         stallName: string, //Stall Name - CLASSROOM, STAFFROOM, HOME
         edata: EData,

@@ -43,7 +43,7 @@
         <ion-icon name="people" class="mr-10"></ion-icon>
         <div class="st-analysis-item">
           <div class="lb-title">Students</div>
-          <div class="lb-value" id="ClassId">10</div>
+          <div class="lb-value" id="ClassId">{{studentSize}}</div>
         </div>
       </ion-col>
       <ion-col class="flex">
@@ -56,7 +56,7 @@
     </ion-row>
   </ion-card>
 
-  <ion-row class="student-stats">
+  <ion-row class="student-stats" *ngIf ='studentStatistics'>
     <ion-col class="p-0">
       <ion-card padding (click)="onClickAttendance()">
         <div class="st-analysis-item">
@@ -86,6 +86,19 @@
     </ion-col>
   </ion-row>
 
-
+  <ion-row class="browse-diksha-btn" *ngIf ='!studentStatistics'>
+    <ion-col>
+      <ion-buttons>
+          <button ion-button full class="wd-85">Browse Sunbird</button>
+          <button ion-button clear class="appu-image" (click)="showAppuPage()">
+            <img src="../../assets/imgs/appu.png" alt="appu image">
+          </button>
+        </ion-buttons>
+        <ion-buttons>
+          <button  *ngIf= 'showStartClass' ion-button full class="wd-85">Start your class</button>
+          
+        </ion-buttons>
+    </ion-col>
+  </ion-row>
 </ion-content>
 

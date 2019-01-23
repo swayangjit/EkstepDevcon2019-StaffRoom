@@ -90,11 +90,11 @@ export class QrscannerPage {
       }
     };
 
-    this.httpClient.post("http://104.211.78.0:8080/read-dev",
+    this.httpClient.post("https://dev.ekstep.in/api/devcon/v3/login",
       request)
       .subscribe((data: any) => {
         this.visitorInfo = data.result.Visitor
-        this.sendTelemetry(JSON.stringify(this.generateStartEvent(this.visitorInfo)));
+        this.sendTelemetry(this.generateStartEvent(this.visitorInfo));
       }, error => {
         console.log(error);
 
@@ -117,7 +117,7 @@ export class QrscannerPage {
   }
 
 
-  sendTelemetry(event: string) {
+  sendTelemetry(event) {
     const request = {
       "events": [event]
     };
@@ -142,10 +142,10 @@ export class QrscannerPage {
       ets: (new Date).getTime(),
       visitorId: visitorInfo.code,
       visitorName: visitorInfo.name,
-      profileId: visitorInfo.osid,
-      profileType: 'TEACHER',
+      teacherId: 'TCH1',
       stallId: 'STA3',
       stallName: 'STAFFROOM',
+      ideaId:'IDE10',
       edata: edata
 
     }

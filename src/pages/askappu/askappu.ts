@@ -37,11 +37,10 @@ export class AskappuPage {
     public httpClient: HttpClient,
     private popoverCtrl: PopoverController) {
     this.data = this.navParams.get('data');
-    this.teacherId = 'TCH5';//this.navParams.get('teacherId');
+    this.teacherId = this.navParams.get('teacherId');
     this.visitorId = this.navParams.get('visitorId');
     this.visitorName = this.navParams.get('visitorName');
-    this.periodId = this.data.period;
-    console.log(this.data.event.data);
+    this.periodId = this.navParams.get('period');
     this.getConversation(this.teacherId)
     this.usersAnswers.push({ 'msg': this.teacherConversation.msg, 'command': '' });
   }
@@ -171,6 +170,24 @@ export class AskappuPage {
       request, header)
       .subscribe((data: any) => {
         this.finalPackageId = data.result.node_id;
+        this.publishContent(this.finalPackageId);
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  publishContent(identifier: string) {
+    const request = {
+      "request": {
+        "content" : {
+          "lastPublishedBy" : "devcon"
+        }
+      }
+    };
+
+    this.httpClient.post("https://dev.ekstep.in/api/content/v3/publish/"+identifier,
+      request)
+      .subscribe((data: any) => {
         this.getPackageInformation(this.finalPackageId);
       }, error => {
         console.log(error);
@@ -196,7 +213,8 @@ export class AskappuPage {
   openPackageDetailsAlert() {
     const popover = this.popoverCtrl.create(DialogPopupComponent, {
       title: this.contentName,
-      body: this.packageItem
+      body: this.packageItem,
+      periodId:this.periodId
     }, {
         cssClass: 'popover-alert'
       });
