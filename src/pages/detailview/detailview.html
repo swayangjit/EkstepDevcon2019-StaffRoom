@@ -27,11 +27,11 @@
       <div *ngSwitchCase="'puppies'">
           <ion-card class="m-0 w-100 no-shadow pb-5 no-border no-radius">
               <ion-item class="no-bg tile-title">
-                  <h1 class="m-0">Period 1</h1>
+                  <h1 class="m-0">{{data.period}}</h1>
               </ion-item>
               <ion-row class="pl-16">
                   <ion-col class="pl-0">
-                      <span id="classId" class="classId lb-value pr-5">Class 3</span> | <span id="subjectId" class="subjectId lb-value pr-5 pl-5">Maths</span>
+                      <span id="classId" class="classId lb-value pr-5">{{data.class}}</span> | <span id="subjectId" class="subjectId lb-value pr-5 pl-5">{{data.subject}}</span>
                       | <span id="studentNo" class="studentNo lb-value pl-5">10 Student(s)</span>
                   </ion-col>
               </ion-row>

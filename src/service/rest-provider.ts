@@ -23,20 +23,27 @@ export class RestProvider {
     }
 
     getSearchIdentifiers() {
-        const request ={}; 
-        return this.httpClient.post(' https://dev.ekstep.in/api/search/v3/search',
-            {
-               
-            })
+        const request ={"request": { 
+            "filters":{
+                "objectType": "Content",
+                "status":[]
+            },
+            "limit":1,
+            "fields" :["identifier"],
+            "sort_by":{"lastUpdatedOn":"desc"}
+            
+        }}; 
+        return this.httpClient.post(' https://dev.ekstep.in/api/search/v3/search',request)
             .map(this.extractData)
             .catch(this.catchError)
-    }
+      }
 
     private catchError(error: Response | any) {
         console.log(error);
         return Observable.throw(error.json().error || "Server error!");
     }
     private extractData(res: Response) {
-        return res.json();
+        console.log(res);
+        return res;
     }
 }

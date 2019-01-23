@@ -51,8 +51,8 @@
       </div>
     </div>  
   </div>
-  <ion-list style="position: absolute;padding-left: 60px;display: flex;" *ngIf="suggestions">
-    <button *ngFor="let item of teacher1.options;" ion-button round (click)="selectCommand(item)" style="display: flex">{{item.command}}</button>
+  <ion-list style="position: absolute;padding-left: 60px;" *ngIf="suggestions">
+    <button *ngFor="let item of teacherConversation.options;" ion-button round (click)="selectCommand(item)" style="font-size: 10px;">{{item.command}}</button>
   </ion-list>
 </ion-content>
 
