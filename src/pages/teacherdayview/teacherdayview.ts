@@ -11,6 +11,7 @@ import { RestProvider } from '../../service/rest-provider';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RequestOptions } from '@angular/http';
 import { AppConstnats } from '../../app/app-constants';
+import { ChangeDetectorRef } from '@angular/core';
 
 mobiscroll.settings = {
     theme: 'material'
@@ -26,7 +27,7 @@ export class TeacherdayviewPage implements OnInit {
     private content: ElementRef;
     private backButtonFunc: any;
     private timeTable;
-   
+    private currentDate; 
     private teacherId:string;
     private visitorId:string= '';
     private visitorName:string= '';
@@ -36,7 +37,8 @@ export class TeacherdayviewPage implements OnInit {
         private platform: Platform,
         private viewCtrl: ViewController,
         private navCtrl: NavController,
-        public navParams: NavParams,) { 
+        private ref: ChangeDetectorRef,
+        public navParams: NavParams,private httpClient: HttpClient) { 
             this.visitorName = this.navParams.get('vistorName');
             this.visitorId = this.navParams.get('visitorId');
         }
@@ -44,8 +46,6 @@ export class TeacherdayviewPage implements OnInit {
     events: any;
 
     ngOnInit() {
-        this.teacherId = 'TCH1';
-        this.events = AppConstnats.TCH1;
     }
 
 
@@ -74,6 +74,12 @@ export class TeacherdayviewPage implements OnInit {
                   });
             }
 
+        },
+        onSetDate: (event, inst) => {
+            this.teacherId = 'TCH1';
+            this.currentDate = event.date;
+            this.getSearchIdentifiers();
+           console.log("date changed",event.date);
         }
     };
 
@@ -132,34 +138,59 @@ export class TeacherdayviewPage implements OnInit {
         
     }
 
-    // getSearchIdentifiers() {
-    //     const request = {
-    //         "request": {
-    //             "filters": {
-    //                 "objectType": "Content",
-    //                 "status": []
-    //             },
-    //             "limit": 1,
-    //             "fields": ["identifier"],
-    //             "sort_by": { "lastUpdatedOn": "desc" }
+    getSearchIdentifiers() {
+        var date = this.formatDate(this.currentDate);
+        this.httpClient.get("https://dev.ekstep.in/api/dialcode/v3/schedule/read/"+date+"/"+this.teacherId)
+            .subscribe((data:any) => {
+                if (data) {
+                    var res = data[date + "_" + this.teacherId];
+                    var temp :any =  [];
+                    // var temp:any = [];
+                    temp.push({
+                        "start": date+"T09:00:00+00:00",
+                        "end": date+"T11:00:00+00:00",
+                        "text": "",
+                        "color": "#dedede",
+                        "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }
+                    },
+                    {
+                        "start": date+"T11:00:00+00:00",
+                        "end": date+"T13:00:00+00:00",
+                        "text": "",
+                        "color": "#dedede",
+                        "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }
+                    }
+                    ,
+                    {
+                        "start": date+"T13:00:00+00:00",
+                        "end": date+"T14:00:00+00:00",
+                        "text": "Lunch",
+                        "color": "#008000",
+                        "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }
+                    });
+                    if(res){
+                        res.forEach(element => {
+                            temp.push(
+                                {
+                                    "start": element.start,
+                                    "end": element.end,
+                                    "text": element.grade  +" &nbsp&nbsp&nbsp  " + element.subject,
+                                    "color": "#ddddd",
+                                    "data": { "class": element.grade, "subject": element.subject, "period": element.period }
+                                }
+                            );
+                        });
+                    }
+                    
+                    this.events = temp;
 
-    //         }
-    //     };
-    //     this.httpClient.post("https://dev.ekstep.in/api/search/v3/search",
-    //         request)
-    //         .subscribe(data => {
-    //             if (data.result.content) {
-    //                 data.result.content.forEach(element => {
-    //                     const identifier = element.identifier;
-    //                     console.log(identifier);
-    //                     this.getPackagedContent(identifier);
-    //                 });
-    //             }
+                    this.ref.detectChanges();
+                }
 
-    //         }, error => {
-    //             console.log(error);
-    //         });
-    // }
+            }, error => {
+                console.log(error);
+            });
+    }
 
     // getPackagedContent(identifier: string) {
     //     const request = {
@@ -201,6 +232,18 @@ export class TeacherdayviewPage implements OnInit {
     //         console.log(error);
     //     });
     // }
+
+     formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
 
 }
 

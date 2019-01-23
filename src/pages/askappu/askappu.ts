@@ -89,6 +89,8 @@ export class AskappuPage {
       //Call API for creating content on this topic
       this.getSearchIdentifiers(this.teacherId, this.optionsIndex);
     }
+    //Generate Telemetry
+    this.sendTelemetry(data);
     this.ref.detectChanges();
   }
 
