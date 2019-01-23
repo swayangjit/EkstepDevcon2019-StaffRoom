@@ -89,7 +89,8 @@ export class AppConstnats {
         "options": [
             {
                 "command": "Conduct an Exam on the topics Taste and Smell",
-                "msg": "Noted. Creating a package right away..."
+                "msg": "Noted. Creating a package right away...",
+                "index": '0'
             },
             {
                 "command": "Teach the topic Smell",
@@ -97,11 +98,13 @@ export class AppConstnats {
                 "options": [
                     {
                         "command": "With Assessment",
-                        "msg": "Noted. Creating a package right away..."
+                        "msg": "Noted. Creating a package right away...",
+                        "index":'1,0'
                     },
                     {
                         "command": "Without Assessment",
-                        "msg": "Noted. Creating a package right away..."
+                        "msg": "Noted. Creating a package right away...",
+                        "index":'1,1'
                     }
                 ]
             }
@@ -167,32 +170,40 @@ export class AppConstnats {
         "options": [
             {
                 "command": "Do you want to repeat the class?",
+                "msg": "Do you want to repeat the class?",
+                "index":'0',
                 "options": [
                     {
                         "command": "Yes",
                         "msg": "How would you like to create a package?",
+                        "index":'0,0',
                         "options": [
                             {
                                 "command": "With Assessment",
-                                "msg": "Noted. Creating a package right away..."
+                                "msg": "Noted. Creating a package right away...",
+                                "index":'0,0,0'
                             },
                             {
                                 "command": "Without Assessment",
-                                "msg": "Noted. Creating a package right away..."
+                                "msg": "Noted. Creating a package right away...",
+                                "index":'0,0,1'
                             }
                         ]
                     },
                     {
                         "command": "No, I will Teach the next topic",
                         "msg": "How would you like to create a package?",
+                        "index":'1,0',
                         "options": [
                             {
                                 "command": "With Assessment",
-                                "msg": "Noted. Creating a package right away..."
+                                "msg": "Noted. Creating a package right away...",
+                                "index":'1,1,0'
                             },
                             {
                                 "command": "Without Assessment",
-                                "msg": "Noted. Creating a package right away..."
+                                "msg": "Noted. Creating a package right away...",
+                                "index":'1,1,1'
                             }
                         ]
                     }

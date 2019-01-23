@@ -16,14 +16,14 @@
             </div>
             <div class="msg-content">
               <span class="triangle"></span>
-              <p class="line-breaker ">Hey Vinu, I am Appu your personal assistant !</p>
+              <p class="line-breaker ">Hey Jags, I am Appu your personal assistant !</p>
               <div>
               </div>
             </div>
           </div>
       </div>
-    <div class="main" *ngFor="let command of usersAnswers">
-        <div class="message" [class.right]="true" *ngIf="command.command.length > 0">
+    <div class="main" *ngFor="let cmd of usersAnswers; let element=last;">
+        <div class="message" [class.right]="true" *ngIf="cmd.command.length > 0">
             <img class="user-img" [src]="userAvatar" alt="" src="">
             <div class="msg-detail">
               <div class="msg-info">
@@ -31,7 +31,7 @@
               </div>
               <div class="msg-content" style="background-color: #e0ffc6;">
                 <span class="triangle" style="background-color: #e0ffc6;"></span>
-                <p class="line-breaker" style="color: black">{{command.command}}</p>
+                <p class="line-breaker" style="color: black">{{cmd.command}}</p>
               </div>
             </div>
           </div>
@@ -43,7 +43,8 @@
             </div>
             <div class="msg-content">
               <span class="triangle"></span>
-              <p class="line-breaker" [innerHTML]="command.msg"></p>
+              <p class="line-breaker" [innerHTML]="cmd.msg"></p>
+              <ion-spinner name="dots" *ngIf="!suggestions && element && done"></ion-spinner>
               <div>
               </div>
             </div>
@@ -54,5 +55,6 @@
   <ion-list style="position: absolute;padding-left: 60px;" *ngIf="suggestions">
     <button *ngFor="let item of teacherConversation.options;" ion-button round (click)="selectCommand(item)" style="font-size: 10px;">{{item.command}}</button>
   </ion-list>
+  <button ion-button block round style="position: absolute;margin-left: 5%;width: 90%;" *ngIf="!done" >Package is ready</button>
 </ion-content>
 
