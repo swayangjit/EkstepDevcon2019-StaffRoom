@@ -37,7 +37,7 @@ export class AskappuPage {
     public httpClient: HttpClient,
     private popoverCtrl: PopoverController) {
     this.data = this.navParams.get('data');
-    this.teacherId = 'TCH4';//this.navParams.get('teacherId');
+    this.teacherId = 'TCH5';//this.navParams.get('teacherId');
     this.visitorId = this.navParams.get('visitorId');
     this.visitorName = this.navParams.get('visitorName');
     this.periodId = this.data.period;
@@ -133,11 +133,7 @@ export class AskappuPage {
         // this.done = false;
         // this.ref.detectChanges();
         if (data.result.content) {
-          data.result.content.forEach(element => {
-            const identifier = element.identifier;
-            console.log(identifier);
-            this.getPackagedContent(identifier);
-          });
+          this.getPackagedContent(data.result.content[0].identifier);          
         }
 
       }, error => {

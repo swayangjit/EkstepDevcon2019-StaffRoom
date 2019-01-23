@@ -139,28 +139,34 @@ export class AppConstnats {
             {
                 "command": "Create Practice Material for last class topics",
                 "msg": "Add an assessment?",
+                "index": '0',
                 "options": [
                     {
                         "command": "Yes",
-                        "msg": "Noted. Creating a package right away..."
+                        "msg": "Noted. Creating a package right away...",
+                        "index": '0,0'
                     },
                     {
                         "command": "No",
-                        "msg": "Noted. Creating a package right away..."
+                        "msg": "Noted. Creating a package right away...",
+                        "index": '0,1'
                     }
                 ]
             },
             {
                 "command": "Teach the topic Moon",
                 "msg": "How would you like to create a package?",
+                "index": '1',
                 "options": [
                     {
                         "command": "With Assessment",
-                        "msg": "Noted. Creating a package right away..."
+                        "msg": "Noted. Creating a package right away...",
+                        "index": '1,0'
                     },
                     {
                         "command": "Without Assessment",
-                        "msg": "Noted. Creating a package right away..."
+                        "msg": "Noted. Creating a package right away...",
+                        "index": '1,1'
                     }
                 ]
             }
@@ -173,14 +179,17 @@ export class AppConstnats {
             {
                 "command": "Get Supplementary Content for Types of Birds",
                 "msg": "Do you also want to add an assessment to the package?",
+                "index": '0',
                 "options": [
                     {
                         "command": "Yes",
-                        "msg": "Noted. Creating a package right away..."
+                        "msg": "Noted. Creating a package right away...",
+                        "index": '0,0'
                     },
                     {
                         "command": "No",
-                        "msg": "Noted. Creating a package right away..."
+                        "msg": "Noted. Creating a package right away...",
+                        "index": '0,1'
                     }
                 ]
             }
@@ -241,14 +250,17 @@ export class AppConstnats {
             {
                 "command": "Repeat the class",
                 "msg": "How would you like to create a package?",
+                "index": '0',
                 "options": [
                     {
                         "command": "With Assessment",
-                        "msg": "Noted. Creating a package right away..."
+                        "msg": "Noted. Creating a package right away...",
+                        "index": '0,0'
                     },
                     {
                         "command": "Without Assessment",
-                        "msg": "Noted. Creating a package right away..."
+                        "msg": "Noted. Creating a package right away...",
+                        "index": '0,1'
                     }
                 ]
             }
