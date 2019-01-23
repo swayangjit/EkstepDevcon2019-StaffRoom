@@ -21,6 +21,17 @@ export interface Telemetry{
     
 }
 
+export interface Interact{
+        eid: string,
+        ets: number,
+        ver: string,
+        context:{}
+}
+
+export interface CData{
+        type: string,
+        id:string
+}
 export interface EData{
         type: string, //app,portal,staffroom,classroom
         mode: string //play/edit

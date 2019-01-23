@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ViewController, ToastController } from 'ionic-angular';
 import { ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { TeacherdayviewPage } from '../teacherdayview/teacherdayview';
 import { RestProvider } from '../../service/rest-provider';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { EData, Telemetry } from '../../model/telemetry';
+import { HttpClient } from '@angular/common/http';
 /**
  * Generated class for the QrscannerPage page.
  *
@@ -22,11 +23,17 @@ export class QrscannerPage {
   private content: ElementRef;
   private visitorInfo;
   private uniqueId;
+  private backButtonFunc: any;
+  private hideButton = false;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private qrScanner: QRScanner,
     private uniqueDeviceID: UniqueDeviceID,
-    private restProvider: RestProvider) {
+    private restProvider: RestProvider,
+    private platform: Platform,
+    private viewCtrl: ViewController,
+    public httpClient: HttpClient,
+    public toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
@@ -36,9 +43,10 @@ export class QrscannerPage {
         console.log(uuid)
       })
       .catch((error: any) => console.log(error));
-    this.openQrCodeScanner();
   }
   openQrCodeScanner() {
+    this.hideButton = true;
+    this.handleBackButton();
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
@@ -51,6 +59,7 @@ export class QrscannerPage {
             this.qrScanner.hide();
             scanSub.unsubscribe();
             this.showContentBG()
+            this.getVisitorInformation(text);
             const index = this.navCtrl.getActive().index;
             this.navCtrl.push(TeacherdayviewPage).then(() => {
               this.navCtrl.remove(index);
@@ -73,31 +82,67 @@ export class QrscannerPage {
     (this.content.nativeElement as HTMLElement).removeAttribute('hidden');
   }
 
+
   getVisitorInformation(visitorId: string) {
-    this.restProvider.getVisitorInfo(visitorId).subscribe(data => { 
-      this.visitorInfo = data 
-      this.sendTelemetry(JSON.stringify(this.generateStartEvent('','')));
-      this.navCtrl.push(TeacherdayviewPage,{
-        visitorId:'',
-        visitorName:''
+    const request = {
+      "request": {
+        "code": visitorId
+      }
+    };
+
+    this.httpClient.post("http://104.211.78.0:8080/read-dev",
+      request)
+      .subscribe((data: any) => {
+        this.visitorInfo = data.result.Visitor
+        this.sendTelemetry(JSON.stringify(this.generateStartEvent(this.visitorInfo)));
+      }, error => {
+        console.log(error);
+
       });
-    });
+
   }
+
+  showToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Unable to get Visitor information',
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
 
   sendTelemetry(event: string) {
-    this.restProvider.saveTelemetry(event).subscribe(data => { this.visitorInfo = data });
+    const request = {
+      "events": [event]
+    };
+
+    this.httpClient.post("http://52.172.188.118:3000/v1/telemetry",
+      request)
+      .subscribe((data: any) => {
+      }, error => {
+        console.log(error);
+
+      });
+
   }
 
-  generateStartEvent(visitorId: string, visitorName: string): Telemetry {
+
+  generateStartEvent(visitorInfo): Telemetry {
 
     const edata: EData = { type: 'staffroom', mode: 'play' };
     const telemetry: Telemetry = {
       eid: 'DC_START',
       did: this.uniqueId,
       ets: (new Date).getTime(),
-      visitorId: '',
-      visitorName: '',
-      profileId: '',
+      visitorId: visitorInfo.code,
+      visitorName: visitorInfo.name,
+      profileId: visitorInfo.osid,
       profileType: 'TEACHER',
       stallId: '',
       stallName: 'STAFFROOM',
@@ -105,5 +150,15 @@ export class QrscannerPage {
 
     }
     return telemetry
+  }
+
+  handleBackButton() {
+    this.backButtonFunc = this.platform.registerBackButtonAction(() => {
+      this.showContentBG();
+      this.qrScanner.destroy();
+      this.viewCtrl.dismiss();
+      this.hideButton = false;
+      this.backButtonFunc();
+    }, 10);
   }
 }

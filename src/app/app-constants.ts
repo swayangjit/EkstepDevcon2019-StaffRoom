@@ -8,7 +8,29 @@ export class AppConstnats {
             "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_1" }
         },
         {
+            "start": "2019-01-24T09:00:00+00:00",
+            "end": "2019-01-24T11:00:00+00:00",
+            "text": "",
+            "color": "#dedede",
+            "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }
+        },
+        {
+            "start": "2019-01-24T11:00:00+00:00",
+            "end": "2019-01-24T13:00:00+00:00",
+            "text": "",
+            "color": "#dedede",
+            "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }
+        }
+        ,
+        {
             "start": "2019-01-24T13:00:00+00:00",
+            "end": "2019-01-24T14:00:00+00:00",
+            "text": "Lunch",
+            "color": "#008000",
+            "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }
+        },
+        {
+            "start": "2019-01-24T14:00:00+00:00",
             "end": "2019-01-24T18:00:00+00:00",
             "text": "Class 3 &nbsp&nbsp&nbsp EVS ",
             "color": "#f67944",

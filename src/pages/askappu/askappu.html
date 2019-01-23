@@ -55,6 +55,6 @@
   <ion-list style="position: absolute;padding-left: 60px;" *ngIf="suggestions">
     <button *ngFor="let item of teacherConversation.options;" ion-button round (click)="selectCommand(item)" style="font-size: 10px;">{{item.command}}</button>
   </ion-list>
-  <button ion-button block round style="position: absolute;margin-left: 5%;width: 90%;" *ngIf="!done" >Package is ready</button>
+  <button ion-button block round style="position: absolute;margin-left: 5%;width: 90%;" *ngIf="!done" (click)="openPackageDetailsAlert()">Check your package</button>
 </ion-content>
 
