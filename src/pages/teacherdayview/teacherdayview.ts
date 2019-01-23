@@ -129,7 +129,7 @@ export class TeacherdayviewPage implements OnInit {
             this.qrScanner.destroy();
             this.backButtonFunc();
         }, 10);
-
+        
     }
 
     // getSearchIdentifiers() {

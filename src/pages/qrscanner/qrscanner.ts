@@ -50,8 +50,11 @@ export class QrscannerPage {
             this.qrScanner.destroy();
             this.qrScanner.hide();
             scanSub.unsubscribe();
-            this.getVisitorInformation(text);
-            
+            this.showContentBG()
+            const index = this.navCtrl.getActive().index;
+            this.navCtrl.push(TeacherdayviewPage).then(() => {
+              this.navCtrl.remove(index);
+            });
           });
 
         } else {

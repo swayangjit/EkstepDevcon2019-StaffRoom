@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { AppConstnats } from '../../app/app-constants';
 import { TeacherRequestConstnats } from '../../data/teacher-request-constants';
 import { HttpClient } from '@angular/common/http';
+import { NavController, PopoverController, Navbar, NavParams } from 'ionic-angular';
+import { DialogPopupComponent } from '../../components/dialog-popup/dialog-popup';
+import { PopUpAlert } from '../../app/app.constant';
 
 @Component({
   selector: 'page-askappu',
   templateUrl: 'askappu.html',
 })
 export class AskappuPage {
+  @ViewChild(Navbar) navBar: Navbar;
   appuAvatar = '../../assets/imgs/appu.png';
   userAvatar = '../../assets/imgs/teacher.png';
   usersAnswers = [];

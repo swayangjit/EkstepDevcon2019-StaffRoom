@@ -18,6 +18,7 @@ import { RestProvider } from '../service/rest-provider';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import {AskappuPage} from '../pages/askappu/askappu'
 import { ReportPage } from '../pages/report/report'
+import { DialogPopupComponent } from '../components/dialog-popup/dialog-popup';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ReportPage } from '../pages/report/report'
     QrscannerPage,
     DetailviewPage,
     AskappuPage,
-    ReportPage
+    ReportPage,
+    DialogPopupComponent
   ],
   imports: [ 
     MbscModule, 
@@ -44,7 +46,8 @@ import { ReportPage } from '../pages/report/report'
     DetailviewPage,
     QrscannerPage,
     AskappuPage,
-    ReportPage
+    ReportPage,
+    DialogPopupComponent
   ],
   providers: [
     StatusBar,

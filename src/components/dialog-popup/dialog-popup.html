@@ -1,0 +1,17 @@
+<ion-content>
+    <ion-row class="alert-header-padding">
+      <ion-col col-12>
+        <div class="alert-header">
+          <h5 class="alert-header-content"> {{title}} </h5>
+        </div> 
+      </ion-col>
+    </ion-row>
+    
+    <ion-row class="alert-content-body"> 
+      <ion-item *ngFor='let item of body' no-lines>{{item}}</ion-item> 
+    </ion-row>
+
+    <ion-row>
+        <button ion-button full class="alert-button" (click)="close()" text-capitalize> Done </button>
+      </ion-row>
+  </ion-content> 
