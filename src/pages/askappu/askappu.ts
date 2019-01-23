@@ -27,10 +27,13 @@ export class AskappuPage {
   finalPackageId: string;
   periodId: string = '';
   visitorId: string = ''
+  packageItem = [];
+  contentName:string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams, private ref: ChangeDetectorRef,
-    public httpClient: HttpClient) {
+    public httpClient: HttpClient,
+    private popoverCtrl: PopoverController) {
     this.data = this.navParams.get('data');
     this.teacherId = 'TCH4';//this.navParams.get('teacherId');
     this.visitorId = this.navParams.get('visitorId');
@@ -179,9 +182,24 @@ export class AskappuPage {
         console.log(data.result.content);
         this.done = false;
         this.ref.detectChanges();
+        this.contentName = data.result.content.name;
+        const packageData = data.result.content.children;
+        for(var num = 0; num < packageData.length; num++) {
+          this.packageItem.push(packageData[num].name);
+        } 
       }, error => {
         console.log(error);
       });
+  }
+
+  openPackageDetailsAlert() {
+    const popover = this.popoverCtrl.create(DialogPopupComponent, {
+      title: this.contentName,
+      body: this.packageItem
+    }, {
+        cssClass: 'popover-alert'
+      });
+    popover.present();
   }
 
 }

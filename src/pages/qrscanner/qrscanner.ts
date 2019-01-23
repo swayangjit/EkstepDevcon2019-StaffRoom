@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ViewController } from 'ionic-angular';
 import { ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { TeacherdayviewPage } from '../teacherdayview/teacherdayview';
@@ -22,11 +22,15 @@ export class QrscannerPage {
   private content: ElementRef;
   private visitorInfo;
   private uniqueId;
+  private backButtonFunc: any;
+  private hideButton = false;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private qrScanner: QRScanner,
     private uniqueDeviceID: UniqueDeviceID,
-    private restProvider: RestProvider) {
+    private restProvider: RestProvider,
+    private platform: Platform,
+    private viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
@@ -36,9 +40,10 @@ export class QrscannerPage {
         console.log(uuid)
       })
       .catch((error: any) => console.log(error));
-    this.openQrCodeScanner();
   }
   openQrCodeScanner() {
+    this.hideButton = true;
+    this.handleBackButton();
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
@@ -74,12 +79,12 @@ export class QrscannerPage {
   }
 
   getVisitorInformation(visitorId: string) {
-    this.restProvider.getVisitorInfo(visitorId).subscribe(data => { 
-      this.visitorInfo = data 
-      this.sendTelemetry(JSON.stringify(this.generateStartEvent('','')));
-      this.navCtrl.push(TeacherdayviewPage,{
-        visitorId:'',
-        visitorName:''
+    this.restProvider.getVisitorInfo(visitorId).subscribe(data => {
+      this.visitorInfo = data
+      this.sendTelemetry(JSON.stringify(this.generateStartEvent('', '')));
+      this.navCtrl.push(TeacherdayviewPage, {
+        visitorId: '',
+        visitorName: ''
       });
     });
   }
@@ -105,5 +110,15 @@ export class QrscannerPage {
 
     }
     return telemetry
+  }
+
+  handleBackButton() {
+    this.backButtonFunc = this.platform.registerBackButtonAction(() => {
+      this.showContentBG();
+      this.qrScanner.destroy();
+      this.viewCtrl.dismiss();
+      this.hideButton = false;
+      this.backButtonFunc();
+    }, 10);
   }
 }
