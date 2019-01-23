@@ -19,7 +19,7 @@ export class AskappuPage {
   userSelectedCommands = [];
   teacherConversation;
   teacherRequestData;
-  optionsIndex:string = '';
+  optionsIndex: string = '';
   temp = {};
   done = true;
   suggestions = true;
@@ -30,7 +30,7 @@ export class AskappuPage {
   visitorId: string = '';
   visitorName: string = '';
   packageItem = [];
-  contentName:string;
+  contentName: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams, private ref: ChangeDetectorRef,
@@ -42,7 +42,7 @@ export class AskappuPage {
     this.visitorName = this.navParams.get('visitorName');
     this.periodId = this.data.period;
     console.log(this.data.event.data);
-    this.getConversation( this.teacherId)
+    this.getConversation(this.teacherId)
     this.usersAnswers.push({ 'msg': this.teacherConversation.msg, 'command': '' });
   }
 
@@ -72,9 +72,9 @@ export class AskappuPage {
 
   selectCommand(data) {
     this.suggestions = false;
-    if(this.teacherId == 'TCH4'){
+    if (this.teacherId == 'TCH4') {
       this.temp = { 'msg': data.msg, 'command': data.index == 0 ? '' : data.command };
-    }else{
+    } else {
       this.temp = { 'msg': data.msg, 'command': data.command };
     }
     // this.temp = { 'msg': data.msg, 'command': data.index == 0 ? '' : data.command };
@@ -87,48 +87,48 @@ export class AskappuPage {
     } else {
       console.log("No options/commands", this.userSelectedCommands);
       //Call API for creating content on this topic
-      this.getSearchIdentifiers(this.teacherId,this.optionsIndex);
+      this.getSearchIdentifiers(this.teacherId, this.optionsIndex);
     }
     this.ref.detectChanges();
   }
 
-  getSearchIdentifiers(teachID, optionsIndex:string) {
+  getSearchIdentifiers(teachID, optionsIndex: string) {
     var index = optionsIndex.indexOf(',') > 0 ? optionsIndex.split(',') : optionsIndex;
     switch (teachID) {
       case 'TCH1':
-        if(index.length == 1){
+        if (index.length == 1) {
           this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[0];
-        }else if(index.length > 1)
-        this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[index[0]][index[1]];
+        } else if (index.length > 1)
+          this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[index[0]][index[1]];
         break;
       case 'TCH2':
-        if(index.length == 1){
+        if (index.length == 1) {
           this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[0];
-        }else if(index.length > 1)
-        this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[index[0]][index[1]];
+        } else if (index.length > 1)
+          this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[index[0]][index[1]];
         break;
       case 'TCH3':
-        if(index.length == 1){
+        if (index.length == 1) {
           this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[0];
-        }else if(index.length > 1)
-        this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[index[0]][index[1]];
+        } else if (index.length > 1)
+          this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[index[0]][index[1]];
         break;
       case 'TCH4':
-        if(index.length == 1){
+        if (index.length == 1) {
           this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[0];
-        }else if(index.length > 1)
-        this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[index[0]][index[1]];
+        } else if (index.length > 1)
+          this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[index[0]][index[1]];
         break;
       case 'TCH5':
-        if(index.length == 1){
+        if (index.length == 1) {
           this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[0];
-        }else if(index.length > 1)
-        this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[index[0]][index[1]];
+        } else if (index.length > 1)
+          this.teacherRequestData = TeacherRequestConstnats.TCH1_REQUEST_CONST[index[0]][index[1]];
         break;
     }
 
     this.httpClient.post("https://dev.ekstep.in/api/search/v3/search",
-    this.teacherRequestData)
+      this.teacherRequestData)
       .subscribe((data: any) => {
         // this.done = false;
         // this.ref.detectChanges();
@@ -143,7 +143,7 @@ export class AskappuPage {
       }, error => {
         console.log(error);
       });
-      this.ref.detectChanges();
+    this.ref.detectChanges();
   }
 
   getPackagedContent(identifier: string) {
@@ -156,8 +156,8 @@ export class AskappuPage {
           "name": "TestBook1",
           "contentType": "TextBook",
           "createdBy": this.visitorId,
-          "teacherId":this.teacherId,
-          "periodId":this.periodId,
+          "teacherId": this.teacherId,
+          "periodId": this.periodId,
           "code": "testbook1",
           "mimeType": "application/vnd.ekstep.content-collection",
           "framework": "devcon-appu",
@@ -187,9 +187,9 @@ export class AskappuPage {
         this.ref.detectChanges();
         this.contentName = data.result.content.name;
         const packageData = data.result.content.children;
-        for(var num = 0; num < packageData.length; num++) {
+        for (var num = 0; num < packageData.length; num++) {
           this.packageItem.push(packageData[num].name);
-        } 
+        }
       }, error => {
         console.log(error);
       });
@@ -205,18 +205,31 @@ export class AskappuPage {
     popover.present();
   }
 
-  generateInteractEvent(){
-    const cData:CData[]=[{type:'visitorid',id:this.visitorName}]
-    let interact:Interact = {
-      eid:'INTERACT',
+  generateInteractEvent() {
+    const cData: CData[] = [{ type: 'visitorid', id: this.visitorName }]
+    let interact: Interact = {
+      eid: 'INTERACT',
       ets: (new Date()).getTime(),
-      ver:'3.0',
-      context:{cData}
+      ver: '3.0',
+      context: { cData }
     }
-
+    return interact;
   }
 
- 
+  sendTelemetry(event: string) {
+    const request = {
+      "events": [event]
+    };
+
+    this.httpClient.post("http://52.172.188.118:3000/v1/telemetry",
+      request)
+      .subscribe((data: any) => {
+      }, error => {
+        console.log(error);
+
+      });
+
+  }
 
 
 }
