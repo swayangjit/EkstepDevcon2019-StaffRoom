@@ -14,12 +14,34 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+$primary:#2846d9;
+$secondary:#468940;
+$tertiary:#e55a28;
+.primary-color {
+    color:$primary;
+}
+.secondary-color {
+    color:$secondary;
+}
+.tertiary-color {
+    color:$tertiary;
+}
 .m-0 {
     margin: 0 0 0 0;
+}
+.mb-0 {
+    margin-bottom:0px;
 }
 .mr-5 {
     margin-right:5px;
 }
+.mr-10 {
+    margin-right:10px;
+}
+.text-center {
+    text-align: center;
+}
+.p-0{padding:0px 0px 0px 0px;}
 .pr-5 {padding-right:5px;}
 .pl-5 {padding-left:5px;}
 .w-100 {
@@ -74,10 +96,18 @@ border: 1px solid #f1f1f1;
 .segment-md-primary .segment-button {
     color: #fff;
 }
+.summary-card {
+    padding:5px;
+    .col {
+        padding:10px 5px;
+    }
+    ion-icon {
+        font-size:1.5em;
+    }
+}
 .st-analysis {
     border-top: 1px solid #ddd;
     padding-top: 5px;
-    margin-top: 5px;
 }
 .no-border {
     border:0px;
@@ -89,15 +119,100 @@ border: 1px solid #f1f1f1;
     display: flex;
     align-items: center;
 }
-.card-md h1 {
+.card h1 {
     color: #024fd9;
 }
 .bg-f2 {
     background: #f2f2f2;
 }
-.bg-primary, .toolbar-background-md,.mbsc-fr-c {
+.bg-primary, .toolbar-background,.mbsc-fr-c {
     background: #024fd9;
 }
-.white, .toolbar-title-md, .bar-button-default-md {
+.white, .toolbar-title, .bar-button-default {
     color: white;
 }
+.ft-14 {
+    font-size: 14px;
+}
+.ft-16 {
+    font-size: 16px;
+}
+.ft-w500 {
+    font-weight: 500;
+}
+.pl-16 {
+    padding-left: 16px;
+}
+.py-5 {
+    padding: 5px 0;
+}
+     .item.item-textarea {
+        padding: 0px 0px 0px 0px;
+        margin-bottom: 20px;
+     }
+     
+     .action-sheet-button {
+        width: 95%;
+        margin: 0px;
+        padding: 0px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+     
+        button {
+            width: 100%;
+            margin: 0px;
+            border-radius: 0px;
+        }
+     }
+     
+     .close-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        position: absolute;
+        left: 0px;
+        margin: 0 auto;
+        right: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: -50px;
+     }
+     
+     .close-btn ion-icon {
+        font-size: 2.5em;
+        color: #fff;
+     }
+     
+     .summary-card ion-icon {
+        color: #bfbfbf;
+     }
+     
+     
+     .section-title {
+        font-size: 1.2em;
+        color: #333;
+        padding: 5px 16px;
+        font-weight: bold;
+     }
+     
+    //  .mask {
+    //     width: 100%;
+    //     height: 100%;
+    //     background: rgba(0, 0, 0, 0.5);
+    //     position: absolute;
+    //     top: 0;
+    //     z-index: 10000;
+     
+    //  }
+     
+    //  .send-note {
+    //     width: 100%;
+    //     padding: 20px 0px 0px 0px;
+    //     position: absolute;
+    //     bottom: 0;
+    //     background: white;
+    //     border-top-left-radius: 15px;
+    //     border-top-right-radius: 15px;
+    //     z-index: 10000;
+    //  }

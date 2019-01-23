@@ -1,0 +1,34 @@
+page-perioddetails {
+    .pl-16 {
+        padding-left: 16px;
+    }
+ 
+    .pl-0 {
+        padding-left: 0;
+    }
+ 
+    .lb-title {
+        font-weight: lighter;
+        font-size: 12px;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+    }
+ 
+    .lb-value {
+        font-weight: 500;
+    }
+    .student-stats {
+        .card {
+            text-align: center;
+        }
+        ion-icon {
+            font-size: 2em;
+        }
+        .lb-value {
+            font-size: 20px;
+        }
+        span {
+            font-size: 12px;
+        }
+    }
+}

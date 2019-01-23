@@ -12,6 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RequestOptions } from '@angular/http';
 import { AppConstnats } from '../../app/app-constants';
 import { ChangeDetectorRef } from '@angular/core';
+import { PerioddetailsPage } from '../perioddetails/perioddetails';
 
 mobiscroll.settings = {
     theme: 'material'
@@ -59,13 +60,13 @@ export class TeacherdayviewPage implements OnInit {
         onEventSelect: (event, inst) => {
             // this.getSearchIdentifiers();
             if (event.event.start.search('2019-01-24') == -1) {
-                this.navCtrl.push(DetailviewPage,{
+                this.navCtrl.push(PerioddetailsPage,{
                     data: event,
                     teacherId: this.teacherId,
                     visitorId: this.visitorId,
                     visitorName:this.visitorName
                   });
-            } else {
+            } else if(event.event.text && event.event.text !== "Lunch") {
                 this.navCtrl.push(AskappuPage,{
                     data: event,
                     teacherId: this.teacherId,
@@ -155,15 +156,15 @@ export class TeacherdayviewPage implements OnInit {
                     },
                     {
                         "start": date+"T11:00:00+00:00",
-                        "end": date+"T13:00:00+00:00",
+                        "end": date+"T12:00:00+00:00",
                         "text": "",
                         "color": "#dedede",
                         "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }
                     }
                     ,
                     {
-                        "start": date+"T13:00:00+00:00",
-                        "end": date+"T14:00:00+00:00",
+                        "start": date+"T12:00:00+00:00",
+                        "end": date+"T1:00:00+00:00",
                         "text": "Lunch",
                         "color": "#008000",
                         "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }

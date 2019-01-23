@@ -144,7 +144,7 @@ export class QrscannerPage {
       visitorName: visitorInfo.name,
       profileId: visitorInfo.osid,
       profileType: 'TEACHER',
-      stallId: '',
+      stallId: 'STA3',
       stallName: 'STAFFROOM',
       edata: edata
 

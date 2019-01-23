@@ -19,6 +19,8 @@ import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http'
 import {AskappuPage} from '../pages/askappu/askappu'
 import { ReportPage } from '../pages/report/report'
 import { DialogPopupComponent } from '../components/dialog-popup/dialog-popup';
+import { PerioddetailsPage } from '../pages/perioddetails/perioddetails';
+import { AttendancePage } from '../pages/attendance/attendance';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,7 @@ import { DialogPopupComponent } from '../components/dialog-popup/dialog-popup';
     DetailviewPage,
     AskappuPage,
     ReportPage,
-    DialogPopupComponent
+    DialogPopupComponent,PerioddetailsPage,AttendancePage
   ],
   imports: [ 
     MbscModule, 
@@ -47,7 +49,7 @@ import { DialogPopupComponent } from '../components/dialog-popup/dialog-popup';
     QrscannerPage,
     AskappuPage,
     ReportPage,
-    DialogPopupComponent
+    DialogPopupComponent,PerioddetailsPage,AttendancePage
   ],
   providers: [
     StatusBar,

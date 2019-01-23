@@ -1,0 +1,28 @@
+page-attendance {
+    .card {
+        .student-pic {
+            background: lightblue;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    
+            span {
+                font-size: 24px;
+                color: white;
+            }
+        }
+        h1 {
+            color: #333;
+        }
+        
+        .present {
+            color: $secondary;
+        }
+        .absent {
+            color: lightgray;
+        }
+    }
+}
