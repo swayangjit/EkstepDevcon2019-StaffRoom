@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { NavController, PopoverController, Navbar, NavParams } from 'ionic-angular';
 import { DialogPopupComponent } from '../../components/dialog-popup/dialog-popup';
 import { PopUpAlert } from '../../app/app.constant';
+import { Interact, CData } from '../../model/telemetry';
 
 @Component({
   selector: 'page-askappu',
@@ -26,7 +27,8 @@ export class AskappuPage {
   data: any;
   finalPackageId: string;
   periodId: string = '';
-  visitorId: string = ''
+  visitorId: string = '';
+  visitorName: string = '';
   packageItem = [];
   contentName:string;
 
@@ -37,6 +39,7 @@ export class AskappuPage {
     this.data = this.navParams.get('data');
     this.teacherId = 'TCH4';//this.navParams.get('teacherId');
     this.visitorId = this.navParams.get('visitorId');
+    this.visitorName = this.navParams.get('visitorName');
     this.periodId = this.data.period;
     console.log(this.data.event.data);
     this.getConversation( this.teacherId)
@@ -203,7 +206,17 @@ export class AskappuPage {
   }
 
   generateInteractEvent(){
-    
+    const cData:CData[]=[{type:'visitorid',id:this.visitorName}]
+    let interact:Interact = {
+      eid:'INTERACT',
+      ets: (new Date()).getTime(),
+      ver:'3.0',
+      context:{cData}
+    }
+
   }
+
+ 
+
 
 }
