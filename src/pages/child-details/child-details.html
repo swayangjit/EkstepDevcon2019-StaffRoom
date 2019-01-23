@@ -6,9 +6,9 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-    <ion-card *ngFor="let childName of childrenDetail">
+    <ion-card *ngFor="let child of childrentInfoList">
         <ion-card-header>
-          {{getChildName(childName)}}
+          {{child.name}}
         </ion-card-header>
       </ion-card>
 </ion-content>
