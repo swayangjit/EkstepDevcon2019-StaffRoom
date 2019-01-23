@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AttendancePage } from '../attendance/attendance';
 import { ReportAlertComponent } from '../../components/report-alert/report-alert';
 import { AskappuPage } from '../askappu/askappu';
+import { AttendenceComponent } from '../../components/attendence/attendence';
 
 /**
  * Generated class for the PerioddetailsPage page.
@@ -116,6 +117,8 @@ export class PerioddetailsPage {
         if (this.periodResponse.students) {
           this.studentSize = this.periodResponse.students.length;
         }
+        // this.startDate = this.periodResponse.start;
+        // this.date = new Date(this.startDate);
 
       }, error => {
         console.log(error);
@@ -139,6 +142,7 @@ export class PerioddetailsPage {
       });
     popover.present();
   }
+
   openHeatMapForEngagement() {
 
   }
@@ -150,6 +154,31 @@ export class PerioddetailsPage {
       teacherId: this.teacherId,
       period: this.data.period
     });
+    const popover = this.popoverCtrl.create(ReportAlertComponent, {
+      heatMapData: this.periodResponse.engagementDetails
+    }, {
+        cssClass: 'popover-alert'
+      });
+    popover.present();
   }
 
+  openHeatMapForPerformance() {
+    const popover = this.popoverCtrl.create(ReportAlertComponent, {
+      heatMapData: this.periodResponse.performanceDetails
+    }, {
+        cssClass: 'popover-alert'
+      });
+    popover.present();
+  }
+
+  openAttendenceReport() {
+    const popover = this.popoverCtrl.create(AttendenceComponent, {
+      attendenceDeatils: this.periodResponse.attendanceDetails
+    }, {
+        cssClass: 'popover-alert'
+      });
+    popover.present();
+  }
 }
+
+

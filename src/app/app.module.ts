@@ -25,6 +25,7 @@ import { ReportAlertComponent } from '../components/report-alert/report-alert';
 import { HomeUserFlowPage } from '../pages/home-user-flow/home-user-flow';
 import { ChildDetailsPage } from '../pages/child-details/child-details';
 import { HomeqrscannerPage } from '../pages/homeqrscanner/homeqrscanner';
+import { AttendenceComponent } from '../components/attendence/attendence';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HomeqrscannerPage } from '../pages/homeqrscanner/homeqrscanner';
     DialogPopupComponent,PerioddetailsPage,AttendancePage,
     ReportAlertComponent,
     HomeUserFlowPage,
-    ChildDetailsPage,HomeqrscannerPage
+    ChildDetailsPage,HomeqrscannerPage,
+    AttendenceComponent
   ],
   imports: [ 
     MbscModule, 
@@ -59,7 +61,10 @@ import { HomeqrscannerPage } from '../pages/homeqrscanner/homeqrscanner';
     DialogPopupComponent,PerioddetailsPage,AttendancePage,
     ReportAlertComponent,
     HomeUserFlowPage,
-    ChildDetailsPage,HomeqrscannerPage
+    ChildDetailsPage,
+    HomeqrscannerPage,
+    ChildDetailsPage,
+    AttendenceComponent
   ],
   providers: [
     StatusBar,

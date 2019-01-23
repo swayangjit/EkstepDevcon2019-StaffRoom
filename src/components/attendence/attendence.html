@@ -1,0 +1,24 @@
+<!-- Generated template for the AttendenceComponent component -->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Attendence Report</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="container">
+    <ion-card class="pb-5" *ngFor="let name of names">
+        <ion-item>
+            <ion-avatar item-start>
+                <div class="student-pic">
+                    <span>{{name[0]}}</span>
+                </div>
+            </ion-avatar>
+            <h1>{{name}}</h1>
+            <div>
+            <p *ngIf="status==='Yes'"><ion-icon name="hand" class="present"></ion-icon> Present</p>  
+            <p *ngIf="status==='No'"><ion-icon name="hand" class="absent"></ion-icon> Absent</p>
+          </div>
+        </ion-item>
+    </ion-card>
+</div>
+</ion-content>

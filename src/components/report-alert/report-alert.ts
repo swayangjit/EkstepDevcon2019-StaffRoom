@@ -3,12 +3,6 @@ import { NavController, NavParams } from 'ionic-angular';
 import d3 from 'd3';
 import { statsHeatMap } from '../../data/data';
 
-/**
- * Generated class for the ReportAlertComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'report-alert',
   templateUrl: 'report-alert.html'
@@ -26,15 +20,19 @@ export class ReportAlertComponent {
   g: any;
   xAxis: any;
   yAxis: any;
+  data2: any;
+  title: any;
+  country: any;
   data: any;
 
   @ViewChild('reportcanvas')
   private reportCanvas: ElementRef
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams) { 
+    this.data = this.navParams.get("heatMapData");
+  }
 
   ionViewDidLoad() {
-    // this.data = this.navParams.get('heatMapData');
     this.draw();
   }
   draw() {
@@ -47,7 +45,7 @@ export class ReportAlertComponent {
 
     var formatDate = d3.time.format("%Y-%m-%d");
 
-    var data = statsHeatMap.map(function (item) {
+    var data = statsHeatMap.map( (item) => {
       var newItem = {} as any;
       newItem.country = item.studentId;
       newItem.product = item.topics;
@@ -56,8 +54,8 @@ export class ReportAlertComponent {
       return newItem;
     })
 
-    var x_elements = d3.set(data.map(function (item) { return item.product; })).values(),
-      y_elements = d3.set(data.map(function (item) { return item.country; })).values();
+    var x_elements = d3.set(data.map( (item) => { return item.product; })).values(),
+      y_elements = d3.set(data.map( (item) => { return item.country; })).values();
 
     var xScale = d3.scale.ordinal()
       .domain(x_elements)
@@ -65,7 +63,7 @@ export class ReportAlertComponent {
 
     var xAxis = d3.svg.axis()
       .scale(xScale)
-      .tickFormat(function (d) {
+      .tickFormat( (d) => {
         return d;
       })
       .orient("top");
@@ -98,7 +96,7 @@ export class ReportAlertComponent {
       .attr('class', 'cell')
       .attr('width', cellSize)
       .attr('height', cellSize)
-      .attr('y', function (d) { return yScale(d.country); })
+      .attr('y', function (d) { return yScale(d.country) ; })
       .attr('x', function (d) { return xScale(d.product); })
       .attr('fill', function (d) { 
         // return d.value ? colorScale(d.value) : '#ededed' as any; 
@@ -109,8 +107,6 @@ export class ReportAlertComponent {
         } else if(d.value && d.value > 74 && d.value <=100 ){
           return 'rgb(0,128,0)';
         }
-
-      
       });
 
     svg.append("g")

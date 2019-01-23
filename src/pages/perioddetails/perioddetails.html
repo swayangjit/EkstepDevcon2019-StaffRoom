@@ -58,7 +58,7 @@
 
   <ion-row class="student-stats" *ngIf ='studentStatistics'>
     <ion-col class="p-0">
-      <ion-card padding (click)="onClickAttendance()">
+      <ion-card padding (click)="openAttendenceReport()">
         <div class="st-analysis-item">
           <ion-icon name="hand" class="mr-10 secondary-color"></ion-icon>
           <div class="lb-value stats py-5" id="AttendanceId"> {{avgAttendence}} % </div>
@@ -77,7 +77,7 @@
     </ion-col>
     <ion-col class="p-0">
       <ion-card padding>
-        <div class="st-analysis-item">
+        <div class="st-analysis-item" (click)="openHeatMapForPerformance()">
           <ion-icon name="flash" class="mr-10 tertiary-color"></ion-icon>
           <div class="lb-value stats py-5" id="PerformanceID">{{avgPerformance}} %</div>
           <div class="lb-title">Performance</div>
