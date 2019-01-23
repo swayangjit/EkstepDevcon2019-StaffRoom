@@ -84,7 +84,6 @@ export class TeacherdayviewPage implements OnInit {
             this.teacherId = 'TCH1';
             this.currentDate = event.date;
             this.getSearchIdentifiers();
-           console.log("date changed",event.date);
         }
     };
 
@@ -110,7 +109,6 @@ export class TeacherdayviewPage implements OnInit {
                     this.hideContentBG();
                     this.qrScanner.show();
                     let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-
                         console.log('Scanned something', text);
                         this.qrScanner.destroy();
                         this.qrScanner.hide();
@@ -151,29 +149,6 @@ export class TeacherdayviewPage implements OnInit {
                 if (data) {
                     var res = data[date + "_" + this.teacherId];
                     var temp :any =  [];
-                    // var temp:any = [];
-                    temp.push({
-                        "start": date+"T09:00:00+00:00",
-                        "end": date+"T11:00:00+00:00",
-                        "text": "",
-                        "color": "#dedede",
-                        "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }
-                    },
-                    {
-                        "start": date+"T11:00:00+00:00",
-                        "end": date+"T12:00:00+00:00",
-                        "text": "",
-                        "color": "#dedede",
-                        "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }
-                    }
-                    ,
-                    {
-                        "start": date+"T12:00:00+00:00",
-                        "end": date+"T1:00:00+00:00",
-                        "text": "Lunch",
-                        "color": "#008000",
-                        "data": { "class": "Class 3", "subject": "EVS", "period": "PTCH1_2" }
-                    });
                     if(res){
                         res.forEach(element => {
                             temp.push(
@@ -186,10 +161,31 @@ export class TeacherdayviewPage implements OnInit {
                                 }
                             );
                         });
+                        temp.push({
+                            "start": date + "T09:00:00+00:00",
+                            "end": date + "T11:00:00+00:00",
+                            "text": res[0].grade  +" &nbsp&nbsp&nbsp  " + res[0].subject,
+                            "color": "#dedede",
+                            "data": { "class": res[0].grade, "subject": res[0].subject, "period": res[0].period }
+                        },
+                        {
+                            "start": date + "T09:00:00+00:00",
+                            "end": date + "T11:00:00+00:00",
+                            "text": res[0].grade  +" &nbsp&nbsp&nbsp  " + res[0].subject,
+                            "color": "#dedede",
+                            "data": { "class": res[0].grade, "subject": res[0].subject, "period": res[0].period }
+                        }
+                        ,
+                        {
+                            "start": date + "T12:00:00+00:00",
+                            "end": date + "T1:00:00+00:00",
+                            "text": "Lunch",
+                            "color": "#008000",
+                            "data": { "class": res[0].grade, "subject": res[0].subject, "period": res[0].period }
+                        });
                     }
                     
                     this.events = temp;
-
                     this.ref.detectChanges();
                 }
 
