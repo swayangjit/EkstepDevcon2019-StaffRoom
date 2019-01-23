@@ -1,0 +1,14 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Parent Directory</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let name of parentName" (click)="navigateToChildDetailsPage(name)">
+    <ion-card-header >
+      {{name}}
+    </ion-card-header>
+  </ion-card>
+</ion-content>

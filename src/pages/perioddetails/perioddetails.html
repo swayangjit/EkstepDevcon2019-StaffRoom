@@ -34,7 +34,7 @@
         <ion-icon name="list-box" class="mr-10"></ion-icon>
         <div class="st-analysis-item">
           <div class="lb-title">Topics</div>
-          <div id="TopicsId" class="lb-value"><span>Topic 1</span>, <span>Topic 1</span>, <span>Topic 1</span></div>
+          <div id="TopicsId" class="lb-value" ><span >{{topic}} </span></div>
         </div>
       </ion-col>
     </ion-row>
@@ -61,16 +61,16 @@
       <ion-card padding (click)="onClickAttendance()">
         <div class="st-analysis-item">
           <ion-icon name="hand" class="mr-10 secondary-color"></ion-icon>
-          <div class="lb-value stats py-5" id="AttendanceId">50% <span>(5/10)</span></div>
+          <div class="lb-value stats py-5" id="AttendanceId"> {{avgAttendence}} % </div>
           <div class="lb-title">Attendance</div>
         </div>
       </ion-card>
     </ion-col>
     <ion-col class="p-0">
-      <ion-card padding>
+      <ion-card padding (click)="openHeatMapForEngagement()">
         <div class="st-analysis-item">
           <ion-icon name="git-merge" class="mr-10 primary-color"></ion-icon>
-          <div class="lb-value stats py-5" id="EngagementId">50%</div>
+          <div class="lb-value stats py-5" id="EngagementId">{{avgEngagement}} %</div>
           <div class="lb-title">Engagement</div>
         </div>
       </ion-card>
@@ -79,7 +79,7 @@
       <ion-card padding>
         <div class="st-analysis-item">
           <ion-icon name="flash" class="mr-10 tertiary-color"></ion-icon>
-          <div class="lb-value stats py-5" id="PerformanceID">80%</div>
+          <div class="lb-value stats py-5" id="PerformanceID">{{avgPerformance}} %</div>
           <div class="lb-title">Performance</div>
         </div>
       </ion-card>
