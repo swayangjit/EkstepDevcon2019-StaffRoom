@@ -32,7 +32,7 @@ export class AskappuPage {
     public navParams: NavParams, private ref: ChangeDetectorRef,
     public httpClient: HttpClient) {
     this.data = this.navParams.get('data');
-    this.teacherId = 'TCH4';//this.navParams.get('teacherId');
+    this.teacherId = 'TCH5';//this.navParams.get('teacherId');
     this.visitorId = this.navParams.get('visitorId');
     this.periodId = this.data.period;
     console.log(this.data.event.data);
@@ -127,11 +127,7 @@ export class AskappuPage {
         // this.done = false;
         // this.ref.detectChanges();
         if (data.result.content) {
-          data.result.content.forEach(element => {
-            const identifier = element.identifier;
-            console.log(identifier);
-            this.getPackagedContent(identifier);
-          });
+          this.getPackagedContent(data.result.content[0].identifier);          
         }
 
       }, error => {
