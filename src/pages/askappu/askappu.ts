@@ -202,4 +202,8 @@ export class AskappuPage {
     popover.present();
   }
 
+  generateInteractEvent(){
+    
+  }
+
 }

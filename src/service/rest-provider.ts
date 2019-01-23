@@ -38,6 +38,22 @@ export class RestProvider {
             .catch(this.catchError)
       }
 
+      sendTelemetry(event: string) {
+        const request = {
+          "events": []
+        };
+    
+        this.httpClient.post("http://52.172.188.118:3000/v1/telemetry",
+          request)
+          .subscribe((data: any) => {
+          }, error => {
+            console.log(error);
+    
+          });
+      
+      }
+    
+
     private catchError(error: Response | any) {
         console.log(error);
         return Observable.throw(error.json().error || "Server error!");
