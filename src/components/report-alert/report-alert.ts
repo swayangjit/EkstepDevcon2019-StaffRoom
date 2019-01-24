@@ -23,39 +23,35 @@ export class ReportAlertComponent {
   data2: any;
   title: any;
   country: any;
-  data: any;
+  data: { country: string, product: string, value: number }[];
 
   @ViewChild('reportcanvas')
   private reportCanvas: ElementRef
 
   constructor(public navCtrl: NavController, public navParams: NavParams) { 
-    this.data = this.navParams.get("heatMapData");
+    this.title = this.navParams.get("title");
+    this.data = this.navParams.get("heatMapData").map( (item) => ({
+      country: item.studentId,
+      product: item.topics,
+      value: item.rate
+    }));
   }
 
   ionViewDidLoad() {
     this.draw();
   }
   draw() {
-    var itemSize = 35,
+    var itemSize = 45,
       cellSize = itemSize - 1,
-      margin = { top: 70, right: 5, bottom: 5, left: 50 };
+      margin = { top: 70, right: 5, bottom: 5, left: 100 };
 
     var width = 370 - margin.right - margin.left,
-      height = 500 - margin.top - margin.bottom;
+      height = 370 - margin.top - margin.bottom;
 
     var formatDate = d3.time.format("%Y-%m-%d");
 
-    var data = statsHeatMap.map( (item) => {
-      var newItem = {} as any;
-      newItem.country = item.studentId;
-      newItem.product = item.topics;
-      newItem.value = item.rate;
-
-      return newItem;
-    })
-
-    var x_elements = d3.set(data.map( (item) => { return item.product; })).values(),
-      y_elements = d3.set(data.map( (item) => { return item.country; })).values();
+    var x_elements = d3.set(this.data.map( (item) => { return item.product; })).values(),
+      y_elements = d3.set(this.data.map( (item) => { return item.country; })).values();
 
     var xScale = d3.scale.ordinal()
       .domain(x_elements)
@@ -91,7 +87,7 @@ export class ReportAlertComponent {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var cells = svg.selectAll('rect')
-      .data(data)
+      .data(this.data)
       .enter().append('g').append('rect')
       .attr('class', 'cell')
       .attr('width', cellSize)
@@ -101,11 +97,11 @@ export class ReportAlertComponent {
       .attr('fill', function (d) { 
         // return d.value ? colorScale(d.value) : '#ededed' as any; 
         if(d.value && d.value <= 50) {
-          return 'rgb(165,42,42)';
+          return '#87CEEB';
         } else if(d.value && d.value > 50 && d.value <=74 ){
-        return 'rgb(184,134,11)';
+        return '#4F94CD	';
         } else if(d.value && d.value > 74 && d.value <=100 ){
-          return 'rgb(0,128,0)';
+          return '#1874CD';
         }
       });
 

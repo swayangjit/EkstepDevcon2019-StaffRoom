@@ -89,7 +89,7 @@ export class AskappuPage {
       this.getSearchIdentifiers(this.teacherId, this.optionsIndex);
     }
     //Generate Telemetry
-    this.sendTelemetry(data);
+    this.sendTelemetry(this.generateInteractEvent());
     this.ref.detectChanges();
   }
 
@@ -232,7 +232,7 @@ export class AskappuPage {
     return interact;
   }
 
-  sendTelemetry(event: string) {
+  sendTelemetry(event) {
     const request = {
       "events": [event]
     };

@@ -25,8 +25,6 @@ export class PerioddetailsPage {
   avgEngagement: any;
   avgPerformance: any;
   avgAttendence: any;
-  startDate: any;
-  endDate: Date;
   date: Date;
   studentSize = 5;
   studentStatistics: boolean = false;
@@ -104,7 +102,9 @@ export class PerioddetailsPage {
       request)
       .subscribe(data => {
         this.periodResponse = data;
-        console.log(this.periodResponse);
+        console.log('my response', this.periodResponse);
+        this.date = this.periodResponse.start;
+        console.log('date', this.date);
         for (var i = 0; i < this.periodResponse.topics.length; i++) {
           this.topics.push(this.periodResponse.topics[i]);
         }
@@ -145,6 +145,13 @@ export class PerioddetailsPage {
   // }
 
   openHeatMapForEngagement() {
+    const popover = this.popoverCtrl.create(ReportAlertComponent, {
+      heatMapData: this.periodResponse.engagementDetails,
+      title: "Engagement Report"
+    }, {
+        cssClass: 'popover-alert'
+      });
+    popover.present();
 
   }
 
@@ -159,7 +166,8 @@ export class PerioddetailsPage {
 
   openHeatMapForPerformance() {
     const popover = this.popoverCtrl.create(ReportAlertComponent, {
-      heatMapData: this.periodResponse.performanceDetails
+      heatMapData: this.periodResponse.performanceDetails,
+      title: "Performance Report"
     }, {
         cssClass: 'popover-alert'
       });
