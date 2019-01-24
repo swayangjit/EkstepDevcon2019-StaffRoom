@@ -9,11 +9,6 @@
     <ion-title>
       Class Details
     </ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="openSendNote()">
-        <ion-icon name="more" end></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -118,11 +113,19 @@
       <button ion-button primary (click)="getRecommendedContent()">Get Recommended Content</button>
     </ion-buttons>
   </div>
-    <ion-card *ngFor="let dt of data" (click)="showPackage()">
-      <ion-card-header>
-       {{dt}}
-      </ion-card-header>
-    </ion-card>
-  
-</ion-content>
+  <ion-card *ngFor="let dt of data" class="card-view">
+    <ion-row>
+      <ion-col col-4>
+        <div class="content-name-image">
+          <img src="{{icon}}"/>
+        </div>
+      </ion-col>
+      <ion-col col-8>
+        <div class="content-name-panel">
+          {{dt}}
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
+</ion-content>

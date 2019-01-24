@@ -22,6 +22,7 @@ export class ReportAlertComponent {
   yAxis: any;
   data2: any;
   title: any;
+  pageName: any;
   country: any;
   data: { country: string, product: string, value: number }[];
 
@@ -30,6 +31,7 @@ export class ReportAlertComponent {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) { 
     this.title = this.navParams.get("title");
+    this.pageName = this.navParams.get("pageName");
     this.data = this.navParams.get("heatMapData").map( (item) => ({
       country: item.studentId,
       product: item.topics,

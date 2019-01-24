@@ -18,6 +18,8 @@ export class StudentviewPage {
   @ViewChild(Content) content: Content;
   data = [];
   showCard = false;   
+  apiResponse: any;
+  icon: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,7 +44,6 @@ export class StudentviewPage {
               "status":[]
           },
           "limit":20,
-          "fields" :["identifier"],
           "sort_by":{"lastUpdatedOn":"desc"}
           
       }
@@ -51,6 +52,7 @@ export class StudentviewPage {
       request)
       .subscribe((data: any) => {
         console.log(data);
+        this.apiResponse = data;
         if (data.result.content) {
         }
 
@@ -61,7 +63,12 @@ export class StudentviewPage {
   }
 
   getRecommendedContent() {
-    this.data = ['sudip', 'sudip', 'sudip'];
+    this.data = [];
+    this.apiResponse.result.content.forEach(element => {
+      this.data.push(element.name);
+      this.icon = element.appIcon;
+    });
+    
     this.showCard = true;
     this.ref.detectChanges();
     this.scrollToBottom();
@@ -74,15 +81,15 @@ export class StudentviewPage {
     }, 300)
   }
 
-  showPackage() {
-    const popover = this.popoverCtrl.create(DialogPopupComponent, {
-      title: "this.contentName",
-      body: ['sudip','sudip']
-    }, {
-        cssClass: 'popover-alert'
-      });
-    popover.present();
+  // showPackage() {
+  //   const popover = this.popoverCtrl.create(DialogPopupComponent, {
+  //     title: "this.contentName",
+  //     body: ['sudip','sudip']
+  //   }, {
+  //       cssClass: 'popover-alert'
+  //     });
+  //   popover.present();
 
-  }
+  // }
 
 }

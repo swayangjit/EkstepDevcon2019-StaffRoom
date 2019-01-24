@@ -62,4 +62,19 @@ page-studentview {
         }
     }
 
+    .card-view {
+        height: 120px;
+    }
+
+    .content-name-panel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 120px;
+        font-size: 1.7em;
+    }
+    .content-name-image {
+        width: 100%;
+        height: 30px;
+    }
 }

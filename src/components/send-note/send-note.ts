@@ -34,6 +34,10 @@ export class SendNoteComponent {
     this.invokeApi(this.visitorId,this.period,this.grade,this.subject,this.teacherId,this.studentId,this.notes)
   }
 
+  closeNotes() {
+    this.viewCtrl.dismiss();
+  }
+  
   invokeApi(visitorId: string,
     periodId: string,
     grade: string,
