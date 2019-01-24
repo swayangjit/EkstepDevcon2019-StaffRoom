@@ -135,13 +135,14 @@ export class PerioddetailsPage {
       return avg;
     }
   }
-  openHeatMap() {
-    const popover = this.popoverCtrl.create(ReportAlertComponent, {
-    }, {
-        cssClass: 'popover-alert'
-      });
-    popover.present();
-  }
+
+  // openHeatMap() {
+  //   const popover = this.popoverCtrl.create(ReportAlertComponent, {
+  //   }, {
+  //       cssClass: 'popover-alert'
+  //     });
+  //   popover.present();
+  // }
 
   openHeatMapForEngagement() {
 
@@ -154,12 +155,6 @@ export class PerioddetailsPage {
       teacherId: this.teacherId,
       period: this.data.period
     });
-    const popover = this.popoverCtrl.create(ReportAlertComponent, {
-      heatMapData: this.periodResponse.engagementDetails
-    }, {
-        cssClass: 'popover-alert'
-      });
-    popover.present();
   }
 
   openHeatMapForPerformance() {
@@ -172,8 +167,15 @@ export class PerioddetailsPage {
   }
 
   openAttendenceReport() {
+    console.log(this.visitorId)
     const popover = this.popoverCtrl.create(AttendenceComponent, {
-      attendenceDeatils: this.periodResponse.attendanceDetails
+      attendenceDeatils: this.periodResponse.attendanceDetails,
+      visitorId:this.visitorId,
+      period:this.data.period,
+      grade:this.data.class,
+      subject:this.data.subject,
+      teacher:this.teacherId
+
     }, {
         cssClass: 'popover-alert'
       });

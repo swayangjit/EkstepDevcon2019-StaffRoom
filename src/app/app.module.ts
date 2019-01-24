@@ -28,7 +28,8 @@ import { HomeqrscannerPage } from '../pages/homeqrscanner/homeqrscanner';
 import { StudentviewPage } from '../pages/studentview/studentview';
 import { AttendenceComponent } from '../components/attendence/attendence';
 import { StudentcalendarviewPage } from '../pages/studentcalendarview/studentcalendarview';
-
+import { SendNoteComponent } from '../components/send-note/send-note';
+ 
 @NgModule({
   declarations: [
     MyApp,
@@ -43,7 +44,8 @@ import { StudentcalendarviewPage } from '../pages/studentcalendarview/studentcal
     HomeUserFlowPage,
     ChildDetailsPage,HomeqrscannerPage,
     AttendenceComponent,
-    HomeqrscannerPage,StudentviewPage,StudentcalendarviewPage
+    HomeqrscannerPage,StudentviewPage,StudentcalendarviewPage,
+    SendNoteComponent
   ],
   imports: [ 
     MbscModule, 
@@ -66,7 +68,8 @@ import { StudentcalendarviewPage } from '../pages/studentcalendarview/studentcal
     HomeUserFlowPage,
     HomeqrscannerPage,
     ChildDetailsPage,
-    AttendenceComponent,HomeqrscannerPage,StudentviewPage,StudentcalendarviewPage
+    AttendenceComponent,HomeqrscannerPage,StudentviewPage,StudentcalendarviewPage,
+    SendNoteComponent
   ],
   providers: [
     StatusBar,

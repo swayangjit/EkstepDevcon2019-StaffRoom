@@ -115,8 +115,14 @@
       </ion-col>
     </ion-row>
     <ion-buttons end>
-      <button ion-button primary>Note</button>
+      <button ion-button primary (click)="getRecommendedContent()">Get Recommended Content</button>
     </ion-buttons>
   </div>
+    <ion-card *ngFor="let dt of data" (click)="showPackage()">
+      <ion-card-header>
+       {{dt}}
+      </ion-card-header>
+    </ion-card>
+  
 </ion-content>
 

@@ -1,0 +1,9 @@
+<ion-content style="max-height: 50%">
+    <ion-row class="alert-content-body"> 
+        <ion-textarea [(ngModel)]="notes" placeholder="Enter Note"></ion-textarea>
+    </ion-row>
+
+    <ion-row>
+        <button ion-button full class="alert-button" (click)="sendNotes()" text-capitalize> Send Note </button>
+      </ion-row>
+  </ion-content> 

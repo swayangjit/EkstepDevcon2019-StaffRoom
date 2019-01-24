@@ -42,7 +42,7 @@ export class TeacherdayviewPage implements OnInit {
         private navCtrl: NavController,
         private ref: ChangeDetectorRef,
         public navParams: NavParams,private httpClient: HttpClient) { 
-            this.visitorName = this.navParams.get('vistorName');
+            this.visitorName = this.navParams.get('visitorName');
             this.visitorId = this.navParams.get('visitorId');
         }
 
