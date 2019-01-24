@@ -147,7 +147,8 @@ export class PerioddetailsPage {
   openHeatMapForEngagement() {
     const popover = this.popoverCtrl.create(ReportAlertComponent, {
       heatMapData: this.periodResponse.engagementDetails,
-      title: "Engagement Report"
+      title: "Engagement Report",
+      pageName: "Engagement"
     }, {
         cssClass: 'popover-alert'
       });
@@ -167,7 +168,8 @@ export class PerioddetailsPage {
   openHeatMapForPerformance() {
     const popover = this.popoverCtrl.create(ReportAlertComponent, {
       heatMapData: this.periodResponse.performanceDetails,
-      title: "Performance Report"
+      title: "Performance Report",
+      pageName: "Performance"
     }, {
         cssClass: 'popover-alert'
       });
