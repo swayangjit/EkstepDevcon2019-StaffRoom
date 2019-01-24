@@ -25,7 +25,7 @@
         <ion-label class="ft-16">Name</ion-label>
       </ion-col>
       <ion-col col-8>
-        <ion-label class="cl-gray ft-16">Pradosh Kumar</ion-label>
+        <ion-label class="cl-gray ft-16">{{studentId}}</ion-label>
       </ion-col>
     </ion-row>
 
@@ -34,7 +34,7 @@
         <ion-label class="ft-16">Class</ion-label>
       </ion-col>
       <ion-col col-8>
-        <ion-label class="cl-gray ft-16">6</ion-label>
+        <ion-label class="cl-gray ft-16">{{studentClass}}</ion-label>
       </ion-col>
     </ion-row>
 
@@ -43,7 +43,7 @@
         <ion-label class="ft-16">Subject</ion-label>
       </ion-col>
       <ion-col col-8>
-        <ion-label class="cl-gray ft-16">Maths</ion-label>
+        <ion-label class="cl-gray ft-16">{{studentSubject}}</ion-label>
       </ion-col>
     </ion-row>
 
@@ -61,8 +61,8 @@
         <ion-label class="ft-16">Attendance</ion-label>
       </ion-col>
       <ion-col col-8>
-        <span class="std-attd present"></span>
-        <span class="std-attd absent"></span>
+        <span class="std-attd present" *ngIf="attendance"></span>
+        <span class="std-attd absent" *ngIf="!attendance"></span>
       </ion-col>
     </ion-row>
 
@@ -70,10 +70,10 @@
       <ion-row class="text-center">
         <ion-col></ion-col>
         <ion-col>
-          <div class="ft-16 ft-w400">Topic 1</div>
+          <div class="ft-16 ft-w400">{{topic1}}</div>
         </ion-col>
         <ion-col>
-          <div class="ft-16 ft-w400">Topic 2</div>
+          <div class="ft-16 ft-w400">{{topic2}}</div>
         </ion-col>
       </ion-row>
       <ion-row class="text-center">

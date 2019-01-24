@@ -41,6 +41,7 @@ export class StudentcalendarviewPage {
   private currentDate; 
   private teacherId:string;
   private studentId:string= '';
+  private data;
   private visitorName:string= '';
   date;
 
@@ -51,7 +52,7 @@ export class StudentcalendarviewPage {
       private navCtrl: NavController,
       private ref: ChangeDetectorRef,
       public navParams: NavParams,private httpClient: HttpClient) { 
-          this.studentId = this.navParams.get('sudentId');
+          this.studentId = this.navParams.get('studentId');
       }
 
   events: any;
@@ -66,7 +67,6 @@ export class StudentcalendarviewPage {
           eventList: { type: 'day' }
       },
       onEventSelect: (event, inst) => {
-          console.log(event);
           this.navCtrl.push(StudentviewPage,{
             data: event,
             studentId: this.studentId

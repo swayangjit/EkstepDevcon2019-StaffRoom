@@ -17,7 +17,20 @@ import { HttpClient } from '@angular/common/http';
 export class StudentviewPage {
   @ViewChild(Content) content: Content;
   data = [];
-  showCard = false;   
+  eventData;
+  studentId;
+  date;
+  period;
+  attendance;
+  grade;
+  showCard = false; 
+  studentName;
+  studentClass;
+  studentSubject;
+  studentTeacher;
+  topic1;
+  topic2;
+  periodResponse;  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -25,11 +38,19 @@ export class StudentviewPage {
     private popoverCtrl: PopoverController,
     private httpClient:HttpClient
   ) {
+    this.eventData = this.navParams.get('data');
+    this.studentId = this.getChildId(this.navParams.get('studentId'));
+    this.date = this.formatDate(this.eventData.date);
+    this.period = this.eventData.event.data.period;
+    this.grade = this.eventData.event.data.class;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad StudentviewPage');
     this.getRecommendedContent1();
+    this.getPeriodDetails(this.period, this.grade, this.date, this.studentId);
+  }
+  getChildId(path) {
+    return path.substring(path.lastIndexOf('/')+1);
   }
 
   getRecommendedContent1() {
@@ -83,6 +104,40 @@ export class StudentviewPage {
       });
     popover.present();
 
+  }
+  formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+  getPeriodDetails(periodId, classId, date, studentId) {
+    const request = {
+      "request": {
+        "periodId": periodId,
+        "classId": classId,
+        "date": date,
+        "id": studentId
+      }
+    };
+    this.httpClient.post("https://dev.ekstep.in/api/dialcode/v3/period/read",
+      request)
+      .subscribe(data => {
+        this.periodResponse = data;
+        this.studentClass = this.periodResponse.grade || "Class 5";
+        this.studentSubject = this.periodResponse.subject || "EVS";
+        this.topic1 = this.periodResponse.topics[0] || "Topic 1";
+        this.topic2 = this.periodResponse.topics[1] || "Topic 2";
+        this.attendance = this.periodResponse.attendanceDetails == 'Yes' ? true : false;
+      }, error => {
+        console.log(error);
+      });
   }
 
 }
