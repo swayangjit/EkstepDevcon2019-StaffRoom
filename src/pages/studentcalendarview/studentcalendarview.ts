@@ -124,6 +124,28 @@ export class StudentcalendarviewPage {
                               }
                           );
                       });
+                      temp.push({
+                        "start": date + "T09:00:00+00:00",
+                        "end": date + "T11:00:00+00:00",
+                        "text": "",
+                        "color": "#dedede",
+                        "data": { "class": res[0].grade, "subject": res[0].subject, "period": res[0].period }
+                    },
+                    {
+                        "start": date + "T09:00:00+00:00",
+                        "end": date + "T11:00:00+00:00",
+                        "text": "",
+                        "color": "#dedede",
+                        "data": { "class": res[0].grade, "subject": res[0].subject, "period": res[0].period }
+                    }
+                    ,
+                    {
+                        "start": date + "T12:00:00+00:00",
+                        "end": date + "T13:00:00+00:00",
+                        "text": "Lunch",
+                        "color": "#008000",
+                        "data": { "class": res[0].grade, "subject": res[0].subject, "period": res[0].period }
+                    });
                   }
                   
                   this.events = temp;
