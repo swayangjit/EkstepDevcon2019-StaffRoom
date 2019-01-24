@@ -5,7 +5,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { TeacherdayviewPage } from '../teacherdayview/teacherdayview';
 import { RestProvider } from '../../service/rest-provider';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
-import { EData, Telemetry } from '../../model/telemetry';
+import { EData, Telemetry, Dimension } from '../../model/telemetry';
 import { HttpClient } from '@angular/common/http';
 /**
  * Generated class for the QrscannerPage page.
@@ -141,16 +141,18 @@ export class QrscannerPage {
   generateStartEvent(visitorInfo): Telemetry {
 
     const edata: EData = { type: 'staffroom', mode: 'play' };
-    const telemetry: Telemetry = {
-      eid: 'DC_START',
-      did: this.uniqueId,
-      ets: (new Date).getTime(),
-      visitorId: visitorInfo.code,
+    const dimension :Dimension={visitorId: visitorInfo.code,
       visitorName: visitorInfo.name,
       teacherId: 'TCH1',
       stallId: 'STA3',
       stallName: 'STAFFROOM',
-      ideaId:'IDE10',
+      ideaId:'IDE10'};
+
+    const telemetry: Telemetry = {
+      eid: 'DC_START',
+      did: this.uniqueId,
+      ets: (new Date).getTime(),
+      dimensions:dimension,
       edata: edata
 
     }

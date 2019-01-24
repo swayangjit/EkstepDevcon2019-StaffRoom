@@ -2,13 +2,17 @@ export interface Telemetry{
         eid: string,
         ets: number,
         did: number,
+        dimensions:Dimension;
+        edata:EData
+}
+
+export interface Dimension{
         visitorId: string, // Visitor Id
         visitorName: string, // Visitor Name
         ideaId: string,
         teacherId:string,
         stallId: string, //Stall unique id
         stallName: string, //Stall Name - CLASSROOM, STAFFROOM, HOME
-        edata: EData,
         classroomId?: string, // Present only if stallId=CLASSROOM
         school?: string, // School Name
         district?: string, // District Name
@@ -16,9 +20,6 @@ export interface Telemetry{
         topics?: string[], // Topics covered by teacher
         subject?: string, // Teacher specific subject
         grade?: string, // Teacher specific grade 
-        content?: any,
-       
-    
 }
 
 export interface Interact{

@@ -194,46 +194,6 @@ export class TeacherdayviewPage implements OnInit {
             });
     }
 
-    // getPackagedContent(identifier: string) {
-    //     const request = {
-    //         "request": {
-    //             "content": {
-    //                 "mediaType": "content",
-    //                 "visibility": "Default",
-    //                 "description": "DevCon",
-    //                 "name": "TestBook1",
-    //                 "contentType": "TextBook",
-    //                 "createdBy": "visitorId",
-    //                 "code": "testbook1",
-    //                 "mimeType": "application/vnd.ekstep.content-collection",
-    //                 "framework": "devcon-appu",
-    //                 "children": [
-    //                     { "identifier": identifier }
-    //                 ]
-    //             }
-    //         }
-    //     };
-
-    //     const header = { headers: {'x-Channel-Id':'devcon.appu'} };
-    //     this.httpClient.post("https://dev.ekstep.in/api/content/v3/create",
-    //         request,header)
-    //         .subscribe(data => {
-    //             this.finalPackageId = data.result.node_id;
-    //             this.getPackageInformation(this.finalPackageId);
-    //         }, error => {
-    //             console.log(error);
-    //         });
-    // }
-
-    // getPackageInformation(packageId:string){
-    //     this.httpClient.get("https://dev.ekstep.in/api/content/v3/read/"+packageId)
-    //     .subscribe(data => {
-    //         console.log(data.result.content);
-
-    //     }, error => {
-    //         console.log(error);
-    //     });
-    // }
 
      formatDate(date) {
         var d = new Date(date),

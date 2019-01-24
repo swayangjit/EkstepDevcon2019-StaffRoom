@@ -72,4 +72,12 @@ export class AttendenceComponent {
     popover.present();
   }
 
+  getStatus(name):any{
+    for(var i=0;i<this.attendenceDetails.length;i++) {
+      if(this.attendenceDetails[i].studentId === name){
+        return this.attendenceDetails.present;
+      }
+    }
+  }
+
 }

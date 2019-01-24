@@ -134,7 +134,7 @@ export class AskappuPage {
         // this.done = false;
         // this.ref.detectChanges();
         if (data.result.content) {
-          this.getPackagedContent(data.result.content[0].identifier);          
+          this.getPackagedContent(data.result.content[0].identifier);
         }
 
       }, error => {
@@ -179,13 +179,13 @@ export class AskappuPage {
   publishContent(identifier: string) {
     const request = {
       "request": {
-        "content" : {
-          "lastPublishedBy" : "devcon"
+        "content": {
+          "lastPublishedBy": "devcon"
         }
       }
     };
 
-    this.httpClient.post("https://dev.ekstep.in/api/content/v3/publish/"+identifier,
+    this.httpClient.post("https://dev.ekstep.in/api/content/v3/publish/" + identifier,
       request)
       .subscribe((data: any) => {
         this.getPackageInformation(this.finalPackageId);
@@ -214,7 +214,7 @@ export class AskappuPage {
     const popover = this.popoverCtrl.create(DialogPopupComponent, {
       title: this.contentName,
       body: this.packageItem,
-      periodId:this.periodId
+      periodId: this.periodId
     }, {
         cssClass: 'popover-alert'
       });
@@ -245,6 +245,36 @@ export class AskappuPage {
 
       });
 
+  }
+
+  sendNotes(visitorId: string,
+    periodId: string,
+    grade: string,
+    subject: string,
+    teacherId: string,
+    student: string,
+    note: string) {
+    const request = {
+      "request": {
+        "ptm": {
+          "visitor": visitorId,
+          "period": periodId,
+          "grade": grade,
+          "subject": subject,
+          "teacher": teacherId,
+          "student": student,
+          "notes": note
+        }
+      }
+    };
+
+    this.httpClient.post(" https://dev.ekstep.in/api/ptm/v3/create",
+      request)
+      .subscribe((data: any) => {
+        
+      }, error => {
+        console.log(error);
+      });
   }
 
 
