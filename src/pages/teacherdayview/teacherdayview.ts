@@ -49,6 +49,7 @@ export class TeacherdayviewPage implements OnInit {
     events: any;
 
     ngOnInit() {
+        this.teacherId = 'TCH1';
     }
 
 
@@ -80,7 +81,7 @@ export class TeacherdayviewPage implements OnInit {
 
         },
         onSetDate: (event, inst) => {
-            this.teacherId = 'TCH1';
+         
             this.currentDate = event.date;
             this.getSearchIdentifiers();
         }
@@ -163,21 +164,21 @@ export class TeacherdayviewPage implements OnInit {
                         temp.push({
                             "start": date + "T09:00:00+00:00",
                             "end": date + "T11:00:00+00:00",
-                            "text": res[0].grade  +" &nbsp&nbsp&nbsp  " + res[0].subject,
+                            "text": "",
                             "color": "#dedede",
                             "data": { "class": res[0].grade, "subject": res[0].subject, "period": res[0].period }
                         },
                         {
                             "start": date + "T09:00:00+00:00",
                             "end": date + "T11:00:00+00:00",
-                            "text": res[0].grade  +" &nbsp&nbsp&nbsp  " + res[0].subject,
+                            "text": "",
                             "color": "#dedede",
                             "data": { "class": res[0].grade, "subject": res[0].subject, "period": res[0].period }
                         }
                         ,
                         {
                             "start": date + "T12:00:00+00:00",
-                            "end": date + "T1:00:00+00:00",
+                            "end": date + "T13:00:00+00:00",
                             "text": "Lunch",
                             "color": "#008000",
                             "data": { "class": res[0].grade, "subject": res[0].subject, "period": res[0].period }

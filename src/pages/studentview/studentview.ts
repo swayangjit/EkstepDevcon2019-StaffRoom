@@ -15,6 +15,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class StudentviewPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    console.log(navParams.get('data'));
   }
 
   ionViewDidLoad() {

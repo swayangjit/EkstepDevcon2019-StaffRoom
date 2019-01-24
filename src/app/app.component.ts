@@ -13,7 +13,7 @@ import { StudentviewPage } from '../pages/studentview/studentview';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomeUserFlowPage;
+  rootPage:any = TeacherdayviewPage;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       statusBar.styleDefault();

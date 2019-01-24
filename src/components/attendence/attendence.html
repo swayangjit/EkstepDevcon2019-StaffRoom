@@ -15,8 +15,9 @@
             </ion-avatar>
             <h1>{{name}}</h1>
             <div>
-            <p *ngIf="status==='Yes'"><ion-icon name="hand" class="present"></ion-icon> Present</p>  
-            <p *ngIf="status==='No'"><ion-icon name="hand" class="absent"></ion-icon> Absent</p>
+                <ion-icon [color]="status==='Yes' ? 'secondary' : 'danger'" name="hand"></ion-icon>
+            <!-- <p *ngIf="status==='Yes'"><ion-icon name="hand" class="present"></ion-icon> Present</p>  
+            <p *ngIf="status==='No'"><ion-icon name="hand" class="absent"></ion-icon> Absent</p> -->
           </div>
         </ion-item>
     </ion-card>
