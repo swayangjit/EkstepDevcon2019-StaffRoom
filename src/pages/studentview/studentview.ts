@@ -1,6 +1,7 @@
 import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content, PopoverController } from 'ionic-angular';
 import { DialogPopupComponent } from '../../components/dialog-popup/dialog-popup';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Generated class for the StudentviewPage page.
@@ -21,12 +22,42 @@ export class StudentviewPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private ref: ChangeDetectorRef,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private httpClient:HttpClient
   ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StudentviewPage');
+    this.getRecommendedContent1();
+  }
+
+  getRecommendedContent1() {
+    const request = {
+      "request": { 
+          "filters":{
+              "objectType": "Content",
+              "topic": ["Types of Birds"],
+              "keywords": ["dc_secondary", "dc_practise"],
+              "status":[]
+          },
+          "limit":20,
+          "fields" :["identifier"],
+          "sort_by":{"lastUpdatedOn":"desc"}
+          
+      }
+  }
+    this.httpClient.post("https://dev.ekstep.in/api/search/v3/search",
+      request)
+      .subscribe((data: any) => {
+        console.log(data);
+        if (data.result.content) {
+        }
+
+      }, error => {
+        console.log(error);
+      });
+    this.ref.detectChanges();
   }
 
   getRecommendedContent() {
