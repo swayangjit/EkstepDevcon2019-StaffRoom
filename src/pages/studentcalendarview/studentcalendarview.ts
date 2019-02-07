@@ -5,27 +5,16 @@
  * Ionic pages and navigation.
  */
 
-import { Component, OnInit } from '@angular/core';
-import { mobiscroll, MbscEventcalendarOptions } from '@mobiscroll/angular';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ViewChild, ElementRef } from '@angular/core';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
-import { Platform, Content, ViewController } from 'ionic-angular';
-import { DetailviewPage } from '../detailview/detailview'
+import { QRScanner } from '@ionic-native/qr-scanner';
+import { Platform, ViewController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
-import { AskappuPage } from '../askappu/askappu';
-import { RestProvider } from '../../service/rest-provider';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RequestOptions } from '@angular/http';
-import { AppConstnats } from '../../app/app-constants';
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef } from '@angular/core';
-import { PerioddetailsPage } from '../perioddetails/perioddetails';
-import { EData, Telemetry } from '../../model/telemetry';
 import { StudentviewPage } from '../studentview/studentview';
 
-mobiscroll.settings = {
-    theme: 'material'
-};
 
 @Component({
   selector: 'page-studentcalendarview',
@@ -59,42 +48,6 @@ export class StudentcalendarviewPage {
 
   ngOnInit() {
   }
-
-
-  dailySettings: MbscEventcalendarOptions = {
-      display: 'inline',
-      view: {
-          eventList: { type: 'day' }
-      },
-      onEventSelect: (event, inst) => {
-          this.navCtrl.push(StudentviewPage,{
-            data: event,
-            studentId: this.studentId
-          });
-
-      },
-      onSetDate: (event, inst) => {
-          this.teacherId = 'TCH1';
-          this.currentDate = event.date;
-          this.getSearchIdentifiers();
-      }
-  };
-
-  weeklySettings: MbscEventcalendarOptions = {
-      display: 'inline',
-      view: {
-          eventList: { type: 'week' }
-      }
-  };
-
-  monthlySettings: MbscEventcalendarOptions = {
-      display: 'inline',
-      view: {
-          eventList: { type: 'month' }
-      }
-  };
-
- 
  
 
   handleBackButton() {

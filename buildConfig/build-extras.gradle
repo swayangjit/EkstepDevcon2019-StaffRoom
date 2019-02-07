@@ -1,0 +1,130 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
+        maven { url 'https://maven.google.com' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.25.1'
+    }
+}
+
+repositories {
+    maven {
+        url 'https://maven.google.com/'
+    }
+}
+
+apply plugin: com.crashlytics.tools.gradle.CrashlyticsPlugin
+
+allprojects {
+    repositories {
+        maven {
+            url "https://maven.google.com"
+        }
+        jcenter()
+
+        maven {
+            url "https://platform.ekstep.in/downloads/content/repositories/releases"
+        }
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    // task verifyAppId {
+    //     doFirst {
+    //         println("Application Id : ${app_id}")
+
+    //         if (app_id.isEmpty()) {
+    //             throw new GradleException("'app_id' is Emptry")
+    //         }
+
+    //         if (app_id.equalsIgnoreCase("org.sunbird.app")) {
+    //             throw new GradleException("Don't use app_id as 'org.sunbird.app'")
+    //         }
+    //     }
+    // }
+    // verifyAppId.execute()
+}
+
+repositories {
+  maven { url 'https://maven.fabric.io/public' }
+}
+
+ext {
+    // To make minimum SDK as 21
+    // cdvMinSdkVersion = null
+}
+
+android {
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+        ext.buildNumber = System.getenv("TRAVIS_BUILD_NUMBER") ?: "local"
+        versionName "2.0.$ext.buildNumber"
+       resValue("string", "deeplink_base_url", "ekstep")
+       buildConfigField 'String', 'TELEMETRY_BASE_URL', "\"${"https://dev.ekstep.in/api/data/v1"}\""
+       buildConfigField 'String', 'DEVICE_REGISTER_BASE_URL', "\"${"https://dev.ekstep.in/v3/device"}\""
+      buildConfigField 'String', 'CHANNEL_ID', "\"${"sunbird"}\""
+                  buildConfigField 'String', 'PRODUCER_ID', "\"${"sunbirdekstep"}\""
+
+
+    }
+
+    signingConfigs {
+        release {
+
+        }
+    }
+
+    buildTypes {
+        release {
+            buildConfigField "boolean", "USE_CRASHLYTICS", "true"
+            ext.enableCrashlytics = true
+        }
+        debug{
+            buildConfigField "boolean", "USE_CRASHLYTICS", "false"
+            ext.enableCrashlytics = false
+        }
+    }
+
+    flavorDimensions "default"
+
+    
+
+    
+    applicationVariants.all { variant ->
+        def flavor = variant.mergedFlavor
+        def name = flavor.getVersionName()
+        def flavorName = variant.properties.get('flavorName')
+        def versionName = name
+
+       
+        if (variant.buildType.isDebuggable()) {
+            versionName += '-debug';
+        }
+        flavor.versionName = versionName;
+        variant.outputs.each { output ->
+            output.outputFileName = new File(output.outputFile.parent, "devcon-mobile-".toLowerCase() + versionName + ".apk")
+            // output.outputFileName = "${variant.name}-${variant.versionName}.apk"
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "org.ekstep.genieservices:genie-providers:1.0.914"
+    compile "org.ekstep.genieservices:genie-integration:1.0.914"
+   
+   
+}

@@ -1,4 +1,3 @@
-import { MbscModule } from '@mobiscroll/angular';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -48,7 +47,6 @@ import { SendNoteComponent } from '../components/send-note/send-note';
     SendNoteComponent
   ],
   imports: [ 
-    MbscModule, 
     FormsModule, HttpModule,HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
