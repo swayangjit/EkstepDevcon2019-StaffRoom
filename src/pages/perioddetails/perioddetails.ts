@@ -81,7 +81,7 @@ export class PerioddetailsPage {
       }
     });
     this.associations = this.navParams.get('association');
-     // this.associations = 'Smell';
+    // this.associations = 'Smell';
     // this.getPeriodDetails(this.data.period, this.data.class, date, this.teacherId);
     this.handleBackButton();
   }
@@ -233,23 +233,23 @@ export class PerioddetailsPage {
 
   openHeatMapForPerformance() {
     let request = {};
-    request['topic'] = 'Smell' // this.associations; 
+    request['topic'] = this.associations;
     let body = {
       request: request
     }
-    console.log('request is =>' , body);
-    this.httpClient.post('https://dev.ekstep.in/api/dialcode/v3/period/read ' , body)
-    .subscribe((res)=>{
-      console.log('response is =>' , res);
-      
-      this.details = res['performanceDetails'];
-      this.presentPopOver(this.details );
-      console.log('details', this.details);
-      this.avgPerformance = this.getAverage(res['performanceDetails']);
-      console.log(this.avgPerformance);
-      console.log(statsHeatMap);
-    })
-    
+    console.log('request is =>', body);
+    this.httpClient.post('https://dev.ekstep.in/api/dialcode/v3/period/read ', body)
+      .subscribe((res) => {
+        console.log('response is =>', res);
+
+        this.details = res['performanceDetails'];
+        this.presentPopOver(this.details);
+        console.log('details', this.details);
+        this.avgPerformance = this.getAverage(res['performanceDetails']);
+        console.log(this.avgPerformance);
+        console.log(statsHeatMap);
+      })
+
   }
   presentPopOver(details) {
     const popover = this.popoverCtrl.create(ReportAlertComponent, {
@@ -302,20 +302,20 @@ export class PerioddetailsPage {
   }
 
   startQuiz(quiz) {
+    this.playing = true;
     this.httpClient.get(`https://still-wildwood-30783.herokuapp.com/quiz/start/${quiz.identifier}`)
       .subscribe((response) => {
-        this.playing = true;        
         let interval = setInterval(() => {
           this.quizStatus().subscribe((res) => {
             console.log('quiz status =>', res);
             if (res && res['quizStatus'] === 'STARTED' || res['quizStatus'] === 'IN_PROGRESS') {
               this.playing = true;
             } else {
-              this.zone.run(()=>{
-               this.playing = false;
-              this.activePerformance = true;
-              clearInterval(interval);
-            })
+              this.zone.run(() => {
+                this.playing = false;
+                this.activePerformance = true;
+                clearInterval(interval);
+              })
             }
           })
         }, 4000);
