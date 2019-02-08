@@ -1,6 +1,6 @@
 import { ReportAlertComponent } from './../../components/report-alert/report-alert';
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, PopoverController, Events, Platform, ViewController, IonicApp, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, PopoverController, Events, Platform, ViewController, IonicApp, LoadingController, AlertController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 //import { AttendancePage } from '../attendance/attendance';
 //import { ReportAlertComponent } from '../../components/report-alert/report-alert';
@@ -43,6 +43,10 @@ export class PerioddetailsPage {
   revise: any;
   associations;
   details: any;
+  count = 0;
+  activePortal
+  playing
+  activePerformance = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public httpClient: HttpClient, private modalCtrl: ModalController, private popoverCtrl: PopoverController,
     public events: Events,
@@ -50,7 +54,8 @@ export class PerioddetailsPage {
     private viewCtrl: ViewController,
     private ionicApp: IonicApp,
     private loadingCtrl: LoadingController,
-    private zone: NgZone) {
+    private zone: NgZone,
+    private alertCtrl: AlertController) {
     this.getApiResponse();
     // this.data = this.navParams.get('data');
 
@@ -103,6 +108,16 @@ export class PerioddetailsPage {
         break;
     }
 
+  }
+
+  showPlayingAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Playing....',
+      // subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
+      // buttons: ['OK']
+      //enableBackdropDismiss : false
+    });
+    alert.present();
   }
 
   ionViewDidLoad() {
@@ -281,6 +296,30 @@ export class PerioddetailsPage {
       this.backButtonFunc();
     }, 10);
 
+  }
+  quizStatus() {
+    return this.httpClient.get('https://still-wildwood-30783.herokuapp.com/quiz/status');
+  }
+
+  startQuiz(quiz) {
+    this.httpClient.get(`https://still-wildwood-30783.herokuapp.com/quiz/start/${quiz.identifier}`)
+      .subscribe((response) => {
+        this.playing = true;        
+        let interval = setInterval(() => {
+          this.quizStatus().subscribe((res) => {
+            console.log('quiz status =>', res);
+            if (res && res['quizStatus'] === 'STARTED' || res['quizStatus'] === 'IN_PROGRESS') {
+              this.playing = true;
+            } else {
+              this.zone.run(()=>{
+               this.playing = false;
+              this.activePerformance = true;
+              clearInterval(interval);
+            })
+            }
+          })
+        }, 4000);
+      })
   }
   alert(contentData) {
     console.log('content data =>', contentData);
