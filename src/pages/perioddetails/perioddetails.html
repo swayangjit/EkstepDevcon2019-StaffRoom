@@ -79,15 +79,21 @@
       </ion-card>
     </ion-col> -->
     <ion-col class="p-0">
-      <ion-card padding>
+      <ion-card padding *ngIf="!activePerformance">
         <div class="st-analysis-item" (click)="openMap()">
           <ion-icon name="stats" class="mr-10 tertiary-color"></ion-icon>
           <div class="lb-value stats py-5" id="PerformanceID">{{avgPerformance}} %</div>
-          <div class="lb-title" *ngIf="!activePerformance">Performance</div>
-          <div class="lb-title" style="color:blue" *ngIf="activePerformance">Performance</div>
-
+          <div class="lb-title" >Performance</div>
         </div>
       </ion-card>
+      <ion-card padding *ngIf="activePerformance" style="border:2px solid #427feb">
+          <div class="st-analysis-item" (click)="openMap()">
+            <ion-icon name="stats" class="mr-10 tertiary-color"></ion-icon>
+            <div class="lb-value stats py-5" id="PerformanceID">{{avgPerformance}} %</div>
+            <div class="lb-title" style="color:blue">Performance</div>
+  
+          </div>
+        </ion-card>
     </ion-col>
   </ion-row>
 
