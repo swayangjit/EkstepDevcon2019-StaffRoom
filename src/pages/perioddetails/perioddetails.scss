@@ -1,4 +1,20 @@
 page-perioddetails {
+    .col-inside {
+        padding: 0;
+    }
+    .alignment {
+        text-align:center;
+        padding: 3px;
+        height: 55px;
+        margin-top: 15px;
+    }
+    .btn-card{
+        padding: 0;
+        border-radius: 11px;
+    }
+    .new-div {
+        margin-bottom: 0;
+    }
     .pl-16 {
         padding-left: 16px;
     }
@@ -12,6 +28,12 @@ page-perioddetails {
         font-size: 12px;
         margin-bottom: 6px;
         text-transform: uppercase;
+    }
+    .lb-title-new{
+        font-weight: lighter;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-top: 7px;
     }
  
     .lb-value {
@@ -38,8 +60,8 @@ page-perioddetails {
         bottom: 0;
     }
     .appu-image {
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
         position: absolute;
         right: 5px;
         bottom: 0;

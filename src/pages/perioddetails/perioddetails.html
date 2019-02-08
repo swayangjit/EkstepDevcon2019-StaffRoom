@@ -24,8 +24,8 @@
       <ion-col class="flex">
         <ion-icon name="book" class="mr-10"></ion-icon>
         <div class="st-analysis-item">
-          <div class="lb-title">Subject</div>
-          <div id="SubjectId" class="lb-value">{{periodResponse?.subject}}</div>
+          <div class="lb-title">Topic</div>
+          <div id="SubjectId" class="lb-value">{{associations}}</div>
         </div>
       </ion-col>
     </ion-row>
@@ -39,7 +39,7 @@
         </div>
       </ion-col>
     </ion-row>
-    <ion-row class="st-analysis">
+    <!-- <ion-row class="st-analysis">
       <ion-col class="flex">
         <ion-icon name="people" class="mr-10"></ion-icon>
         <div class="st-analysis-item">
@@ -55,7 +55,7 @@
           <div class="lb-value" id="SubjectId" *ngIf="!date">24-01-2019 (01:00PM - 06:00PM)</div>
         </div>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-card>
 
   <ion-row class="student-stats" *ngIf='studentStatistics'>
@@ -79,22 +79,16 @@
     </ion-col> -->
     <ion-col class="p-0">
       <ion-card padding>
-        <ion-row>
-          <ion-col col-1>
-            <ion-icon name="analytics" class="mr-10 tertiary-color"></ion-icon>
-          </ion-col>
-          <ion-col col-11>
-            <div class="st-analysis-item" (click)="openHeatMapForPerformance()">
-              <div class="lb-value stats py-5" id="PerformanceID">{{avgPerformance}} %</div>
-              <div class="lb-title">Performance</div>
-            </div>
-          </ion-col>
-        </ion-row>
+        <div class="st-analysis-item" (click)="openHeatMapForPerformance()">
+          <ion-icon name="stats" class="mr-10 tertiary-color"></ion-icon>
+          <div class="lb-value stats py-5" id="PerformanceID">70 %</div>
+          <div class="lb-title">Performance</div>
+        </div>
       </ion-card>
     </ion-col>
   </ion-row>
 
-  <ion-row>
+  <!-- <ion-row>
     <ion-col>
       <ion-card>
         <ion-card-header>
@@ -127,6 +121,40 @@
         <ion-card-header>
           <div (click)="alert(quiz)">Start Quiz</div>
         </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row> -->
+  <ion-row class="browse-diksha-btn">
+    <ion-col size="4" class="col-inside">
+      <ion-card class="btn-card" (click)="alert(revise)">
+        <div class="alignment">
+          <ion-icon name="sync" class="mr-7 primary-color"></ion-icon>
+          <div class="lb-title-new">Revise</div>
+        </div>
+      </ion-card>
+    </ion-col>
+    <ion-col size="4" class="col-inside">
+      <ion-card class="btn-card" (click)="alert(recall)">
+        <div class="alignment">
+          <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
+          <div class="lb-title-new">Recall</div>
+        </div>
+      </ion-card>
+    </ion-col>
+    <ion-col size="4" class="col-inside">
+      <ion-card class="btn-card" (click)="alert(practise)">
+        <div class="alignment">
+          <ion-icon name="wifi" class="mr-7 primary-color"></ion-icon>
+          <div class="lb-title-new">Practice</div>
+        </div>
+      </ion-card>
+    </ion-col>
+    <ion-col size="4" class="col-inside">
+      <ion-card class="btn-card" (click)="alert(quiz)">
+        <div class="alignment">
+          <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
+          <div class="lb-title-new"> Start Quiz</div>
+        </div>
       </ion-card>
     </ion-col>
   </ion-row>
