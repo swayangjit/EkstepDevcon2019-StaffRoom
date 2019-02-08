@@ -231,25 +231,27 @@ export class PerioddetailsPage {
   //   });
   // }
 
+  openMap() {
+    this.presentPopOver(this.details);
+  }
+
   openHeatMapForPerformance() {
     let request = {};
     request['topic'] = this.associations;
     let body = {
       request: request
     }
-    console.log('request is =>', body);
-    this.httpClient.post('https://dev.ekstep.in/api/dialcode/v3/period/read ', body)
-      .subscribe((res) => {
-        console.log('response is =>', res);
-
-        this.details = res['performanceDetails'];
-        this.presentPopOver(this.details);
-        console.log('details', this.details);
-        this.avgPerformance = this.getAverage(res['performanceDetails']);
-        console.log(this.avgPerformance);
-        console.log(statsHeatMap);
-      })
-
+    console.log('request is =>' , body);
+    this.httpClient.post('https://dev.ekstep.in/api/dialcode/v3/period/read ' , body)
+    .subscribe((res)=>{
+      console.log('response is =>' , res);
+      this.details = res['performanceDetails'];
+      console.log('details', this.details);
+      this.avgPerformance = this.getAverage(res['performanceDetails']);
+      console.log(this.avgPerformance);
+      console.log(statsHeatMap);
+    })
+    
   }
   presentPopOver(details) {
     const popover = this.popoverCtrl.create(ReportAlertComponent, {
@@ -339,6 +341,10 @@ export class PerioddetailsPage {
       duration: 30000,
       spinner: 'crescent'
     });
+  }
+
+  ionViewWillEnter() {
+    this.openHeatMapForPerformance();
   }
 }
 
