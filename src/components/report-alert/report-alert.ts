@@ -34,7 +34,7 @@ export class ReportAlertComponent {
     this.pageName = this.navParams.get("pageName");
     this.data = this.navParams.get("heatMapData").map( (item) => ({
       country: item.studentId,
-      product: item.topics,
+      product: item.rate,
       value: item.rate
     }));
   }
@@ -104,6 +104,8 @@ export class ReportAlertComponent {
         return '#4F94CD	';
         } else if(d.value && d.value > 74 && d.value <=100 ){
           return '#1874CD';
+        } else if(!d.value) {
+          return '#ddd';
         }
       });
 

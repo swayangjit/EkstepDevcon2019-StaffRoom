@@ -26,7 +26,7 @@ export class PerioddetailsPage {
   topics = [];
   topic;
   avgEngagement: any;
-  avgPerformance: any;
+  avgPerformance;
   avgAttendence: any;
   date: Date;
   studentSize = 5;
@@ -41,7 +41,8 @@ export class PerioddetailsPage {
   quiz: any;
   recall: any;
   revise: any;
-  associations
+  associations;
+  details: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public httpClient: HttpClient, private modalCtrl: ModalController, private popoverCtrl: PopoverController,
     public events: Events,
@@ -74,7 +75,8 @@ export class PerioddetailsPage {
         console.log(res);
       }
     });
-     this.associations = this.navParams.get('association');
+    this.associations = this.navParams.get('association');
+     // this.associations = 'Smell';
     // this.getPeriodDetails(this.data.period, this.data.class, date, this.teacherId);
     this.handleBackButton();
   }
@@ -146,10 +148,10 @@ export class PerioddetailsPage {
 
       }, error => {
         console.log('error is', error);
-        this.topic = this.topics.join(' , ');
-        this.avgAttendence = 100;//this.periodResponse.attendance;
-        this.avgEngagement = 85;//this.getAverage(this.periodResponse.engagementDetails);
-        this.avgPerformance = 70;//this.getAverage(this.periodResponse.performanceDetails);
+        // this.topic = this.topics.join(' , ');
+        // this.avgAttendence = 100;//this.periodResponse.attendance;
+        // this.avgEngagement = 85;//this.getAverage(this.periodResponse.engagementDetails);
+        // this.avgPerformance = 70;//this.getAverage(this.periodResponse.performanceDetails);
       });
   }
 
@@ -216,7 +218,7 @@ export class PerioddetailsPage {
 
   openHeatMapForPerformance() {
     let request = {};
-    request['topic'] = this.associations; 
+    request['topic'] = 'Smell' // this.associations; 
     let body = {
       request: request
     }
@@ -224,16 +226,26 @@ export class PerioddetailsPage {
     this.httpClient.post('https://dev.ekstep.in/api/dialcode/v3/period/read ' , body)
     .subscribe((res)=>{
       console.log('response is =>' , res);
+      
+      this.details = res['performanceDetails'];
+      this.presentPopOver(this.details );
+      console.log('details', this.details);
+      this.avgPerformance = this.getAverage(res['performanceDetails']);
+      console.log(this.avgPerformance);
+      console.log(statsHeatMap);
     })
-
+    
+  }
+  presentPopOver(details) {
     const popover = this.popoverCtrl.create(ReportAlertComponent, {
-      heatMapData: statsHeatMap,//this.periodResponse.performanceDetails,
+      heatMapData: details,
       title: "Performance Report",
       pageName: "Performance"
     }, {
         cssClass: 'popover-alert'
       });
     popover.present();
+
   }
 
   // openAttendenceReport() {
