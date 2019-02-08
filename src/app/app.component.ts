@@ -3,11 +3,12 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PerioddetailsPage } from '../pages/perioddetails/perioddetails';
+import { SubjectListPage } from '../pages/subject-list/subject-list';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = PerioddetailsPage;
+  rootPage: any = SubjectListPage;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       statusBar.styleDefault();

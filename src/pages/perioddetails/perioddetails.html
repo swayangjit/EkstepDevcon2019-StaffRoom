@@ -1,8 +1,9 @@
 <ion-header class="bg-primary white">
   <ion-navbar>
-    <ion-title>
+    <ion-title *ngIf="!associations">
       Class
     </ion-title>
+    <ion-title *ngIf="associations">{{associations}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="openModal()">
         <ion-icon name="more" end></ion-icon>

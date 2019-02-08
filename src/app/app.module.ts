@@ -28,6 +28,7 @@ import { StudentviewPage } from '../pages/studentview/studentview';
 import { AttendenceComponent } from '../components/attendence/attendence';
 import { StudentcalendarviewPage } from '../pages/studentcalendarview/studentcalendarview';
 import { SendNoteComponent } from '../components/send-note/send-note';
+import { SubjectListPage } from '../pages/subject-list/subject-list';
  
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { SendNoteComponent } from '../components/send-note/send-note';
     ChildDetailsPage,HomeqrscannerPage,
     AttendenceComponent,
     HomeqrscannerPage,StudentviewPage,StudentcalendarviewPage,
-    SendNoteComponent
+    SendNoteComponent,
+    SubjectListPage
   ],
   imports: [ 
     FormsModule, HttpModule,HttpClientModule,
@@ -67,7 +69,8 @@ import { SendNoteComponent } from '../components/send-note/send-note';
     HomeqrscannerPage,
     ChildDetailsPage,
     AttendenceComponent,HomeqrscannerPage,StudentviewPage,StudentcalendarviewPage,
-    SendNoteComponent
+    SendNoteComponent,
+    SubjectListPage
   ],
   providers: [
     StatusBar,
