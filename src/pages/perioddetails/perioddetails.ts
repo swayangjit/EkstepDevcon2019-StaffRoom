@@ -46,6 +46,7 @@ export class PerioddetailsPage {
   count = 0;
   activePortal
   playing
+  description
   activePerformance = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public httpClient: HttpClient, private modalCtrl: ModalController, private popoverCtrl: PopoverController,
@@ -81,7 +82,9 @@ export class PerioddetailsPage {
       }
     });
     this.associations = this.navParams.get('association');
-    // this.associations = 'Smell';
+    this.description = this.navParams.get('description')
+    console.log('description is =>' , this.description);
+     // this.associations = 'Smell';
     // this.getPeriodDetails(this.data.period, this.data.class, date, this.teacherId);
     this.handleBackButton();
   }

@@ -48,7 +48,8 @@ export class SubjectListPage {
   navigatePeriodDetailsPage(association){
     console.log('associations =>' , association.name);
     this.navCtrl.push(PerioddetailsPage , {
-      association:association.name
+      association:association.name,
+      description: association.description
     });
   }
   getSubjectList() {
