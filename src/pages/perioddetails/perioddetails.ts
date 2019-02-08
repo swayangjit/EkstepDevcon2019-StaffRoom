@@ -83,7 +83,7 @@ export class PerioddetailsPage {
     this.associations = this.navParams.get('association');
      // this.associations = 'Smell';
     // this.getPeriodDetails(this.data.period, this.data.class, date, this.teacherId);
-    // this.handleBackButton();
+    this.handleBackButton();
   }
 
   getTopicsArray(periodId) {
@@ -283,20 +283,20 @@ export class PerioddetailsPage {
 
   }
 
-  // handleBackButton() {
-  //   this.backButtonFunc = this.platform.registerBackButtonAction(() => {
-  //     const activePortal = this.ionicApp._modalPortal.getActive() ||
-  //       this.ionicApp._toastPortal.getActive() ||
-  //       this.ionicApp._overlayPortal.getActive();
-  //     if (activePortal) {
-  //       activePortal.dismiss();
-  //     } else if (this.navCtrl.canGoBack()) {
-  //       this.navCtrl.pop();
-  //     }
-  //     this.backButtonFunc();
-  //   }, 10);
+  handleBackButton() {
+    this.backButtonFunc = this.platform.registerBackButtonAction(() => {
+      const activePortal = this.ionicApp._modalPortal.getActive() ||
+        this.ionicApp._toastPortal.getActive() ||
+        this.ionicApp._overlayPortal.getActive();
+      if (activePortal) {
+        activePortal.dismiss();
+      } else if (this.navCtrl.canGoBack()) {
+        this.navCtrl.pop();
+      }
+      this.backButtonFunc();
+    }, 10);
 
-  // }
+  }
   quizStatus() {
     return this.httpClient.get('https://still-wildwood-30783.herokuapp.com/quiz/status');
   }
