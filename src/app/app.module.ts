@@ -29,6 +29,7 @@ import { AttendenceComponent } from '../components/attendence/attendence';
 import { StudentcalendarviewPage } from '../pages/studentcalendarview/studentcalendarview';
 import { SendNoteComponent } from '../components/send-note/send-note';
 import { SubjectListPage } from '../pages/subject-list/subject-list';
+import { ReportMapPage } from '../pages/report-map/report-map';
  
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SubjectListPage } from '../pages/subject-list/subject-list';
     AttendenceComponent,
     HomeqrscannerPage,StudentviewPage,StudentcalendarviewPage,
     SendNoteComponent,
-    SubjectListPage
+    SubjectListPage,
+    ReportMapPage
   ],
   imports: [ 
     FormsModule, HttpModule,HttpClientModule,
@@ -70,7 +72,8 @@ import { SubjectListPage } from '../pages/subject-list/subject-list';
     ChildDetailsPage,
     AttendenceComponent,HomeqrscannerPage,StudentviewPage,StudentcalendarviewPage,
     SendNoteComponent,
-    SubjectListPage
+    SubjectListPage,
+    ReportMapPage
   ],
   providers: [
     StatusBar,

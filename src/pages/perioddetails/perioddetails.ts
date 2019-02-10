@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 //import { AskappuPage } from '../askappu/askappu';
 // import { AttendenceComponent } from '../../components/attendence/attendence';
 import { statsHeatMap } from '../../data/data';
+import { ReportMapPage } from '../report-map/report-map';
 // import { request } from 'https';
 
 /**
@@ -257,15 +258,11 @@ export class PerioddetailsPage {
     
   }
   presentPopOver(details) {
-    const popover = this.popoverCtrl.create(ReportAlertComponent, {
+    this.navCtrl.push(ReportMapPage, {
       heatMapData: details,
       title: "Performance Report",
       pageName: "Performance"
-    }, {
-        cssClass: 'popover-alert'
-      });
-    popover.present();
-
+    });
   }
 
   // openAttendenceReport() {
