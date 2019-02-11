@@ -47,6 +47,7 @@ export class PerioddetailsPage {
   count = 0;
   activePortal
   playing
+  parent = true;
   cardData: any;
   description
   performance
@@ -206,8 +207,6 @@ export class PerioddetailsPage {
         }
         else if(item.usecase === 'teach'){
           this.cardData = item;
-      console.log('card data =>' , this.cardData);
-
         }
 
       });
@@ -254,7 +253,7 @@ export class PerioddetailsPage {
     let body = {
       request: request
     }
-    console.log('request is =>', body);
+    console.log('open heat map performance =>', body);
     this.httpClient.post('https://dev.ekstep.in/api/dialcode/v3/period/read ', body)
       .subscribe((res) => {
         console.log('response is =>', res);
