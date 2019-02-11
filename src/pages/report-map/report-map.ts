@@ -55,7 +55,7 @@ export class ReportMapPage {
       cellSize = itemSize - 1,
       margin = { top: 80, right: 5, bottom: 5, left: 140 };
 
-    var width = 350 - margin.right - margin.left,
+    var width = 550 - margin.right - margin.left,
       height = 700 - margin.top - margin.bottom;
 
     var formatDate = d3.time.format("%Y-%m-%d");
@@ -145,15 +145,20 @@ export class ReportMapPage {
   }
 
   calculate(num) {
-    if(num<100 && num >80){
+    if(num>=80 && num <=100){
+      console.log('inside 90');
       return 90;
-    } else if(num<80 && num >60) {
+    } else if(num>=60 && num <80) {
+      console.log('inside 70');
       return 70;
-    }  else if(num<60 && num >40) {
+    }  else if(num>=40 && num <60) {
+      console.log('inside 50');
       return 50;
-    } else if(num<40 && num >20) {
+    } else if(num>=20 && num <40) {
+      console.log('inside 30');
       return 30;
-    } else if(num<20 && num >=0) {
+    } else if(num>=0 && num <20) {
+      console.log('inside 10');
       return 10;
     }
    }
