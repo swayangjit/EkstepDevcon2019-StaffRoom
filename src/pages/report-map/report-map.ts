@@ -15,7 +15,8 @@ import { statsHeatMap } from '../../data/data';
   selector: 'page-report-map',
   templateUrl: 'report-map.html',
 })
-export class ReportMapPage {itemSize: number;
+export class ReportMapPage {
+    itemSize: number;
   cellSize: number;
   margin: any;
   width: number;
@@ -36,10 +37,10 @@ export class ReportMapPage {itemSize: number;
   @ViewChild('reportcanvas')
   private reportCanvas: ElementRef
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { 
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.title = this.navParams.get("title");
     this.pageName = this.navParams.get("pageName");
-    this.data = this.navParams.get("heatMapData").map( (item) => ({
+    this.data = this.navParams.get("heatMapData").map((item) => ({
       country: item.studentId,
       product: item.rate,
       value: item.rate
@@ -50,26 +51,33 @@ export class ReportMapPage {itemSize: number;
     this.draw();
   }
   draw() {
-    var itemSize = 20,
+    var itemSize = 25,
       cellSize = itemSize - 1,
-      margin = { top: 80, right: 5, bottom: 5, left: 120 };
+      margin = { top: 80, right: 5, bottom: 5, left: 130 };
 
-    var width = 300 - margin.right - margin.left,
-      height =450 - margin.top - margin.bottom;
+    var width = 650 - margin.right - margin.left,
+      height = 700 - margin.top - margin.bottom;
 
     var formatDate = d3.time.format("%Y-%m-%d");
 
-    var x_elements = d3.set(this.data.map( (item) => { return item.product; })).values(),
-      y_elements = d3.set(this.data.map( (item) => { return item.country; })).values();
+    var x_elements = d3.set(this.data.map((item) => { return item.product; })).values()
+      var y_elements = d3.set(this.data.map((item) => { return item.country; })).values();
+
+    // x_elements = x_elements.map(v => parseFloat(v));
+    // x_elements.sort(function (a, b) { return a - b });
+
 
     var xScale = d3.scale.ordinal()
       .domain(x_elements)
       .rangeBands([0, x_elements.length * itemSize]);
 
+      var xTempScale = d3.scale.linear()
+     .domain([0, 100]).range([0, 100]);
+
     var xAxis = d3.svg.axis()
-      .scale(xScale)
-      .tickFormat( (d) => {
-        return d;
+      .scale(d3.scale.linear().range([0, x_elements.length * itemSize]))
+      .tickFormat((d) => {
+        return d*100+"";
       })
       .orient("top");
 
@@ -85,7 +93,7 @@ export class ReportMapPage {itemSize: number;
       .orient("left");
 
     var colorScale = d3.scale.threshold()
-      .domain([0,100])
+      .domain([0, 100])
       .range(["rgb(165,42,42)", "#E67E22", "rgb(0,128,0)"]);
 
     var svg = d3.select(this.reportCanvas.nativeElement)
@@ -101,17 +109,17 @@ export class ReportMapPage {itemSize: number;
       .attr('class', 'cell')
       .attr('width', cellSize)
       .attr('height', cellSize)
-      .attr('y', function (d) { return yScale(d.country) ; })
-      .attr('x', function (d) { return xScale(d.product); })
-      .attr('fill', function (d) { 
+      .attr('y', function (d) { return yScale(d.country); })
+      .attr('x', function (d) { return xTempScale( Math.round(d.value * 2) )})
+      .attr('fill', function (d) {
         // return d.value ? colorScale(d.value) : '#ededed' as any; 
-        if(d.value && d.value <= 50) {
+        if (d.value && d.value <= 50) {
           return '#87CEEB';
-        } else if(d.value && d.value > 50 && d.value <=74 ){
-        return '#4F94CD	';
-        } else if(d.value && d.value > 74 && d.value <=100 ){
+        } else if (d.value && d.value > 50 && d.value <= 74) {
+          return '#4F94CD	';
+        } else if (d.value && d.value > 74 && d.value <= 100) {
           return '#1874CD';
-        } else if(!d.value) {
+        } else if (!d.value) {
           return '#ddd';
         }
       });
@@ -124,7 +132,7 @@ export class ReportMapPage {itemSize: number;
 
     svg.append("g")
       .attr("class", "x axis")
-      .call(xAxis)
+      .call(xAxis.ticks(5))
       .selectAll('text')
       .attr('font-weight', 'normal')
       .style("text-anchor", "start")
