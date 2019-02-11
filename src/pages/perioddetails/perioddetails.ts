@@ -47,8 +47,9 @@ export class PerioddetailsPage {
   count = 0;
   activePortal
   playing
-  extraInfo
+  cardData: any;
   description
+  performance
   activePerformance = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public httpClient: HttpClient, private modalCtrl: ModalController, private popoverCtrl: PopoverController,
@@ -85,8 +86,8 @@ export class PerioddetailsPage {
     });
     this.associations = this.navParams.get('association');
     this.description = this.navParams.get('description')
-    console.log('description is =>' , this.description);
-     // this.associations = 'Smell';
+    console.log('description is =>', this.description);
+    // this.associations = 'Smell';
     // this.getPeriodDetails(this.data.period, this.data.class, date, this.teacherId);
     this.handleBackButton();
   }
@@ -199,13 +200,16 @@ export class PerioddetailsPage {
           this.practise = item;
         } else if (item.usecase === 'recall') {
           this.recall = item;
-        } else if (item.usecase === 'revise') {
+        }
+       else if (item.usecase === 'revise') {
           this.revise = item;
         }
-        else if(item.usecase === "teach")  {
-         this.extraInfo === item;
+        else if(item.usecase === 'teach'){
+          this.cardData = item;
+      console.log('card data =>' , this.cardData);
+
         }
-        console.log('extra info =>' , this.extraInfo);
+
       });
       loader.dismiss();
     })
@@ -250,17 +254,23 @@ export class PerioddetailsPage {
     let body = {
       request: request
     }
-    console.log('request is =>' , body);
-    this.httpClient.post('https://dev.ekstep.in/api/dialcode/v3/period/read ' , body)
-    .subscribe((res)=>{
-      console.log('response is =>' , res);
-      this.details = res['performanceDetails'];
-      console.log('details', this.details);
-      this.avgPerformance = this.getAverage(res['performanceDetails']);
-      console.log(this.avgPerformance);
-      console.log(statsHeatMap);
-    })
-    
+    console.log('request is =>', body);
+    this.httpClient.post('https://dev.ekstep.in/api/dialcode/v3/period/read ', body)
+      .subscribe((res) => {
+        console.log('response is =>', res);
+        this.details = res['performanceDetails'];
+        console.log('details', this.details);
+
+        this.performance = this.getAverage(res['performanceDetails']);
+        if(isNaN(this.performance)){
+          this.avgPerformance = '0'
+        }else {
+          this.avgPerformance = this.getAverage(res['performanceDetails']);
+        }
+        console.log(this.avgPerformance);
+        console.log(statsHeatMap);
+      })
+
   }
   presentPopOver(details) {
     this.navCtrl.push(ReportMapPage, {
