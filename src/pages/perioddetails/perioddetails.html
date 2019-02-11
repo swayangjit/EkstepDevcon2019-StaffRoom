@@ -6,12 +6,11 @@
     <ion-title *ngIf="associations">{{associations}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="openModal()">
-        <!-- <ion-icon name="more" end></ion-icon> -->
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content *ngIf="!parent">
   <div class="*ngIf =!playing">
     <ion-card class="summary-card">
       <ion-row class="st-analysis no-border">
@@ -19,14 +18,12 @@
           <ion-icon name="albums" class="mr-10"></ion-icon>
           <div class="st-analysis-item">
             <div class="lb-title">Class : 5</div>
-            <!-- <div id="ClassId" class="lb-value">5</div> -->
           </div>
         </ion-col>
         <ion-col class="flex">
           <ion-icon name="book" class="mr-10"></ion-icon>
           <div class="st-analysis-item">
             <div class="lb-title">Topic : {{associations}}</div>
-            <!-- <div id="SubjectId" class="lb-value">{{associations}}</div> -->
           </div>
         </ion-col>
       </ion-row>
@@ -36,152 +33,17 @@
           <ion-icon name="list-box" class="mr-10"></ion-icon>
           <div class="st-analysis-item">
             <div class="lb-title">Description : <span>{{description}} </span> </div>
-            <!-- <div id="TopicsId" class="lb-value"><span>{{description}} </span></div> -->
           </div>
         </ion-col>
       </ion-row>
-      <!-- <ion-row class="st-analysis">
-      <ion-col class="flex">
-        <ion-icon name="people" class="mr-10"></ion-icon>
-        <div class="st-analysis-item">
-          <div class="lb-title">Students</div>
-          <div class="lb-value" id="ClassId">{{studentSize}}</div>
-        </div>
-      </ion-col>
-      <ion-col class="flex">
-        <ion-icon name="timer" class="mr-10"></ion-icon>
-        <div class="st-analysis-item">
-          <div class="lb-title">Date & Time</div>
-          <div class="lb-value" id="SubjectId" *ngIf="date">23-01-2019 (10:00AM - 11:00AM)</div>
-          <div class="lb-value" id="SubjectId" *ngIf="!date">24-01-2019 (01:00PM - 06:00PM)</div>
-        </div>
-      </ion-col>
-    </ion-row> -->
     </ion-card>
 
     <ion-row class="student-stats" *ngIf='studentStatistics'>
-      <!-- <ion-col class="p-0">
-      <ion-card padding (click)="openAttendenceReport()">
-        <div class="st-analysis-item">
-          <ion-icon name="hand" class="mr-10 secondary-color"></ion-icon>
-          <div class="lb-value stats py-5" id="AttendanceId"> {{avgAttendence}} % </div>
-          <div class="lb-title">Attendance</div>
-        </div>
-      </ion-card>
-    </ion-col> -->
-      <!-- <ion-col class="p-0">
-      <ion-card padding (click)="openHeatMapForEngagement()">
-        <div class="st-analysis-item">
-          <ion-icon name="git-merge" class="mr-10 primary-color"></ion-icon>
-          <div class="lb-value stats py-5" id="EngagementId">{{avgEngagement}} %</div>
-          <div class="lb-title">Engagement</div>
-        </div>
-      </ion-card>
-    </ion-col> -->
-      <!-- <ion-col class="p-0">
-        <ion-card padding *ngIf="!activePerformance">
-          <div class="st-analysis-item" (click)="openMap()">
-            <ion-icon name="stats" class="mr-10 tertiary-color"></ion-icon>
-            <div class="lb-value stats py-5" id="PerformanceID">{{avgPerformance}} %</div>
-            <div class="lb-title">Performance</div>
-          </div>
-        </ion-card>
-        <ion-card padding *ngIf="activePerformance" style="border:2px solid #427feb">
-          <div class="st-analysis-item" (click)="openMap()">
-            <ion-icon name="stats" class="mr-10 tertiary-color"></ion-icon>
-            <div class="lb-value stats py-5" id="PerformanceID">{{avgPerformance}} %</div>
-            <div class="lb-title" style="color:blue">Performance</div>
-
-          </div>
-        </ion-card>
-        </ion-col> -->
-
-        <!-- <ion-row>
-    <ion-col>
-      <ion-card>
-        <ion-card-header>
-          <div (click)="alert(revise)">Revise <ion-icon class="secondary-color "float-end name="play"></ion-icon></div>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-card>
-        <ion-card-header>
-          <div (click)="alert(recall)">Recall <ion-icon class="secondary-color "float-end name="play"></ion-icon></div>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-card>
-        <ion-card-header>
-          <div (click)="alert(practise)">Practice  <ion-icon class="secondary-color"  float-end name="play"></ion-icon></div>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-card>
-        <ion-card-header>
-          <div (click)="startQuiz(quiz)">Start Quiz</div>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-  </ion-row> -->
-        <!-- <ion-row class="browse-diksha-btn">
-          
-      <ion-col col-md-2 class="col-inside">
-        <ion-card class="btn-card">
-          <div class="alignment" (click)="openMap()">
-            <ion-icon name="stats" class="mr-10 tertiary-color"></ion-icon>
-            <div class="lb-title-new">Performance</div>
-            <div class="lb-value stats py-5" *ngIf="!activePerformance" id="PerformanceID" class="mr-7 primary-color">{{avgPerformance}}
-              %</div>
-            <div class="lb-value stats py-5" *ngIf="activePerformance" style="color:blue">{{avgPerformance}} %</div>
-          </div>
-        </ion-card>
-      </ion-col>
-      <ion-col col-md-2 class="col-inside">
-        <ion-card class="btn-card" (click)="alert(revise)">
-          <div class="alignment">
-            <ion-icon name="sync" class="mr-7 primary-color"></ion-icon>
-            <div class="lb-title-new">Revise</div>
-          </div>
-        </ion-card>
-      </ion-col>
-      <ion-col col-md-2 class="col-inside">
-        <ion-card class="btn-card" (click)="alert(recall)">
-          <div class="alignment">
-            <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
-            <div class="lb-title-new">Recall</div>
-          </div>
-        </ion-card>
-      </ion-col>
-      <ion-col col-md-2 class="col-inside">
-        <ion-card class="btn-card" (click)="alert(practise)">
-          <div class="alignment">
-            <ion-icon name="wifi" class="mr-7 primary-color"></ion-icon>
-            <div class="lb-title-new">Practice</div>
-          </div>
-        </ion-card>
-      </ion-col>
-      <ion-col col-md-2 class="col-inside">
-        <ion-card class="btn-card" (click)="startQuiz(quiz)">
-          <div class="alignment">
-            <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
-            <div class="lb-title-new"> Start Quiz</div>
-          </div>
-        </ion-card>
-      </ion-col>-->
-    </ion-row> 
+    </ion-row>
     <ion-card>
 
       <img class="card-image" src={{cardData?.appIcon}} style="height: 100px">
-    
+
       <ion-card-content>
         <ion-grid>
           <ion-row>
@@ -196,25 +58,95 @@
           </ion-row>
         </ion-grid>
       </ion-card-content>
-    
-      <!-- <ion-row>
-        <ion-col>
-          <button ion-button icon-start clear small>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-start clear small>
-          </button>
-        </ion-col>
-        <ion-col align-self-center text-center>
-          <ion-note>
-            <button ion-button outline (click)="alert(cardData)">open</button>
-          </ion-note>
-        </ion-col>
-      </ion-row> -->
-    
+
     </ion-card>
-   </div> 
+  </div>
+  <div *ngIf="playing">
+    <h4 text-center>Playing....</h4>
+  </div>
+</ion-content>
+<ion-content padding *ngIf="parent">
+  <div class="*ngIf =!playing">
+    <ion-card class="summary-card">
+      <ion-row class="st-analysis no-border">
+        <ion-col class="flex">
+          <ion-icon name="albums" class="mr-10"></ion-icon>
+          <div class="st-analysis-item">
+            <div class="lb-title">Class : 5</div>
+          </div>
+        </ion-col>
+        <ion-col class="flex">
+          <ion-icon name="book" class="mr-10"></ion-icon>
+          <div class="st-analysis-item">
+            <div class="lb-title">Topic : {{associations}}</div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="st-analysis">
+        <ion-col class="flex">
+          <ion-icon name="list-box" class="mr-10"></ion-icon>
+          <div class="st-analysis-item">
+            <div class="lb-title">Description : <span>{{description}} </span> </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-row class="student-stats" *ngIf='studentStatistics'>
+
+    </ion-row>
+    <ion-card>
+
+      <img class="card-image" src={{cardData?.appIcon}} style="height: 100px">
+
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-md-8>
+              <p class="lb-title-2">{{cardData?.name}}</p>
+              <p class="lb-title-2">{{cardData?.contentType}}</p>
+              <p class="lb-title-2">{{cardData?.description}}</p>
+            </ion-col>
+            <ion-col col-md-4 text-right class="card-button">
+              <button ion-button small outline (click)="alert(cardData)">open</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+
+
+    </ion-card>
+  </div>
+  <div class="topic-details-table">
+      <ion-row class="text-center" >
+        <ion-col>
+          <div class="ft-16 ft-w400 lb-title-2"><b>Name</b></div>
+        </ion-col>
+        <ion-col>
+          <div class="ft-16 ft-w400 lb-title-2"><b>Ratings</b></div>
+        </ion-col>
+        
+      </ion-row>
+      <ion-row class="text-center" *ngFor="let detail of details | slice:0:2;">
+        <ion-col>
+          <div class="ft-16 ft-w400 lb-title-2 ">{{detail.studentId}}</div>
+        </ion-col>
+        <ion-col>
+          <div class="ft-16 ft-w400 lb-title-2 ">{{detail.rate}}</div>
+        </ion-col>
+        
+      </ion-row>
+      <ion-row class="text-center">
+          <ion-col>
+              <div class="ft-16 ft-w400 lb-title-2 ">Average</div>
+            </ion-col>
+            <ion-col>
+              <div class="ft-16 ft-w400 lb-title-2 ">{{avgPerformance}}</div>
+            </ion-col>
+      </ion-row>
+    </div>
+    <div #reportcanvas style="overflow: scroll;"></div>
   <div *ngIf="playing">
     <h4 text-center>Playing....</h4>
   </div>
@@ -222,7 +154,7 @@
 <ion-footer>
   <ion-grid>
     <ion-row>
-      <ion-col col-md-2 (click)="openMap()">
+      <ion-col *ngIf="!parent" col-md-2 (click)="openMap()">
         <div text-center>
           <ion-icon name="stats" class="mr-10 tertiary-color"></ion-icon>
         </div>
