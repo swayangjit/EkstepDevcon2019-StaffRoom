@@ -47,6 +47,7 @@ export class PerioddetailsPage {
   count = 0;
   activePortal
   playing
+  extraInfo
   description
   activePerformance = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -201,6 +202,10 @@ export class PerioddetailsPage {
         } else if (item.usecase === 'revise') {
           this.revise = item;
         }
+        else if(item.usecase === "teach")  {
+         this.extraInfo === item;
+        }
+        console.log('extra info =>' , this.extraInfo);
       });
       loader.dismiss();
     })

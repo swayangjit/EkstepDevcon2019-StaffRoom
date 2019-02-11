@@ -13,34 +13,34 @@
 </ion-header>
 <ion-content>
   <div class="*ngIf =!playing">
-  <ion-card class="summary-card">
-    <ion-row class="st-analysis no-border">
-      <ion-col class="flex">
-        <ion-icon name="albums" class="mr-10"></ion-icon>
-        <div class="st-analysis-item">
-          <div class="lb-title">Class</div>
-          <div id="ClassId" class="lb-value">5</div>
-        </div>
-      </ion-col>
-      <ion-col class="flex">
-        <ion-icon name="book" class="mr-10"></ion-icon>
-        <div class="st-analysis-item">
-          <div class="lb-title">Topic</div>
-          <div id="SubjectId" class="lb-value">{{associations}}</div>
-        </div>
-      </ion-col>
-    </ion-row>
+    <ion-card class="summary-card">
+      <ion-row class="st-analysis no-border">
+        <ion-col class="flex">
+          <ion-icon name="albums" class="mr-10"></ion-icon>
+          <div class="st-analysis-item">
+            <div class="lb-title">Class</div>
+            <div id="ClassId" class="lb-value">5</div>
+          </div>
+        </ion-col>
+        <ion-col class="flex">
+          <ion-icon name="book" class="mr-10"></ion-icon>
+          <div class="st-analysis-item">
+            <div class="lb-title">Topic</div>
+            <div id="SubjectId" class="lb-value">{{associations}}</div>
+          </div>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="st-analysis">
-      <ion-col class="flex">
-        <ion-icon name="list-box" class="mr-10"></ion-icon>
-        <div class="st-analysis-item">
-          <div class="lb-title">Description</div>
-          <div id="TopicsId" class="lb-value"><span>{{description}} </span></div>
-        </div>
-      </ion-col>
-    </ion-row>
-    <!-- <ion-row class="st-analysis">
+      <ion-row class="st-analysis">
+        <ion-col class="flex">
+          <ion-icon name="list-box" class="mr-10"></ion-icon>
+          <div class="st-analysis-item">
+            <div class="lb-title">Description</div>
+            <div id="TopicsId" class="lb-value"><span>{{description}} </span></div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row class="st-analysis">
       <ion-col class="flex">
         <ion-icon name="people" class="mr-10"></ion-icon>
         <div class="st-analysis-item">
@@ -57,10 +57,10 @@
         </div>
       </ion-col>
     </ion-row> -->
-  </ion-card>
+    </ion-card>
 
-  <ion-row class="student-stats" *ngIf='studentStatistics'>
-    <!-- <ion-col class="p-0">
+    <ion-row class="student-stats" *ngIf='studentStatistics'>
+      <!-- <ion-col class="p-0">
       <ion-card padding (click)="openAttendenceReport()">
         <div class="st-analysis-item">
           <ion-icon name="hand" class="mr-10 secondary-color"></ion-icon>
@@ -69,7 +69,7 @@
         </div>
       </ion-card>
     </ion-col> -->
-    <!-- <ion-col class="p-0">
+      <!-- <ion-col class="p-0">
       <ion-card padding (click)="openHeatMapForEngagement()">
         <div class="st-analysis-item">
           <ion-icon name="git-merge" class="mr-10 primary-color"></ion-icon>
@@ -78,26 +78,38 @@
         </div>
       </ion-card>
     </ion-col> -->
-    <ion-col class="p-0">
-      <ion-card padding *ngIf="!activePerformance">
-        <div class="st-analysis-item" (click)="openMap()">
-          <ion-icon name="stats" class="mr-10 tertiary-color"></ion-icon>
-          <div class="lb-value stats py-5" id="PerformanceID">{{avgPerformance}} %</div>
-          <div class="lb-title" >Performance</div>
-        </div>
-      </ion-card>
-      <ion-card padding *ngIf="activePerformance" style="border:2px solid #427feb">
+      <ion-col class="p-0">
+        <!-- <ion-card padding *ngIf="!activePerformance">
+          <div class="st-analysis-item" (click)="openMap()">
+            <ion-icon name="stats" class="mr-10 tertiary-color"></ion-icon>
+            <div class="lb-value stats py-5" id="PerformanceID">{{avgPerformance}} %</div>
+            <div class="lb-title">Performance</div>
+          </div>
+        </ion-card>
+        <ion-card padding *ngIf="activePerformance" style="border:2px solid #427feb">
           <div class="st-analysis-item" (click)="openMap()">
             <ion-icon name="stats" class="mr-10 tertiary-color"></ion-icon>
             <div class="lb-value stats py-5" id="PerformanceID">{{avgPerformance}} %</div>
             <div class="lb-title" style="color:blue">Performance</div>
-  
-          </div>
-        </ion-card>
-    </ion-col>
-  </ion-row>
 
-  <!-- <ion-row>
+          </div>
+        </ion-card> -->
+        <ion-card>
+          <ion-list>
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="https://media.wnyc.org/i/800/0/c/85/1/shutterstock_119131492.jpg">
+              </ion-avatar>
+              <h2>Smell</h2>
+              <h3>Resource</h3>
+              <p>English Medium</p>
+            </ion-item>
+          </ion-list>
+          </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
     <ion-col>
       <ion-card>
         <ion-card-header>
@@ -133,42 +145,53 @@
       </ion-card>
     </ion-col>
   </ion-row> -->
-  <ion-row class="browse-diksha-btn">
-    <ion-col size="4" class="col-inside">
-      <ion-card class="btn-card" (click)="alert(revise)">
-        <div class="alignment">
-          <ion-icon name="sync" class="mr-7 primary-color"></ion-icon>
-          <div class="lb-title-new">Revise</div>
-        </div>
-      </ion-card>
-    </ion-col>
-    <ion-col size="4" class="col-inside">
-      <ion-card class="btn-card" (click)="alert(recall)">
-        <div class="alignment">
-          <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
-          <div class="lb-title-new">Recall</div>
-        </div>
-      </ion-card>
-    </ion-col>
-    <ion-col size="4" class="col-inside">
-      <ion-card class="btn-card" (click)="alert(practise)">
-        <div class="alignment">
-          <ion-icon name="wifi" class="mr-7 primary-color"></ion-icon>
-          <div class="lb-title-new">Practice</div>
-        </div>
-      </ion-card>
-    </ion-col>
-    <ion-col size="4" class="col-inside">
-      <ion-card class="btn-card" (click)="startQuiz(quiz)">
-        <div class="alignment">
-          <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
-          <div class="lb-title-new"> Start Quiz</div>
-        </div>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-</div>
-<div *ngIf="playing">
-  <h4 text-center>Playing....</h4>
-</div>
+    <ion-row class="browse-diksha-btn">
+      <ion-col col-md-2 class="col-inside">
+        <ion-card class="btn-card">
+          <div class="alignment" (click)="openMap()">
+            <!-- <ion-icon name="sync" class="mr-7 primary-color"></ion-icon> -->
+            <div class="lb-value stats py-5" *ngIf="!activePerformance" id="PerformanceID" class="mr-7 primary-color">{{avgPerformance}} %</div>
+            <div class="lb-value stats py-5" *ngIf="activePerformance" style="color:blue">{{avgPerformance}} %</div>
+
+            <div class="lb-title-new" >Performance</div>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-md-2 class="col-inside">
+        <ion-card class="btn-card" (click)="alert(revise)">
+          <div class="alignment">
+            <ion-icon name="sync" class="mr-7 primary-color"></ion-icon>
+            <div class="lb-title-new">Revise</div>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-md-2 class="col-inside">
+        <ion-card class="btn-card" (click)="alert(recall)">
+          <div class="alignment">
+            <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
+            <div class="lb-title-new">Recall</div>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-md-2 class="col-inside">
+        <ion-card class="btn-card" (click)="alert(practise)">
+          <div class="alignment">
+            <ion-icon name="wifi" class="mr-7 primary-color"></ion-icon>
+            <div class="lb-title-new">Practice</div>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-md-2 class="col-inside">
+        <ion-card class="btn-card" (click)="startQuiz(quiz)">
+          <div class="alignment">
+            <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
+            <div class="lb-title-new"> Start Quiz</div>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="playing">
+    <h4 text-center>Playing....</h4>
+  </div>
 </ion-content>
