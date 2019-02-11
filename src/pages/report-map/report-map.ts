@@ -43,7 +43,7 @@ export class ReportMapPage {
     this.data = this.navParams.get("heatMapData").map((item) => ({
       country: item.studentId,
       product: item.rate,
-      value: item.rate
+      value: this.calculate(item.rate)
     }));
   }
 
@@ -53,9 +53,9 @@ export class ReportMapPage {
   draw() {
     var itemSize = 25,
       cellSize = itemSize - 1,
-      margin = { top: 80, right: 5, bottom: 5, left: 130 };
+      margin = { top: 80, right: 5, bottom: 5, left: 140 };
 
-    var width = 650 - margin.right - margin.left,
+    var width = 350 - margin.right - margin.left,
       height = 700 - margin.top - margin.bottom;
 
     var formatDate = d3.time.format("%Y-%m-%d");
@@ -87,7 +87,7 @@ export class ReportMapPage {
 
     var yAxis = d3.svg.axis()
       .scale(yScale)
-      .tickFormat(function (d) {
+      .tickFormat((d) => {
         return d;
       })
       .orient("left");
@@ -109,10 +109,11 @@ export class ReportMapPage {
       .attr('class', 'cell')
       .attr('width', cellSize)
       .attr('height', cellSize)
-      .attr('y', function (d) { return yScale(d.country); })
-      .attr('x', function (d) { return xTempScale( Math.round(d.value * 2) )})
-      .attr('fill', function (d) {
+      .attr('y', (d) => { return yScale(d.country); })
+      .attr('x', (d) => { return xTempScale(Math.round(d.value*2))})
+      .attr('fill', (d) => {
         // return d.value ? colorScale(d.value) : '#ededed' as any; 
+        // return xTempScale( Math.round(d.value * 2) ) 
         if (d.value && d.value <= 50) {
           return '#87CEEB';
         } else if (d.value && d.value > 50 && d.value <= 74) {
@@ -138,8 +139,22 @@ export class ReportMapPage {
       .style("text-anchor", "start")
       .attr("dx", ".8em")
       .attr("dy", ".5em")
-      .attr("transform", function (d) {
+      .attr("transform", (d) => {
         return "rotate(-65)";
       });
   }
+
+  calculate(num) {
+    if(num<100 && num >80){
+      return 90;
+    } else if(num<80 && num >60) {
+      return 70;
+    }  else if(num<60 && num >40) {
+      return 50;
+    } else if(num<40 && num >20) {
+      return 30;
+    } else if(num<20 && num >=0) {
+      return 10;
+    }
+   }
 }

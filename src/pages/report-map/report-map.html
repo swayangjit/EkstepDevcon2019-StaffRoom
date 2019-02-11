@@ -9,8 +9,7 @@
 
 <ion-content>
 
-  <div #reportcanvas style="overflow: scroll;"></div>
-  <div style="margin-left: 20px">
+  <!-- <div style="margin-left: 20px">
     {{pageName}} between 1% - 50% -- <span class="red-bg" height="5" width="5">&nbsp;&nbsp;&nbsp;&nbsp;</span>
   </div>
   <div style="margin-left: 20px">
@@ -18,6 +17,32 @@
   </div>
   <div style="margin-left: 20px">
     {{pageName}} between 75% - 100% -- <span class="green-bg" height="5" width="5">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-  </div>
+  </div> -->
+
+  <div class="topic-details-table">
+      <ion-row class="text-center">
+        <ion-col>
+          <div class="ft-16 ft-w400">1 - 50 %</div>
+        </ion-col>
+        <ion-col>
+          <div class="ft-16 ft-w400">51 - 74 %</div>
+        </ion-col>
+        <ion-col>
+          <div class="ft-16 ft-w400">74 - 100 %</div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="text-center">
+        <ion-col>
+          <div class="ft-16 ft-w400 cl-gray-math1"></div>
+        </ion-col>
+        <ion-col>
+          <div class="ft-16 ft-w400 cl-gray-math2"></div>
+        </ion-col>
+        <ion-col>
+          <div class="ft-16 ft-w400 cl-gray-math3"></div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div #reportcanvas style="overflow: scroll;"></div>
 
 </ion-content>

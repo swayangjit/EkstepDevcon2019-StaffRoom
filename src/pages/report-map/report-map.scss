@@ -8,7 +8,7 @@ page-report-map {
 
   .axis text {
       font-family: sans-serif;
-      font-size: 15px;
+      font-size: 13px;
   }
   .red-bg{
       background-color: #87CEEB;
@@ -19,5 +19,55 @@ background-color: #4F94CD;
   .green-bg {
     background-color: #1874CD
   }
+  .topic-details-table {
+    border: 1px solid lightgray;
+    margin: 20px 0;
+    .row {
+        border-bottom: 1px solid lightgray;
+        &:last-of-type {
+            border-bottom: none;
+        }
+    }
+    .col {
+        border-right: 1px solid lightgray;
+        &   :last-of-type {
+            border-right: none;
+        }
+        div {
+            padding: 5px;
+        }
+    }
+}
+
+.cl-gray-math1 {
+  background-color: #87CEEB;
+  color: gray;
+  margin: 0px auto !important;
+  height: 25px;
+  width: 25px
+}
+.cl-gray-science {
+  background-color:#1874CD;
+  color: gray;
+  margin: 0px auto !important;
+  height: 50px;
+  width: 50px
+}
+
+.cl-gray-math2 {
+  background-color: #4F94CD;
+  color: gray;
+  margin: 0px auto !important;
+  height: 25px;
+  width: 25px
+}
+
+.cl-gray-math3 {
+  background-color: #1874CD;
+  color: gray;
+  margin: 0px auto !important;
+  height: 25px;
+  width: 25px
+}
 
 }
