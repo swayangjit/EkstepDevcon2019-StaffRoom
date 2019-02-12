@@ -61,7 +61,11 @@ export class PerioddetailsPage {
     private loadingCtrl: LoadingController,
     private zone: NgZone,
     private alertCtrl: AlertController) {
-    this.getApiResponse();
+    if(!parent){
+    this.getApiResponseTeacher();
+  }else {
+    this.getApiResponseParents();
+  }
     // this.data = this.navParams.get('data');
 
     // const date = this.navParams.get('date');
@@ -176,21 +180,10 @@ export class PerioddetailsPage {
         // this.avgPerformance = 70;//this.getAverage(this.periodResponse.performanceDetails);
       });
   }
-
-  getAverage(array): string {
-    if (array) {
-      let total: number = 0
-      array.forEach(element => {
-        total = total + Number(element.rate);
-      });
-      const avg = (total / array.length).toFixed(0);
-      return avg;
-    }
-  }
-  getApiResponse() {
+  getApiResponseParents(){
     const loader = this.getLoader();
     loader.present();
-    this.httpClient.get('https://dev.ekstep.in/api/dialcode/v3/question/read/geography').subscribe((response) => {
+    this.httpClient.get('https://dev.sunbirded.org/action/dialcode/v3/question/read/parent').subscribe((response) => {
       console.log('response is =>', response);
       let data = response['result'].content;
       console.log('data is =>', data);
@@ -213,6 +206,45 @@ export class PerioddetailsPage {
       loader.dismiss();
     })
   }
+
+  getAverage(array): string {
+    if (array) {
+      let total: number = 0
+      array.forEach(element => {
+        total = total + Number(element.rate);
+      });
+      const avg = (total / array.length).toFixed(0);
+      return avg;
+    }
+  }
+  
+  getApiResponseTeacher() {
+    const loader = this.getLoader();
+    loader.present();
+    this.httpClient.get('https://dev.sunbirded.org/action/dialcode/v3/question/read/teacher').subscribe((response) => {
+      console.log('response is =>', response);
+      let data = response['result'].content;
+      console.log('data is =>', data);
+      data.forEach(item => {
+        if (item.usecase === 'assess') {
+          this.quiz = item;
+        } else if (item.usecase === 'practice') {
+          this.practise = item;
+        } else if (item.usecase === 'recall') {
+          this.recall = item;
+        }
+       else if (item.usecase === 'revise') {
+          this.revise = item;
+        }
+        else if(item.usecase === 'teach'){
+          this.cardData = item;
+        }
+
+      });
+      loader.dismiss();
+    })
+  }
+
 
   // openHeatMap() {
   //   const popover = this.popoverCtrl.create(ReportAlertComponent, {
@@ -314,12 +346,12 @@ export class PerioddetailsPage {
 
   }
   quizStatus() {
-    return this.httpClient.get('https://still-wildwood-30783.herokuapp.com/quiz/status');
+    return this.httpClient.get('http://35.154.177.118:3000/quiz/status');
   }
 
   startQuiz(quiz) {
     this.playing = true;
-    this.httpClient.get(`https://still-wildwood-30783.herokuapp.com/quiz/start/${quiz.identifier}`)
+    this.httpClient.get(`http://35.154.177.118:3000/quiz/start/${quiz.identifier}`)
       .subscribe((response) => {
         let interval = setInterval(() => {
           this.quizStatus().subscribe((res) => {
