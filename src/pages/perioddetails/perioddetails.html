@@ -124,7 +124,7 @@
           <div class="ft-16 ft-w400 lb-title-2"><b>Name</b></div>
         </ion-col>
         <ion-col>
-          <div class="ft-16 ft-w400 lb-title-2"><b>Ratings</b></div>
+          <div class="ft-16 ft-w400 lb-title-2"><b>Performance(%)</b></div>
         </ion-col>
         
       </ion-row>
@@ -161,17 +161,17 @@
         <div class="lb-title-new" text-center *ngIf="!activePerformance">{{avgPerformance}} %</div>
         <div class="lb-title-new" text-center class="primary-color" *ngIf="activePerformance">{{avgPerformance}} %</div>
       </ion-col>
-      <ion-col col-md-2 (click)="alert(revise)">
-        <div text-center>
-          <ion-icon name="sync" class="mr-7 primary-color"></ion-icon>
-        </div>
-        <div text-center class="lb-title-new">Revision</div>
-      </ion-col>
       <ion-col col-md-2 (click)="alert(recall)">
         <div text-center>
           <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
         </div>
         <div text-center class="lb-title-new" text-center>Quick Sensing</div>
+      </ion-col>
+      <ion-col col-md-2 (click)="alert(revise)">
+        <div text-center>
+          <ion-icon name="sync" class="mr-7 primary-color"></ion-icon>
+        </div>
+        <div text-center class="lb-title-new">Revision</div>
       </ion-col>
       <ion-col col-md-2 (click)="alert(practise)">
         <div text-center>
@@ -181,7 +181,7 @@
       </ion-col>
       <ion-col col-md-2 (click)="startQuiz(quiz)">
         <div text-center>
-          <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
+          <ion-icon name="help" class="mr-7 primary-color"></ion-icon>
         </div>
         <div text-center class="lb-title-new" text-center>Exam Prep</div>
       </ion-col>
@@ -198,17 +198,17 @@
         <div class="lb-title-new" text-center *ngIf="!activePerformance">{{avgPerformance}} %</div>
         <div class="lb-title-new" text-center class="primary-color" *ngIf="activePerformance">{{avgPerformance}} %</div>
       </ion-col>
-      <ion-col col-md-2 (click)="alert(revise)">
-        <div text-center>
-          <ion-icon name="sync" class="mr-7 primary-color"></ion-icon>
-        </div>
-        <div text-center class="lb-title-new">Revision</div>
-      </ion-col>
       <ion-col col-md-2 (click)="alert(recall)">
         <div text-center>
           <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
         </div>
         <div text-center class="lb-title-new" text-center>Quick Sensing</div>
+      </ion-col>
+      <ion-col col-md-2 (click)="alert(revise)">
+        <div text-center>
+          <ion-icon name="sync" class="mr-7 primary-color"></ion-icon>
+        </div>
+        <div text-center class="lb-title-new">Revision</div>
       </ion-col>
       <ion-col col-md-2 (click)="alert(practise)">
         <div text-center>
@@ -218,7 +218,7 @@
       </ion-col>
       <ion-col col-md-2 (click)="startQuiz(quiz)">
         <div text-center>
-          <ion-icon name="refresh" class="mr-7 primary-color"></ion-icon>
+          <ion-icon name="help" class="mr-7 primary-color"></ion-icon>
         </div>
         <div text-center class="lb-title-new" text-center>Exam Prep</div>
       </ion-col>
