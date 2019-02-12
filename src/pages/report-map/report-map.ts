@@ -32,7 +32,8 @@ export class ReportMapPage {
   title: any;
   pageName: any;
   country: any;
-  data: { country: string, product: string, value: number }[];
+  // data: { country: string, product: string, value: number }[];
+  data: { studentId: string, rate: number }[];
 
   @ViewChild('reportcanvas')
   private reportCanvas: ElementRef
@@ -41,9 +42,9 @@ export class ReportMapPage {
     this.title = this.navParams.get("title");
     this.pageName = this.navParams.get("pageName");
     this.data = this.navParams.get("heatMapData").map((item) => ({
-      country: item.studentId,
-      product: item.rate,
-      value: this.calculate(item.rate)
+      studentId: item.studentId,
+      rate: this.calculate(item.rate),
+      // value: this.calculate(item.rate)
     }));
   }
 
@@ -51,100 +52,84 @@ export class ReportMapPage {
     this.draw();
   }
   draw() {
-    var itemSize = 25,
-      cellSize = itemSize - 1,
-      margin = { top: 40, right: 5, bottom: 5, left: 140 };
-      
-    var width = 550 - margin.right - margin.left,
-      height = 700 - margin.top - margin.bottom;
-
-      var size = this.setLength(this.data.length);
-      console.log(size);
-
-    var formatDate = d3.time.format("%Y-%m-%d");
-
-    var x_elements = d3.set(this.data.map((item) => { return item.product; })).values();
-      var y_elements = d3.set(this.data.map((item) => { return item.country; })).values();
-
-    // x_elements = x_elements.map(v => parseFloat(v));
-    // x_elements.sort(function (a, b) { return a - b });
-
-
-    var xScale = d3.scale.ordinal()
-      .domain(x_elements)
-      .rangeBands([0, x_elements.length * itemSize]);
-
-      var xTempScale = d3.scale.linear()
-     .domain([0, 100]).range([0, 100]);
-
+    
+    var data = this.data.map((student) => ({
+      key: student.studentId,
+      value: student.rate
+    }));
+    
+    var cellSize = 20;
+    
+    // margins and widths
+    
+    var margin = {top: 40, right: 80, bottom: 10, left: 140},
+        width = 500 - margin.left - margin.right,
+        height = 750 - margin.top - margin.bottom;
+        var yHeight = 400;
+    
+    var x = d3.scale.linear()
+        .domain([0, 100])
+        .range([0, width])
+    
     var xAxis = d3.svg.axis()
-      .scale(d3.scale.linear().range([0, x_elements.length * itemSize]))
-      .tickFormat((d) => {
-        return d*100+"";
-      })
-      .orient("top");
-
-    var yScale = d3.scale.ordinal()
-      .domain(y_elements)
-      .rangeBands([0, y_elements.length * itemSize]);
-
+        .scale(x)
+        .ticks(5)
+        .outerTickSize(1)
+        .tickPadding(10)
+        .orient("top");
+    
+    var y = d3.scale.ordinal()
+        .domain(data.map((item) => item.key))
+        .rangePoints([0, yHeight]);
+    
     var yAxis = d3.svg.axis()
-      .scale(yScale)
-      .tickFormat((d) => {
-        return d;
-      })
-      .orient("left");
-
-    var colorScale = d3.scale.threshold()
-      .domain([0, 100])
-      .range(["rgb(165,42,42)", "#E67E22", "rgb(0,128,0)"]);
-
-    var svg = d3.select(this.reportCanvas.nativeElement)
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+        .scale(y)
+        .outerTickSize(1)
+        .tickPadding(10)
+        .orient("left");
+    
+    // rendering svg
+    
+    var svg = d3.select(this.reportCanvas.nativeElement).append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
       .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    var cells = svg.selectAll('rect')
-      .data(this.data)
-      .enter().append('g').append('rect')
-      .attr('class', 'cell')
-      .attr('width', cellSize)
-      .attr('height', cellSize)
-      .attr('y', (d) => { return yScale(d.country); })
-      .attr('x', (d) => { return xTempScale(Math.round(d.value*size))})
-      .attr('fill', (d) => {
-        // return d.value ? colorScale(d.value) : '#ededed' as any; 
-        // return xTempScale( Math.round(d.value * 2) ) 
-        if (d.value && d.value <= 50) {
-          return '#87CEEB';
-        } else if (d.value && d.value > 50 && d.value <= 74) {
-          return '#4F94CD	';
-        } else if (d.value && d.value > 74 && d.value <= 100) {
-          return '#1874CD';
-        } else if (!d.value) {
-          return '#ddd';
-        }
-      });
-
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    // rendering y-axis
+    
     svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-      .selectAll('text')
-      .attr('font-weight', 'normal');
-
+        .attr("class", "y axis")
+        .call(yAxis);
+    
+    // rendering x-axis
+    
     svg.append("g")
-      .attr("class", "x axis")
-      .call(xAxis.ticks(5))
-      .selectAll('text')
-      .attr('font-weight', 'normal')
-      .style("text-anchor", "start")
-      .attr("dx", ".8em")
-      .attr("dy", ".5em")
-      .attr("transform", (d) => {
-        return "rotate(-65)";
-      });
+        .attr("class", "x axis")
+        .call(xAxis);
+    
+    // rendering points
+    
+    svg.selectAll("square")
+            .data(data)
+          .enter().append('rect')
+          .attr('class', 'cell')
+          .attr('width', cellSize)
+          .attr('height', cellSize)
+          .attr('y', function (d) { return y(d.key); })
+          .attr('x', function (d) { return x(d.value); })
+          .attr('fill', function (d) {
+            if (d.value && d.value <= 50) {
+              return '#87CEEB';
+            } else if (d.value && d.value > 50 && d.value <= 75) {
+              return '#4F94CD	';
+            } else if (d.value && d.value > 75 && d.value <= 100) {
+              return '#1874CD';
+            } else if (!d.value) {
+              return '#ddd';
+            }
+          });
+    
   }
 
   calculate(num) {
@@ -166,22 +151,22 @@ export class ReportMapPage {
     }
    }
 
-   setLength(dataLength) {
-    console.log('inside', dataLength);
-    if(dataLength>=20 &&  dataLength<30) {
-      return 3;
-    } else if(dataLength>=15 &&  dataLength<20) {
-      return 2.2;
-    } else if(dataLength>=10 &&  dataLength<15) {
-      return 1.8;
-    } else if (dataLength>=5 &&  dataLength<10) {
-      return 1.3;
-    } else if (dataLength>=3 &&  dataLength<5) {
-      return 0.8
-    } else if (dataLength>=0 &&  dataLength<3) {
-      return 0.3;
-    } else {
-      return 4;
-    }
-   }
+  //  setLength(dataLength) {
+  //   console.log('inside', dataLength);
+  //   if(dataLength>=20 &&  dataLength<30) {
+  //     return 3;
+  //   } else if(dataLength>=15 &&  dataLength<20) {
+  //     return 2.2;
+  //   } else if(dataLength>=10 &&  dataLength<15) {
+  //     return 1.8;
+  //   } else if (dataLength>=5 &&  dataLength<10) {
+  //     return 1.3;
+  //   } else if (dataLength>=3 &&  dataLength<5) {
+  //     return 0.8
+  //   } else if (dataLength>=0 &&  dataLength<3) {
+  //     return 0.3;
+  //   } else {
+  //     return 4;
+  //   }
+  //  }
 }
