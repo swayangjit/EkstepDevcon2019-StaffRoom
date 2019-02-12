@@ -53,14 +53,17 @@ export class ReportMapPage {
   draw() {
     var itemSize = 25,
       cellSize = itemSize - 1,
-      margin = { top: 80, right: 5, bottom: 5, left: 140 };
-
+      margin = { top: 40, right: 5, bottom: 5, left: 140 };
+      
     var width = 550 - margin.right - margin.left,
       height = 700 - margin.top - margin.bottom;
 
+      var size = this.setLength(this.data.length);
+      console.log(size);
+
     var formatDate = d3.time.format("%Y-%m-%d");
 
-    var x_elements = d3.set(this.data.map((item) => { return item.product; })).values()
+    var x_elements = d3.set(this.data.map((item) => { return item.product; })).values();
       var y_elements = d3.set(this.data.map((item) => { return item.country; })).values();
 
     // x_elements = x_elements.map(v => parseFloat(v));
@@ -110,7 +113,7 @@ export class ReportMapPage {
       .attr('width', cellSize)
       .attr('height', cellSize)
       .attr('y', (d) => { return yScale(d.country); })
-      .attr('x', (d) => { return xTempScale(Math.round(d.value*2))})
+      .attr('x', (d) => { return xTempScale(Math.round(d.value*size))})
       .attr('fill', (d) => {
         // return d.value ? colorScale(d.value) : '#ededed' as any; 
         // return xTempScale( Math.round(d.value * 2) ) 
@@ -160,6 +163,25 @@ export class ReportMapPage {
     } else if(num>=0 && num <20) {
       console.log('inside 10');
       return 10;
+    }
+   }
+
+   setLength(dataLength) {
+    console.log('inside', dataLength);
+    if(dataLength>=20 &&  dataLength<30) {
+      return 3;
+    } else if(dataLength>=15 &&  dataLength<20) {
+      return 2.2;
+    } else if(dataLength>=10 &&  dataLength<15) {
+      return 1.8;
+    } else if (dataLength>=5 &&  dataLength<10) {
+      return 1.3;
+    } else if (dataLength>=3 &&  dataLength<5) {
+      return 0.8
+    } else if (dataLength>=0 &&  dataLength<3) {
+      return 0.3;
+    } else {
+      return 4;
     }
    }
 }
