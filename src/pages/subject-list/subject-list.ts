@@ -53,7 +53,7 @@ export class SubjectListPage {
     });
   }
   getSubjectList() {
-    this.httpClient.get('https://dev.ekstep.in/api/framework/v3/read/devcon-appu?categories=subject,topic')
+    this.httpClient.get('https://dev.sunbirded.org/action/framework/v3/read/devcon?categories=subject,topic')
       .subscribe((res) => {
         console.log('response is =>', res);
         console.log('categories =>', res['result'].framework.categories);
