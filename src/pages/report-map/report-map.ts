@@ -62,10 +62,10 @@ export class ReportMapPage {
     
     // margins and widths
     
-    var margin = {top: 40, right: 80, bottom: 10, left: 140},
+    var margin = {top: 40, right: 80, bottom: 10, left: 180},
         width = 500 - margin.left - margin.right,
-        height = 750 - margin.top - margin.bottom;
-        var yHeight = 400;
+        height = 1100 - margin.top - margin.bottom;
+        var yHeight = 700;
     
     var x = d3.scale.linear()
         .domain([0, 100])

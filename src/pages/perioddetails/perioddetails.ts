@@ -47,7 +47,7 @@ export class PerioddetailsPage {
   count = 0;
   activePortal
   playing
-  parent = true;
+  parent = false;
   cardData: any;
   description
   performance
@@ -61,11 +61,7 @@ export class PerioddetailsPage {
     private loadingCtrl: LoadingController,
     private zone: NgZone,
     private alertCtrl: AlertController) {
-    if(!parent){
-    this.getApiResponseTeacher();
-  }else {
-    this.getApiResponseParents();
-  }
+
     // this.data = this.navParams.get('data');
 
     // const date = this.navParams.get('date');
@@ -180,10 +176,10 @@ export class PerioddetailsPage {
         // this.avgPerformance = 70;//this.getAverage(this.periodResponse.performanceDetails);
       });
   }
-  getApiResponseParents(){
+  getApiResponseParents() {
     const loader = this.getLoader();
     loader.present();
-    this.httpClient.get('https://dev.sunbirded.org/action/dialcode/v3/question/read/parent').subscribe((response) => {
+    this.httpClient.get('https://dev.ekstep.in/api/dialcode/v3/question/read/parent').subscribe((response) => {
       console.log('response is =>', response);
       let data = response['result'].content;
       console.log('data is =>', data);
@@ -195,10 +191,10 @@ export class PerioddetailsPage {
         } else if (item.usecase === 'recall') {
           this.recall = item;
         }
-       else if (item.usecase === 'revise') {
+        else if (item.usecase === 'revise') {
           this.revise = item;
         }
-        else if(item.usecase === 'teach'){
+        else if (item.usecase === 'teach') {
           this.cardData = item;
         }
 
@@ -217,11 +213,11 @@ export class PerioddetailsPage {
       return avg;
     }
   }
-  
+
   getApiResponseTeacher() {
     const loader = this.getLoader();
     loader.present();
-    this.httpClient.get('https://dev.sunbirded.org/action/dialcode/v3/question/read/teacher').subscribe((response) => {
+    this.httpClient.get('https://dev.ekstep.in/api/dialcode/v3/question/read/teacher').subscribe((response) => {
       console.log('response is =>', response);
       let data = response['result'].content;
       console.log('data is =>', data);
@@ -233,10 +229,10 @@ export class PerioddetailsPage {
         } else if (item.usecase === 'recall') {
           this.recall = item;
         }
-       else if (item.usecase === 'revise') {
+        else if (item.usecase === 'revise') {
           this.revise = item;
         }
-        else if(item.usecase === 'teach'){
+        else if (item.usecase === 'teach') {
           this.cardData = item;
         }
 
@@ -293,9 +289,9 @@ export class PerioddetailsPage {
         console.log('details', this.details);
 
         this.performance = this.getAverage(res['performanceDetails']);
-        if(isNaN(this.performance)){
+        if (isNaN(this.performance)) {
           this.avgPerformance = '0'
-        }else {
+        } else {
           this.avgPerformance = this.getAverage(res['performanceDetails']);
         }
         console.log(this.avgPerformance);
@@ -390,7 +386,20 @@ export class PerioddetailsPage {
   }
 
   ionViewWillEnter() {
+    this.extractAPIResponse();
+  }
+
+  openModal() {
+    this.extractAPIResponse();
+  }
+
+  extractAPIResponse() {
     this.openHeatMapForPerformance();
+    if (this.parent) {
+      this.getApiResponseParents();
+    } else {
+      this.getApiResponseTeacher();
+    }
   }
 }
 
