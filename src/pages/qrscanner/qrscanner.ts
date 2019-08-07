@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, ViewController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ViewController, ToastController, Content } from 'ionic-angular';
 import { ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { TeacherdayviewPage } from '../teacherdayview/teacherdayview';
@@ -14,11 +14,13 @@ import { HttpClient } from '@angular/common/http';
  * Ionic pages and navigation.
  */
 
+declare const startApp;
 @Component({
   selector: 'page-qrscanner',
   templateUrl: 'qrscanner.html',
 })
 export class QrscannerPage {
+  @ViewChild(Content) content1:Content;
   @ViewChild('content', { read: ElementRef })
   private content: ElementRef;
   private visitorInfo;
@@ -33,10 +35,15 @@ export class QrscannerPage {
     private platform: Platform,
     private viewCtrl: ViewController,
     public httpClient: HttpClient,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+    ) {
   }
 
   ionViewDidLoad() {
+    this.platform.resume.subscribe((e) => {
+      this.hideButton = false;
+      console.log('Inside resume');
+    });
     this.uniqueDeviceID.get()
       .then((uuid: any) => {
         this.uniqueId = uuid;
@@ -58,10 +65,10 @@ export class QrscannerPage {
             this.qrScanner.destroy();
             this.qrScanner.hide();
             scanSub.unsubscribe();
-            this.showContentBG()
-            this.getVisitorInformation(text);
-           
-            
+            this.showContentBG();
+            // this.getVisitorInformation(text);
+            this.openApp(text);
+
           });
 
         } else {
@@ -70,6 +77,15 @@ export class QrscannerPage {
       })
       .catch((e: any) => console.log('Error is', e));
 
+  }
+
+  private openApp(scannedData) {
+    window['plugins'].launcher.launch({
+      packageName: scannedData,
+      extras: [
+        {"name":"origin", "value":"Genie", "dataType":"String", "paType":"String"},
+    ]
+    }, () => { }, () => { });
   }
 
   private hideContentBG() {
@@ -93,9 +109,9 @@ export class QrscannerPage {
       .subscribe((data: any) => {
         this.visitorInfo = data.result.Visitor
         const index = this.navCtrl.getActive().index;
-        this.navCtrl.push(TeacherdayviewPage,{
-          visitorId:this.visitorInfo.code,
-          visitorName:this.visitorInfo.name
+        this.navCtrl.push(TeacherdayviewPage, {
+          visitorId: this.visitorInfo.code,
+          visitorName: this.visitorInfo.name
         }).then(() => {
           this.navCtrl.remove(index);
         });
@@ -141,18 +157,20 @@ export class QrscannerPage {
   generateStartEvent(visitorInfo): Telemetry {
 
     const edata: EData = { type: 'staffroom', mode: 'play' };
-    const dimension :Dimension={visitorId: visitorInfo.code,
+    const dimension: Dimension = {
+      visitorId: visitorInfo.code,
       visitorName: visitorInfo.name,
       teacherId: 'TCH1',
       stallId: 'STA3',
       stallName: 'STAFFROOM',
-      ideaId:'IDE10'};
+      ideaId: 'IDE10'
+    };
 
     const telemetry: Telemetry = {
       eid: 'DC_START',
       did: this.uniqueId,
       ets: (new Date).getTime(),
-      dimensions:dimension,
+      dimensions: dimension,
       edata: edata
 
     }

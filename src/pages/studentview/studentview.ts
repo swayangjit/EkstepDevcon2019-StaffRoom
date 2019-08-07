@@ -133,7 +133,7 @@ export class StudentviewPage {
         "id": studentId
       }
     };
-    this.httpClient.post("https://dev.ekstep.in/api/dialcode/v3/period/read",
+    this.httpClient.post("https://sb2.sunbird.org/api/dialcode/v3/period/read",
       request)
       .subscribe(data => {
         this.periodResponse = data;

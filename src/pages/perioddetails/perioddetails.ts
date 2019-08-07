@@ -1,5 +1,5 @@
 import { ReportAlertComponent } from './../../components/report-alert/report-alert';
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, PopoverController, Events, Platform, ViewController, IonicApp, LoadingController, AlertController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 //import { AttendancePage } from '../attendance/attendance';
@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 // import { AttendenceComponent } from '../../components/attendence/attendence';
 import { statsHeatMap } from '../../data/data';
 import { ReportMapPage } from '../report-map/report-map';
+import { QRScannerStatus, QRScanner } from '@ionic-native/qr-scanner';
+import { AppConstnats } from '../../app/app-constants';
 // import { request } from 'https';
 
 /**
@@ -22,6 +24,8 @@ import { ReportMapPage } from '../report-map/report-map';
   templateUrl: 'perioddetails.html',
 })
 export class PerioddetailsPage {
+  @ViewChild('content', { read: ElementRef })
+  private content: ElementRef;
   periodResponse: any;
   data: any;
   topics = [];
@@ -52,6 +56,7 @@ export class PerioddetailsPage {
   description
   performance
   activePerformance = false;
+  showNavigationButtons = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public httpClient: HttpClient, private modalCtrl: ModalController, private popoverCtrl: PopoverController,
     public events: Events,
@@ -60,7 +65,8 @@ export class PerioddetailsPage {
     private ionicApp: IonicApp,
     private loadingCtrl: LoadingController,
     private zone: NgZone,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private qrScanner: QRScanner) {
 
     // this.data = this.navParams.get('data');
 
@@ -90,7 +96,7 @@ export class PerioddetailsPage {
     console.log('description is =>', this.description);
     // this.associations = 'Smell';
     // this.getPeriodDetails(this.data.period, this.data.class, date, this.teacherId);
-    this.handleBackButton();
+    //this.handleBackButton();
   }
 
   getTopicsArray(periodId) {
@@ -128,7 +134,10 @@ export class PerioddetailsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PerioddetailsPage');
+    this.platform.resume.subscribe((e) => {
+      this.showNavigationButtons = true;
+      this.playing = false;
+    });
   }
 
   // onClickAttendance() {
@@ -146,7 +155,7 @@ export class PerioddetailsPage {
       }
     };
     console.log('req body', request);
-    this.httpClient.post("https://dev.ekstep.in/api/dialcode/v3/period/read",
+    this.httpClient.post("https://sb2.sunbird.org/api/dialcode/v3/period/read",
       request)
       .subscribe(data => {
         this.periodResponse = data;
@@ -217,7 +226,7 @@ export class PerioddetailsPage {
   getApiResponseTeacher() {
     const loader = this.getLoader();
     loader.present();
-    this.httpClient.get('https://dev.ekstep.in/api/dialcode/v3/question/read/teacher').subscribe((response) => {
+    this.httpClient.get('https://sb2.sunbird.org/api/dialcode/v3/question/read/teacher').subscribe((response) => {
       console.log('response is =>', response);
       let data = response['result'].content;
       console.log('data is =>', data);
@@ -282,7 +291,7 @@ export class PerioddetailsPage {
       request: request
     }
     console.log('open heat map performance =>', body);
-    this.httpClient.post('https://dev.ekstep.in/api/dialcode/v3/period/read ', body)
+    this.httpClient.post('https://sb2.sunbird.org/api/dialcode/v3/period/read ', body)
       .subscribe((res) => {
         console.log('response is =>', res);
         this.details = res['performanceDetails'];
@@ -329,14 +338,19 @@ export class PerioddetailsPage {
 
   handleBackButton() {
     this.backButtonFunc = this.platform.registerBackButtonAction(() => {
-      const activePortal = this.ionicApp._modalPortal.getActive() ||
-        this.ionicApp._toastPortal.getActive() ||
-        this.ionicApp._overlayPortal.getActive();
-      if (activePortal) {
-        activePortal.dismiss();
-      } else if (this.navCtrl.canGoBack()) {
-        this.navCtrl.pop();
-      }
+      // const activePortal = this.ionicApp._modalPortal.getActive() ||
+      //   this.ionicApp._toastPortal.getActive() ||
+      //   this.ionicApp._overlayPortal.getActive();
+      // if (activePortal) {
+      //   activePortal.dismiss();
+      // } else if (this.navCtrl.canGoBack()) {
+      //   this.navCtrl.pop();
+      // }
+      // this.backButtonFunc();
+      this.showContentBG();
+      this.qrScanner.destroy();
+      this.viewCtrl.dismiss();
+      this.showNavigationButtons = true;
       this.backButtonFunc();
     }, 10);
 
@@ -401,5 +415,51 @@ export class PerioddetailsPage {
       this.getApiResponseTeacher();
     }
   }
+
+  private openScanner(){
+    this.showNavigationButtons = false;
+    this.handleBackButton();
+    this.qrScanner.prepare()
+    .then((status: QRScannerStatus) => {
+      if (status.authorized) {
+        this.hideContentBG();
+        this.qrScanner.show();
+        let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+
+          console.log('VisitorId', text);
+          this.qrScanner.destroy();
+          this.qrScanner.hide();
+          scanSub.unsubscribe();
+          this.showContentBG();
+          // this.getVisitorInformation(text);
+          this.openApp(text);
+
+        });
+
+      } else {
+        console.log('denied');
+      }
+    })
+    .catch((e: any) => console.log('Error is', e));
+  }
+
+  private openApp(scannedData) {
+    window['plugins'].launcher.launch({
+      packageName: scannedData,
+      extras: [
+        {"name":"origin", "value":"Genie", "dataType":"String", "paType":"String"},
+        {"name":"playerConfig", "value":JSON.stringify(AppConstnats.METADATA), "dataType":"String", "paType":"String"},
+    ]
+    }, () => { }, () => { });
+  }
+
+  private hideContentBG() {
+    (this.content.nativeElement as HTMLElement).setAttribute('hidden', 'true')
+  }
+
+  private showContentBG() {
+    (this.content.nativeElement as HTMLElement).removeAttribute('hidden');
+  }
+  
 }
 
