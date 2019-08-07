@@ -30,14 +30,15 @@
         "@ionic-native/unique-device-id": "^4.20.0",
         "@ionic/storage": "2.2.0",
         "cordova-android": "7.1.4",
-        "cordova-plugin-device": "^2.0.2",
-        "cordova-plugin-genie-sdk": "git+https://github.com/AmiableAnil/cordova-plugin-genie-sdk.git",
+        "cordova-plugin-app-launcher": "^0.4.0",
+        "cordova-plugin-device": "^2.0.3",
+        "cordova-plugin-genie-sdk": "git+https://github.com/project-sunbird/cordova-plugin-genie-sdk.git#release-1.13.0",
         "cordova-plugin-geniecanvas": "git+https://github.com/project-sunbird/cordova-plugin-geniecanvas.git",
         "cordova-plugin-ionic-keyboard": "^2.1.3",
-        "cordova-plugin-ionic-webview": "^2.3.3",
-        "cordova-plugin-qrscanner": "^2.6.0",
+        "cordova-plugin-ionic-webview": "^2.5.1",
+        "cordova-plugin-qrscanner": "^2.6.2",
         "cordova-plugin-uniquedeviceid": "^1.3.2",
-        "cordova-plugin-whitelist": "^1.3.3",
+        "cordova-plugin-whitelist": "^1.3.4",
         "d3": ">= 3 < 4",
         "ionic-angular": "3.9.2",
         "ionicons": "3.0.0",
@@ -62,7 +63,8 @@
             "cordova-plugin-qrscanner": {},
             "cordova-plugin-uniquedeviceid": {},
             "cordova-plugin-geniecanvas": {},
-            "cordova-plugin-genie-sdk": {}
+            "cordova-plugin-genie-sdk": {},
+            "cordova-plugin-app-launcher": {}
         },
         "platforms": [
             "android"

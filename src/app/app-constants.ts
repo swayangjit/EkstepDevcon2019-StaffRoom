@@ -266,4 +266,57 @@ export class AppConstnats {
             }
         ]
     };
+
+    public static readonly METADATA = {
+        "metadata": {
+          "appIcon": "org.ekstep.delta/logo.png",
+          "artifactUrl": "org.ekstep.delta/TakeOff_v3.20_26032018.apk",
+          "contentType": "Game",
+          "createdOn": "2016-02-10T11:11:31.344+0000",
+          "description": "Place Value Addition Subtraction Game",
+          "downloadUrl": "org.ekstep.delta/TakeOff_v3.20_26032018.apk",
+          "gradeLevel": [
+            "Grade 1"
+          ],
+          "identifier": "org.ekstep.delta",
+          "language": [
+            "English"
+          ],
+          "mimeType": "application/vnd.android.package-archive",
+          "name": "Take Off",
+          "osId": "org.ekstep.delta",
+          "owner": "EkStep",
+          "pkgVersion": "5.0",
+          "size": "3.1074496E7",
+          "status": "Live",
+          "subject": "domain"
+        },
+        "context": {
+          "pdata": {
+            "ver": "6.6.local-debug",
+            "pid": "ekstep.genie",
+            "id": "prod.ekstep.genie"
+          },
+          "appQualifier": "org.ekstep.genieservices",
+          "basepath": "/storage/emulated/0/Android/data/org.ekstep.genieservices/files/content/org.ekstep.delta",
+          "origin": "Genie",
+          "contentId": "org.ekstep.delta",
+          "channel": "in.ekstep",
+          "languageInfo": "{\"voice\":\"Voice\",\"next\":\"Next\",\"instructions\":\"Notes to Teacher\",\"backButtonText\":\"Would you like to leave this content ?\",\"submit\":\"Submit\",\"lastPage\":\"Go to last page\",\"scores\":\"Score and Rating\",\"congratulations\":\"Congratulations! You just completed!\",\"title\":\"Tittle\",\"nextContent\":\"Next content\",\"feedback\":\"Feedback\",\"credits\":\"Credits\",\"continue\":\"Continue\",\"audio\":\"Audio\",\"group\":\"Group\",\"image\":\"Image\",\"author\":\"Author\",\"noCreditsAvailable\":\"There are no credits available\",\"replay\":\"Replay\",\"collection\":\"Collection\",\"languageCode\":\"en\",\"userSwitcherTitle\":\"Select a child or a group\",\"groupFallbackText\":\"ou have not created any group\",\"home\":\"Home\",\"comment\":\"Write your comment…\",\"anonymousUserName\":\"Anonymous\",\"child\":\"Child\"}",
+          "tags": [
+            
+          ],
+          "rollup": "",
+          "sid": "576e2ae6-efb2-4fd3-bab3-f1dbe1dccbb8",
+          "cdata": [
+            
+          ],
+          "mode": "play",
+          "actor": {
+            "id": "be4c96f5-ab92-4a69-a972-91a3d58d78dd",
+            "type": "User"
+          },
+          "did": "6d939547a0a7fb7ca402e7a190f069187bed47a6"
+        }
+      }
 }

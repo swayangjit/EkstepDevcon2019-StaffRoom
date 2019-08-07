@@ -9,7 +9,7 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content *ngIf="!parent">
+<ion-content #content *ngIf="!parent">
   <div class="*ngIf =!playing">
     <ion-card class="summary-card">
       <ion-row class="st-analysis no-border">
@@ -63,6 +63,11 @@
   <div *ngIf="playing">
     <h4 text-center>Playing....</h4>
   </div>
+  <ion-fab right bottom (click)="openScanner()">
+    <button ion-fab color="primary">
+        <img src="./assets/imgs/ic_qr_scanner.png"/>
+    </button>
+</ion-fab>
 </ion-content>
 <ion-content padding *ngIf="parent">
   <div class="*ngIf =!playing">
@@ -150,7 +155,7 @@
     <h4 text-center>Playing....</h4>
   </div>
 </ion-content>
-<ion-footer *ngIf='parent'>
+<ion-footer *ngIf='parent && showNavigationButtons'>
   <ion-grid>
     <ion-row>
       <ion-col *ngIf="!parent" col-md-2 (click)="openMap()">
@@ -187,7 +192,7 @@
     </ion-row>
   </ion-grid>
 </ion-footer>
-<ion-footer *ngIf='!parent'>
+<ion-footer *ngIf='!parent && showNavigationButtons'>
   <ion-grid>
     <ion-row>
       <ion-col *ngIf="!parent" col-md-2 (click)="openMap()">
